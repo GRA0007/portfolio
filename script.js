@@ -17,8 +17,8 @@ const showPost = post_id => {
   document.body.classList.add('blog');
 
   // Fetch post
-  const res = fetch(`https://us-central1-flour-app-services.cloudfunctions.net/notionBlogPost?page_id=${post_id}`);
-  const post = res.json();
+  const res = await fetch(`https://us-central1-flour-app-services.cloudfunctions.net/notionBlogPost?page_id=${post_id}`);
+  const post = await res.json();
 
   // Set metadata
   imageEl.src = post.page.properties.Image.files[0].name;
@@ -61,8 +61,8 @@ const showPost = post_id => {
 
 const getPosts = async count => {
   try {
-    const res = fetch(`https://us-central1-flour-app-services.cloudfunctions.net/notionBlogPosts?count=${count}`);
-    const posts = res.json();
+    const res = await fetch(`https://us-central1-flour-app-services.cloudfunctions.net/notionBlogPosts?count=${count}`);
+    const posts = await res.json();
 
     container.innerHTML = '';
     posts.results.forEach(post => {
