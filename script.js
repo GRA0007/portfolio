@@ -1,6 +1,6 @@
 const container = document.getElementById('blog_posts');
 
-const showPost = post_id => {
+const showPost = async post_id => {
   const imageEl = document.querySelector('#blog_post .image');
   const titleEl = document.querySelector('#blog_post h1');
   const publishedEl = document.querySelector('#blog_post .published');
