@@ -1,0 +1,66 @@
+body {
+	margin: 0;
+	background-color: hsl(var(--theme-color, 38), 100%, 90%);
+	font-family: 'Fira Code', Consolas, monospace;
+}
+main {
+	margin: 50px auto;
+	padding: 0 20px;
+	width: 80vw;
+}
+
+h1,
+h2 {
+	color: hsl(var(--theme-color, 38), 100%, 40%);
+	margin: 0;
+	font-weight: 600;
+}
+h1 {
+	font-size: 20px;
+	padding-bottom: 8px;
+}
+h2 {
+	font-size: 16px;
+	padding: 20px 0 5px;
+}
+p {
+	color: hsl(var(--theme-color, 38), 100%, 10%);
+	margin: 0;
+	font-size: 14px;
+}
+a {
+	color: hsl(var(--theme-color, 38), 100%, 20%);
+}
+
+svg {
+	height: 24px;
+	width: 24px;
+	margin-top: 30px;
+	margin-right: 4px;
+}
+svg path {
+	fill: hsl(var(--theme-color, 38), 100%, 40%);
+}
+
+.more {
+	display: none;
+}
+.description {
+	opacity: .4;
+	font-size: 12px;
+	display: block;
+	margin-top: -5px;
+	margin-bottom: 5px;
+}
+
+iframe {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+@media screen and (max-width: 1000px) {
+	iframe {
+		position: static;
+		margin-top: 20px;
+	}
+}
