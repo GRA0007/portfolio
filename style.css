@@ -57,6 +57,17 @@ p {
 a {
 	color: var(--theme-link);
 }
+.code, code {
+  background-color: var(--theme-background);
+  border: 1px solid var(--theme-primary);
+  display: inline-block;
+  padding: 0 3px;
+  border-radius: 3px;
+}
+code {
+  display: block;
+  padding: 6px 14px;
+}
 
 svg {
 	height: 24px;
