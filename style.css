@@ -35,8 +35,7 @@ body.blog main {
   display: none;
 }
 
-h1,
-h2 {
+h1, h2, h3, h4 {
 	color: var(--theme-primary);
 	margin: 0;
 	font-weight: 600;
@@ -48,6 +47,14 @@ h1 {
 h2 {
 	font-size: 16px;
 	padding: 20px 0 5px;
+}
+h3 {
+	font-size: 14px;
+	padding: 15px 0 4px;
+}
+h4 {
+	font-size: 12px;
+	padding: 10px 0 3px;
 }
 p {
 	color: var(--theme-text);
@@ -67,6 +74,19 @@ a {
 code {
   display: block;
   padding: 6px 14px;
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--theme-primary);
+  padding: 0 3px;
+}
+blockquote {
+  margin: 1em 0;
+  border-left: 5px solid var(--theme-primary);
+  padding: .5em 1em;
+}
+iframe {
+  border: 0;
 }
 
 svg {
@@ -160,4 +180,14 @@ body.blog #blog_post {
 	color: inherit;
 	margin: 20px 0;
 	font-size: 16px;
+}
+#blog_post figure {
+  text-align: center;
+}
+#blog_post figure img {
+  display: block;
+  margin: auto;
+}
+#blog_post figure figcaption {
+  font-size: .8em;
 }
