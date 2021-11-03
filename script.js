@@ -173,6 +173,8 @@ const showPost = async post_id => {
 
       prevItemType = block.type
     })
+
+    Prism.highlightAll() // Highlight code blocks
   } catch (e) {
     console.error(e)
     titleEl.innerHTML = 'Failed to load'
