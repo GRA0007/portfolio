@@ -124,7 +124,6 @@ body.blog #blog_post {
 
 #close_blog {
   appearance: none;
-  border: 0;
   background: var(--blog-background);
   padding: 0;
   margin: 0;
@@ -187,6 +186,7 @@ body.blog #blog_post {
 #blog_post figure img {
   display: block;
   margin: auto;
+  width: 100%;
 }
 #blog_post figure figcaption {
   font-size: .8em;

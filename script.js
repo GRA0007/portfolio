@@ -27,7 +27,7 @@ const showPost = async post_id => {
     const post = await res.json()
 
     // Set metadata
-    imageEl.src = post.page.cover.external?.url ?? post.page.cover.file?.url ?? '#'
+    imageEl.src = post.page.cover?.external?.url ?? post.page.cover?.file?.url ?? '#'
     titleEl.innerHTML = post.page.properties.Title.title[0].plain_text
     publishedEl.innerHTML = (new Date(post.page.properties.Published.date.start)).toLocaleDateString('en-US', {
       year: 'numeric',
