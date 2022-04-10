@@ -1,10 +1,7 @@
-import { Main, Button } from '/src/components'
-
 const Home = () => (
-  <Main>
-    <h1>Welcome!</h1>
-    <Button>Let's get started</Button>
-  </Main>
+  <main>
+    <h1>Hi, I'm<br />Benji</h1>
+  </main>
 )
 
 export default Home

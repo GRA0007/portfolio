@@ -1,7 +1,27 @@
+@font-face {
+  font-family: 'Lexend';
+  src: url('fonts/Lexend.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Lexend Zetta';
+  src: url('fonts/LexendZetta.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+:root {
+  --background: #14072E;
+  --surface: lavender;
+}
+
 body {
   color-scheme: light dark;
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Lexend', sans-serif;
+  background: var(--background);
+  color: var(--surface);
 }
 
 #app {

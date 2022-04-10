@@ -3,19 +3,15 @@ import { createElement } from 'react'
 import { setup } from 'goober'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import * as Pages from './pages'
+import Home from './pages/Home/Home'
 
 // Set up goober to use React
-setup(
-  createElement, undefined, undefined,
-  // Remove transient props from the DOM
-  props => Object.keys(props).forEach(p => p[0] === '$' && delete props[p])
-)
+setup(createElement)
 
 render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Pages.Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   </BrowserRouter>,
