@@ -1,3 +1,3 @@
 # Benji's Portfolio
 
-A simple static site to showcase my latest projects and information.
+A site built with Next.js to showcase my latest projects and information.
