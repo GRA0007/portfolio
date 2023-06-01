@@ -28,7 +28,7 @@
     background-color: var(--background);
   }
 
-  &:hover {
+  &:hover, &:focus-visible {
     font-weight: 900;
     color: var(--surface);
 

@@ -1,16 +1,20 @@
+import BlogEntry from '/components/BlogEntry/BlogEntry'
 import DesignWork from '/components/DesignWork/DesignWork'
 import Project from '/components/Project/Project'
 import Section from '/components/Section/Section'
 import Socials from '/components/Socials/Socials'
 import { DESIGNWORK } from '/res/designwork'
 import { PROJECTS } from '/res/projects'
+import { fetchPosts } from '/services/blog'
 
 import AllProjects from './AllProjects'
 import styles from './page.module.scss'
 
 const projectCards = PROJECTS.map(project => <Project key={project.name} {...project} />)
 
-const Home = () => {
+const Home = async () => {
+  const blogPosts = await fetchPosts()?.catch(() => undefined)
+
   return <>
     <header className={styles.header}>
       <h1>Hi, I’m<br />Benji</h1>
@@ -41,6 +45,10 @@ const Home = () => {
 
       <Section light>
         <h2>Blog</h2>
+        {blogPosts?.posts.map(post => <BlogEntry
+          key={post.id}
+          {...post}
+        />) ?? <p>Failed to load blog posts</p>}
       </Section>
     </main>
 

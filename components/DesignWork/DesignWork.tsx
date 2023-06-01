@@ -9,7 +9,7 @@ const DesignWork = ({ name, imageURL, href }: DesignWorkProps) =>
     <span>{name}</span>
 
     <svg viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M42.5 17.7083L67.2917 42.4999L42.5 67.2916M17.7083 42.4999H67.2917H17.7083Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M42.5 17.7083L67.2917 42.4999L42.5 67.2916M17.7083 42.4999H67.2917H17.7083Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   </a>
 

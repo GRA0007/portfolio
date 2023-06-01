@@ -20,7 +20,9 @@
     display: block;
   }
 
-  &:hover h3 {
-    text-decoration: underline;
+  &:hover, &:focus-visible {
+    h3 {
+      text-decoration: underline;
+    }
   }
 }

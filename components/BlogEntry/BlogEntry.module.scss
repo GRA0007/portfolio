@@ -1,0 +1,19 @@
+.link {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  text-decoration: none;
+  padding-block: 1em;
+
+  & span:first-of-type {
+    font-weight: 900;
+    font-size: 1.5em;
+  }
+  & span:last-of-type {
+    text-decoration: underline;
+  }
+
+  &:hover, &:focus-visible {
+    font-weight: 600;
+  }
+}
