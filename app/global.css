@@ -3,12 +3,6 @@
   --surface: lavender;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
 html, body {
   margin: 0;
   background: var(--background);
@@ -19,6 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-size: max(2.083333vw, 16px);
 }
 
 a {

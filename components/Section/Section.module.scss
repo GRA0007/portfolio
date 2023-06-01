@@ -1,0 +1,24 @@
+.section {
+  padding: 3.5em 4em;
+
+  p {
+    margin-block: 1.5em;
+  }
+  & > *:first-child {
+    margin-block-start: 0;
+  }
+  & > *:last-child {
+    margin-block-end: 0;
+  }
+
+  h2 {
+    font-size: 2.6em;
+    font-weight: 400;
+    margin-block: 2em;
+  }
+}
+
+.light {
+  background: var(--surface);
+  color: var(--background);
+}

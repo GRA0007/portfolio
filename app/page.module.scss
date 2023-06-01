@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 5em 3em;
+  box-sizing: border-box;
+
+  h1 {
+    font-size: 3em;
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.footer {
+  padding: 4em 10em;
+  text-align: center;
+
+  p {
+    margin: 0;
+  }
+}
