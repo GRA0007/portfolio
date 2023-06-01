@@ -1,7 +1,14 @@
-import { Section } from '/components/Section/Section'
+import DesignWork from '/components/DesignWork/DesignWork'
+import Project from '/components/Project/Project'
+import Section from '/components/Section/Section'
 import Socials from '/components/Socials/Socials'
+import { DESIGNWORK } from '/res/designwork'
+import { PROJECTS } from '/res/projects'
 
+import AllProjects from './AllProjects'
 import styles from './page.module.scss'
+
+const projectCards = PROJECTS.map(project => <Project key={project.name} {...project} />)
 
 const Home = () => {
   return <>
@@ -19,10 +26,20 @@ const Home = () => {
       
       <Section>
         <h2>Projects</h2>
+        <div className={styles.projects}>
+          {projectCards.slice(0, 4)}
+          <AllProjects>{projectCards.slice(4)}</AllProjects>
+        </div>
       </Section>
 
       <Section light>
         <h2>Design Work</h2>
+      </Section>
+      <Section light style={{ padding: 0 }}>
+        {DESIGNWORK.map(work => <DesignWork key={work.name} {...work} />)}
+      </Section>
+
+      <Section light>
         <h2>Blog</h2>
       </Section>
     </main>

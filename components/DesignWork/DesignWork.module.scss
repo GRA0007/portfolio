@@ -1,0 +1,39 @@
+.designWork {
+  padding: .5em 4em;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+
+  span {
+    flex: 1;
+    text-decoration: underline;
+  }
+
+  svg {
+    height: 3.5em;
+    width: 3.5em;
+  }
+
+  span, svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    display: none;
+    background-color: var(--background);
+  }
+
+  &:hover {
+    font-weight: 900;
+    color: var(--surface);
+
+    img {
+      display: block;
+    }
+  }
+}
