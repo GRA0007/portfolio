@@ -1,13 +1,23 @@
 .link {
   display: flex;
   align-items: center;
-  gap: 1.5em;
+  gap: .75em;
   text-decoration: none;
-  padding-block: 1em;
+  padding-inline: 0 4em;
 
   & span:first-of-type {
     font-weight: 900;
     font-size: 1.5em;
+    padding-block: 1rem;
+    padding-inline: 4rem .75rem;
+    display: block;
+    background-image: linear-gradient(to right, var(--background) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position-x: 100%;
+    background-repeat: no-repeat;
+    transition-property: background-position-x;
+    transition-duration: .1s;
+    transition-timing-function: steps(3);
   }
   & span:last-of-type {
     text-decoration: underline;
@@ -15,5 +25,10 @@
 
   &:hover, &:focus-visible {
     font-weight: 600;
+
+    & span:first-of-type {
+      background-position-x: 0;
+      color: var(--surface);
+    }
   }
 }

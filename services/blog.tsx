@@ -89,7 +89,7 @@ const renderBlock = (block: BlockObjectResponse) => {
   if (block.type === 'numbered_list_item') return <li key={block.id}>{renderBlockText(block.numbered_list_item.rich_text)}</li>
   if (block.type === 'quote') return <blockquote key={block.id}>{renderBlockText(block.quote.rich_text)}</blockquote>
 
-  if (block.type === 'code') return <Syntax
+  if (block.type === 'code' && block.code.rich_text[0].type === 'text') return <Syntax
     key={block.id}
     style={theme}
     language={block.code.language}
@@ -99,12 +99,19 @@ const renderBlock = (block: BlockObjectResponse) => {
       margin: 'initial',
       padding: 0,
       fontFamily: 'initial',
-      tabSize: 2,
       borderRadius: 0,
     }}
     codeTagProps={{ style: {} }}
+    showLineNumbers
+    lineNumberStyle={{
+      minWidth: `${block.code.rich_text[0].text.content.split('\n').length.toString().length}ch`,
+      position: 'sticky',
+      left: 0,
+      background: 'inherit',
+      paddingInlineStart: '1.5em',
+    }}
   >
-    {block.code.rich_text[0].type === 'text' ? block.code.rich_text[0].text.content : ''}
+    {block.code.rich_text[0].text.content}
   </Syntax>
 
   if (block.type === 'image') return <figure key={block.id}>

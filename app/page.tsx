@@ -27,7 +27,7 @@ const Home = async () => {
         <p>With over 7 years experience working in industry, I am well versed in technologies such as React, Express, Next, graphic design, and <a href="https://benjibenji.notion.site/benjibenji/307fb7f089f44301be2d9d3d8272d2ad?v=687c3dd456c747b9adb0547aeb757079" target="_blank" rel="noreferrer nofollow">cookies</a>.</p>
         <Socials />
       </Section>
-      
+
       <Section>
         <h2>Projects</h2>
         <div className={styles.projects}>
@@ -45,6 +45,8 @@ const Home = async () => {
 
       <Section light>
         <h2>Blog</h2>
+      </Section>
+      <Section light style={{ paddingBlockStart: 0, paddingInline: 0 }}>
         {blogPosts?.posts.map(post => <BlogEntry
           key={post.id}
           {...post}

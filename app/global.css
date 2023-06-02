@@ -1,6 +1,7 @@
 :root {
   --background: #14072E;
   --surface: lavender;
+  font-size: max(2.083333vw, 16px);
 }
 
 html, body {
@@ -13,8 +14,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-size: max(2.083333vw, 16px);
-  tab-size: 2;
 }
 
 a {
