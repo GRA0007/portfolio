@@ -1,7 +1,15 @@
 :root {
   --background: #14072E;
   --surface: lavender;
-  font-size: max(2.083333vw, 16px);
+  --min-font: 16px;
+  --max-font: 24px;
+  font-size: min(max(2.083333vw, 16px), 24px);
+  --gutter: max(calc(calc(calc(100vw - 1152px) + 8rem) / 2), 4rem);
+}
+@media (max-width: 768px) {
+  :root {
+    --gutter: 2rem;
+  }
 }
 
 html, body {

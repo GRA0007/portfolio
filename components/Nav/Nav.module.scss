@@ -1,7 +1,7 @@
 .nav {
   background: var(--surface);
   color: var(--background);
-  padding: 1em 4em;
+  padding: 1em var(--gutter);
 
   a {
     font-weight: 600;

@@ -3,13 +3,13 @@
   align-items: center;
   gap: .75em;
   text-decoration: none;
-  padding-inline: 0 4em;
+  padding-inline: 0 var(--gutter);
 
   & span:first-of-type {
     font-weight: 900;
     font-size: 1.5em;
     padding-block: 1rem;
-    padding-inline: 4rem .75rem;
+    padding-inline: var(--gutter) .75rem;
     display: block;
     background-image: linear-gradient(to right, var(--background) 50%, transparent 50%);
     background-size: 200% 100%;
