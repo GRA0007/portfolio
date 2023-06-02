@@ -15,6 +15,7 @@ const sharedMetadata = {
 
 export const metadata: Metadata = {
   ...sharedMetadata,
+  metadataBase: new URL('https://bengrant.dev'),
   icons: [{ rel: 'mask-icon icon', url: '/favicon.svg' }],
   themeColor: '#14072E',
   keywords: ['benji', 'personal', 'resume', 'about', 'projects', 'crab fit', 'blog'],
