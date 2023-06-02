@@ -21,6 +21,8 @@
   }
 
   &:hover, &:focus-visible {
+    transform: translateY(-.1em);
+
     h3 {
       text-decoration: underline;
     }

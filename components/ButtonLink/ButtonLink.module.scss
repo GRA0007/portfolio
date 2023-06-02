@@ -8,4 +8,10 @@
   appearance: none;
   text-decoration: underline;
   cursor: pointer;
+  border-radius: .2em;
+
+  &:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: .2em;
+  }
 }

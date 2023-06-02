@@ -25,6 +25,7 @@
 
   &:hover, &:focus-visible {
     font-weight: 600;
+    outline: none;
 
     & span:first-of-type {
       background-position-x: 0;
