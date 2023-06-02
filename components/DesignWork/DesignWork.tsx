@@ -3,7 +3,7 @@ import { DesignWork as DesignWorkProps } from '/res/designwork'
 import styles from './DesignWork.module.scss'
 
 const DesignWork = ({ name, imageURL, href }: DesignWorkProps) =>
-  <a href={href} className={styles.designWork}>
+  <a href={href} className={styles.designWork} target="_blank" rel="nofollow noreferrer">
     <img src={imageURL} alt="" />
 
     <span>{name}</span>
