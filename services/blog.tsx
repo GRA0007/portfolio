@@ -1,5 +1,5 @@
 import Syntax from 'react-syntax-highlighter/dist/esm/prism'
-import okida from 'react-syntax-highlighter/dist/esm/styles/prism/okaidia'
+import theme from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
 import Link from 'next/link'
 import { splitArrayBy } from '@giraugh/tools'
 import { Client, isFullBlock, isFullPage } from '@notionhq/client'
@@ -91,7 +91,7 @@ const renderBlock = (block: BlockObjectResponse) => {
 
   if (block.type === 'code') return <Syntax
     key={block.id}
-    style={okida}
+    style={theme}
     language={block.code.language}
     customStyle={{
       background: 'none',
@@ -106,12 +106,6 @@ const renderBlock = (block: BlockObjectResponse) => {
   >
     {block.code.rich_text[0].type === 'text' ? block.code.rich_text[0].text.content : ''}
   </Syntax>
-
-  // if (block.type === 'code') return <pre key={block.id}>
-  //   <code data-language={block.code.language}>
-  //     {block.code.rich_text[0].type === 'text' && block.code.rich_text[0].text.content}
-  //   </code>
-  // </pre>
 
   if (block.type === 'image') return <figure key={block.id}>
     <img
