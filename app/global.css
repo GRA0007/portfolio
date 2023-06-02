@@ -14,8 +14,21 @@ body {
   flex-direction: column;
   min-height: 100vh;
   font-size: max(2.083333vw, 16px);
+  tab-size: 2;
 }
 
 a {
   color: inherit;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 400;
+  margin-block: 1em;
+}
+
+h2 {
+  font-size: 2.6em;
+  font-weight: 400;
+  margin-block: 1em;
 }
