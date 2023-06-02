@@ -1,0 +1,17 @@
+.link {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  text-decoration: underline;
+  cursor: pointer;
+  border-radius: .2em;
+
+  &:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: .2em;
+  }
+}

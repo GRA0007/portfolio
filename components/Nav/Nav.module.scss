@@ -1,0 +1,15 @@
+.nav {
+  background: var(--surface);
+  color: var(--background);
+  padding: 1em var(--gutter);
+
+  a {
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.75em;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

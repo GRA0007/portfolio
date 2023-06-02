@@ -1,3 +1,5 @@
-# Benji's Portfolio
+# 👁️ Benji's Portfolio
 
-A simple static site to showcase my latest projects and information.
+A site built with Next.js to showcase my latest projects and information.
+
+Visit it at **[https://bengrant.dev](https://bengrant.dev)**

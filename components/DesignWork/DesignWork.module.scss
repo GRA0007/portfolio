@@ -1,0 +1,57 @@
+.designWork {
+  padding: .5em var(--gutter);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    display: none;
+    background: rgba(0 0 0 / .6);
+  }
+
+  span {
+    flex: 1;
+    text-decoration: underline;
+  }
+
+  svg {
+    height: 3.5em;
+    width: 3.5em;
+  }
+
+  span, svg {
+    position: relative;
+    z-index: 1;
+    stroke-width: 4;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    display: none;
+    background-color: var(--background);
+    height: 100%;
+    width: 100%;
+  }
+
+  &:hover, &:focus-visible {
+    font-weight: 900;
+    color: var(--surface);
+    outline: none;
+
+    img {
+      display: block;
+    }
+    svg {
+      stroke-width: 7;
+    }
+    &::after {
+      display: block;
+    }
+  }
+}

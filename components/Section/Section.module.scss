@@ -1,0 +1,18 @@
+.section {
+  padding: 3.5em var(--gutter);
+
+  p {
+    margin-block: 1.5em;
+  }
+  & > *:first-child {
+    margin-block-start: 0;
+  }
+  & > *:last-child {
+    margin-block-end: 0;
+  }
+}
+
+.light {
+  background: var(--surface);
+  color: var(--background);
+}
