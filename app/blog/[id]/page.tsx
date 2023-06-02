@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { Fira_Code, Lexend_Zetta } from 'next/font/google'
 import { notFound } from 'next/navigation'
 
@@ -11,7 +12,34 @@ import styles from './page.module.scss'
 const lexendZetta = Lexend_Zetta({ subsets: ['latin'] })
 const firaCode = Fira_Code({ subsets: ['latin'], variable: '--code-font' })
 
-const Post = async ({ params }: { params: { id: string } }) => {
+interface PageProps {
+  params: {
+    id: string
+  }
+}
+
+export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
+  const post = await fetchPost(params.id).catch(() => undefined)
+
+  const sharedMetadata = {
+    title: post?.meta.title ?? 'Not Found',
+    description: post?.description ?? 'This blog post doesn\'t exist',
+  } satisfies Metadata
+
+  return {
+    ...sharedMetadata,
+    keywords: ['benji', 'blog', ...post?.meta.tags.map(t => t.name) ?? []],
+    openGraph: {
+      type: 'article',
+      ...sharedMetadata,
+      images: post?.meta.cover,
+      authors: 'Benji',
+      tags: post?.meta.tags.map(t => t.name),
+    },
+  }
+}
+
+const Post = async ({ params }: PageProps) => {
   const post = await fetchPost(params.id).catch(() => undefined)
   if (!post) notFound()
 

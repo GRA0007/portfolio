@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import Syntax from 'react-syntax-highlighter/dist/esm/prism'
 import theme from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
 import Link from 'next/link'
@@ -5,7 +6,7 @@ import { splitArrayBy } from '@giraugh/tools'
 import { Client, isFullBlock, isFullPage } from '@notionhq/client'
 import { BlockObjectResponse, RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints'
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY })
+const notion = new Client({ auth: process.env.NOTION_API_KEY, fetch })
 
 /** Format a date like `May 23, 2021` */
 const formatDate = (from: string | undefined) => {
@@ -21,7 +22,7 @@ const ytid = (url: string) => {
   return (match && match[7].length == 11) ? match[7] : false
 }
 
-export const fetchPosts = async (count = 100) => {
+export const fetchPosts = cache(async (count = 100) => {
   if (!process.env.BLOG_DATABASE_ID) return
 
   const res = await notion.databases.query({
@@ -56,7 +57,7 @@ export const fetchPosts = async (count = 100) => {
     }),
     has_more: res.has_more,
   }
-}
+})
 
 const renderBlockText = (text: RichTextItemResponse[]) =>
   text.map((node, i) => {
@@ -157,7 +158,7 @@ const renderBlock = (block: BlockObjectResponse) => {
   </figure>
 }
 
-export const fetchPost = async (id: string) => {
+export const fetchPost = cache(async (id: string) => {
   if (!process.env.BLOG_DATABASE_ID) return
 
   // Get page details
@@ -167,6 +168,7 @@ export const fetchPost = async (id: string) => {
     || pageRes.properties.Title.type !== 'title'
     || pageRes.properties.Published.type !== 'date'
     || pageRes.properties['Last edited'].type !== 'last_edited_time'
+    || pageRes.properties.Tags.type !== 'multi_select'
   ) return
   const meta = {
     id: pageRes.id,
@@ -175,11 +177,17 @@ export const fetchPost = async (id: string) => {
     cover: pageRes.cover?.type === 'external' ? pageRes.cover.external.url : pageRes.cover?.file.url,
     published: formatDate(pageRes.properties.Published.date?.start),
     edited: formatDate(pageRes.properties['Last edited'].last_edited_time),
+    tags: pageRes.properties.Tags.multi_select,
   }
 
   // Get page content
   const content = await notion.blocks.children.list({ block_id: id })
   const blocks = content.results.filter(isFullBlock)
+
+  // Get page description
+  const firstParagraph = blocks.find(b => b.type === 'paragraph')
+  const description = firstParagraph?.type === 'paragraph' ? firstParagraph.paragraph.rich_text.map(t => t.plain_text).join('') : undefined
+
   // Group list items together
   const groupedBlocks = splitArrayBy(blocks, (a, b) => a.type !== b.type || !['bulleted_list_item', 'numbered_list_item'].includes(a.type))
 
@@ -190,5 +198,5 @@ export const fetchPost = async (id: string) => {
     return renderedBlocks
   })
 
-  return { meta, elements }
-}
+  return { meta, elements, description }
+})

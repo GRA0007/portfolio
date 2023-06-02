@@ -5,10 +5,23 @@ import './global.css'
 
 const lexend = Lexend({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Benji',
+const sharedMetadata = {
+  title: {
+    absolute: 'Benji',
+    template: '%s - Benji',
+  },
   description: 'Hi, I\'m Benji. I make websites that bring joy. Click through to learn more about me!',
-  icons: [{ rel: 'mask-icon icon', url: 'favicon.svg' }],
+} satisfies Metadata
+
+export const metadata: Metadata = {
+  ...sharedMetadata,
+  icons: [{ rel: 'mask-icon icon', url: '/favicon.svg' }],
+  themeColor: '#14072E',
+  keywords: ['benji', 'personal', 'resume', 'about', 'projects', 'crab fit', 'blog'],
+  openGraph: {
+    type: 'website',
+    ...sharedMetadata,
+  },
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) =>
