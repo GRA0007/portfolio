@@ -5,10 +5,19 @@
   min-height: 80vh;
   padding: 5em 3em;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 
   h1 {
     text-align: center;
     margin: 0;
+    position: relative;
+    z-index: 1;
+    display: block;
+    padding: 1em;
+    background: radial-gradient(var(--background) 30%, transparent 60%);
+    text-shadow: 0 0 .2em var(--background);
+    pointer-events: none;
   }
 }
 

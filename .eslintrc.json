@@ -10,7 +10,8 @@
     "react-hooks/exhaustive-deps": "off",
     "space-infix-ops": "warn",
     "comma-spacing": "warn",
-    "react-hooks/rules-of-hooks": "off"
+    "react-hooks/rules-of-hooks": "off",
+    "semi": ["error", "never"]
   },
   "overrides": [
     {

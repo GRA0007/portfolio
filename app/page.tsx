@@ -1,5 +1,6 @@
 import BlogEntry from '/components/BlogEntry/BlogEntry'
 import DesignWork from '/components/DesignWork/DesignWork'
+import Eyes from '/components/Eyes/Eyes'
 import Project from '/components/Project/Project'
 import Section from '/components/Section/Section'
 import Socials from '/components/Socials/Socials'
@@ -17,6 +18,7 @@ const Home = async () => {
 
   return <>
     <header className={styles.header}>
+      <Eyes />
       <h1>Hi, I’m<br />Benji</h1>
     </header>
 

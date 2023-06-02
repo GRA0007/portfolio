@@ -5,7 +5,7 @@ import { splitArrayBy } from '@giraugh/tools'
 import { Client, isFullBlock, isFullPage } from '@notionhq/client'
 import { BlockObjectResponse, RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints'
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
+const notion = new Client({ auth: process.env.NOTION_API_KEY })
 
 /** Format a date like `May 23, 2021` */
 const formatDate = (from: string | undefined) => {

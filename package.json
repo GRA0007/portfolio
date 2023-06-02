@@ -22,6 +22,7 @@
     "eslint-config-next": "13.4.4",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "next": "13.4.4",
+    "poisson-disk-sampling": "^2.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-syntax-highlighter": "^15.5.0",
