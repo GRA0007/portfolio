@@ -18,6 +18,7 @@
   span, svg {
     position: relative;
     z-index: 1;
+    stroke-width: 4;
   }
 
   img {
@@ -35,6 +36,9 @@
 
     img {
       display: block;
+    }
+    svg {
+      stroke-width: 7;
     }
   }
 }

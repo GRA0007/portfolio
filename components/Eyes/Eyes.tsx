@@ -22,10 +22,19 @@ const Eyes = () => {
   const handleMouseMove = useCallback((e: MouseEvent) => {
     setCursorPos({ x: e.pageX, y: e.pageY })
   }, [])
+  const handleFocusChange = useCallback((e: FocusEvent) => {
+    if (!(e.target instanceof HTMLElement)) return
+    const bbox = e.target.getBoundingClientRect()
+    setCursorPos({ x: bbox.x, y: bbox.y })
+  }, [])
 
   useEffect(() => {
     document.body.addEventListener('mousemove', handleMouseMove)
-    return () => document.body.removeEventListener('mousemove', handleMouseMove)
+    document.body.addEventListener('focusin', handleFocusChange)
+    return () => {
+      document.body.removeEventListener('mousemove', handleMouseMove)
+      document.body.removeEventListener('focusin', handleFocusChange)
+    }
   }, [])
 
   // Update eye pupils
