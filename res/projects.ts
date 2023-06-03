@@ -21,19 +21,25 @@ export const PROJECTS: Project[] = [
     href: 'https://stevent.club',
   },
   {
+    name: 'Automatarium',
+    description: 'Build and simulate complex automata in your browser',
+    imageURL: 'https://storage.googleapis.com/personal-site-cdn/automatarium.webp',
+    href: 'https://automatarium.tdib.xyz/',
+  },
+  {
     name: 'Flour - Baker’s Companion',
     description: 'Android and iOS app with baking tools',
     imageURL: 'https://storage.googleapis.com/personal-site-cdn/flour.webp',
     href: 'https://play.google.com/store/apps/details?id=benpai.flour',
   },
+
+  // More projects
   {
     name: 'Era',
     description: 'Simply beautiful countdown timers',
     imageURL: 'https://storage.googleapis.com/personal-site-cdn/era.webp',
     href: 'https://era-timers.netlify.app/',
   },
-
-  // More projects
   {
     name: 'Hyper Colors',
     description: 'Every named CSS color at your fingertips',
