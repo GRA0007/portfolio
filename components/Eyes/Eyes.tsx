@@ -29,10 +29,10 @@ const Eyes = () => {
   }, [])
 
   useEffect(() => {
-    document.body.addEventListener('mousemove', handleMouseMove)
+    document.body.addEventListener('pointermove', handleMouseMove)
     document.body.addEventListener('focusin', handleFocusChange)
     return () => {
-      document.body.removeEventListener('mousemove', handleMouseMove)
+      document.body.removeEventListener('pointermove', handleMouseMove)
       document.body.removeEventListener('focusin', handleFocusChange)
     }
   }, [])
