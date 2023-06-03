@@ -146,7 +146,7 @@ const renderBlock = (block: BlockObjectResponse) => {
       height="300"
       style={{ width: '100%' }}
       scrolling="no"
-      title="Codepen embed"
+      title="CodePen embed"
       allowFullScreen
       allowTransparency
       loading="lazy"
