@@ -9,9 +9,13 @@
   text-decoration: underline;
   cursor: pointer;
   border-radius: .2em;
+  transition: transform .15s;
 
   &:focus-visible {
     outline: var(--focus-ring);
     outline-offset: .2em;
+  }
+  &:hover, &:focus-visible {
+    transform: translateY(-.05em);
   }
 }

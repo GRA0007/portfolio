@@ -15,12 +15,12 @@
     background-size: 200% 100%;
     background-position-x: 100%;
     background-repeat: no-repeat;
-    transition-property: background-position-x;
-    transition-duration: .1s;
-    transition-timing-function: steps(3);
   }
   & span:last-of-type {
     text-decoration: underline;
+  }
+  & span {
+    transition: background-position-x .15s, font-weight .15s, color .15s;
   }
 
   &:hover, &:focus-visible {

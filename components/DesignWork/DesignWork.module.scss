@@ -4,13 +4,16 @@
   align-items: center;
   text-decoration: none;
   position: relative;
+  transition: font-weight .15s, color .15s;
 
   &::after {
     content: '';
     position: absolute;
     inset: 0;
-    display: none;
+    display: block;
     background: rgba(0 0 0 / .6);
+    opacity: 0;
+    transition: opacity .15s;
   }
 
   span {
@@ -21,22 +24,26 @@
   svg {
     height: 3.5em;
     width: 3.5em;
+    stroke-width: 4;
+    transition: stroke-width .15s;
   }
 
   span, svg {
     position: relative;
     z-index: 1;
-    stroke-width: 4;
   }
 
   img {
     position: absolute;
     inset: 0;
     object-fit: cover;
-    display: none;
+    display: block;
     background-color: var(--background);
     height: 100%;
     width: 100%;
+    opacity: 0;
+    transform: translateX(-.3em);
+    transition: opacity .15s, transform .15s;
   }
 
   &:hover, &:focus-visible {
@@ -45,13 +52,14 @@
     outline: none;
 
     img {
-      display: block;
+      opacity: 1;
+      transform: translateX(0);
     }
     svg {
       stroke-width: 7;
     }
     &::after {
-      display: block;
+      opacity: 1;
     }
   }
 }
