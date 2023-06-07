@@ -210,6 +210,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.2.5.tgz#26d295f3570323b2837d322180dfbf1ba156fefb"
   integrity sha512-JJulVEQXmiY9Px5axXHeYGLSjhkZEnD+MDPDGbCbIAbMslkKwmygtZFy1X6s/075Yo94sf8GuSlFfPzysQrWZQ==
 
+"@types/poisson-disk-sampling@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@types/poisson-disk-sampling/-/poisson-disk-sampling-2.2.1.tgz#7848179b767e585f0ec6c42c7f9d6c0ad6c4d6b3"
+  integrity sha512-v8koCm097E+3ovd7HAeNvsmJfIfI6MFQZJN1pGPbAsM2DwLe+1vGA4SxNP7b1cTED/yl0ZoZ/NzRv6mOLIy/qQ==
+
 "@types/postcss-modules-local-by-default@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/postcss-modules-local-by-default/-/postcss-modules-local-by-default-4.0.0.tgz#5c141c9bd3a994ae1ebe23d2ae094b24d19538f5"
