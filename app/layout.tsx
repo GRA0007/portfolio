@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { Lexend } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 
 import './global.css'
 
@@ -27,7 +28,10 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) =>
   <html lang="en">
-    <body className={lexend.className}>{children}</body>
+    <body className={lexend.className}>
+      {children}
+      <Analytics />
+    </body>
   </html>
 
 export default RootLayout
