@@ -11,6 +11,7 @@ const Eyes = () => {
   const eyeRefs = useRef<NodeListOf<HTMLDivElement>>()
   const [cursorPos, setCursorPos] = useState<{ x: number, y: number }>()
   const [points, setPoints] = useState<[number, number][]>([])
+  const amountPopped = useRef(0)
 
   useEffect(() => {
     const bbox = containerRef.current?.getBoundingClientRect()
@@ -69,6 +70,17 @@ const Eyes = () => {
       const target = e.currentTarget
       target.dataset.popped = 'true'
       window.setTimeout(() => target.dataset.popped = 'false', 5000)
+
+      amountPopped.current++
+      const cStyle = 'font-weight: bold; color: #14072E;'
+      if (amountPopped.current === 3) console.log('%couch', cStyle)
+      if (amountPopped.current === 10) console.log('%cplease stop 😭', cStyle)
+      if (amountPopped.current === 25) console.log('%cyou\'re determined, i\'ll give you that', cStyle)
+      if (amountPopped.current === 50) console.log('%ci only have so many eyes >.>', cStyle)
+      if (amountPopped.current === 75) console.log('%cand i am running out', cStyle)
+      if (amountPopped.current === 99) console.log('%cokok relax', cStyle)
+      if (amountPopped.current === 100) console.log('%chere\'s a cool webcomic: https://sas.ewanb.me', cStyle)
+      if (amountPopped.current === 110) console.log('%cno seriously there\'s nothing else', cStyle)
     }}
   />), [points])
 
