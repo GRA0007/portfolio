@@ -29,11 +29,13 @@ const Eyes = () => {
   }, [])
 
   useEffect(() => {
-    document.body.addEventListener('pointermove', handleMouseMove)
-    document.body.addEventListener('focusin', handleFocusChange)
-    return () => {
-      document.body.removeEventListener('pointermove', handleMouseMove)
-      document.body.removeEventListener('focusin', handleFocusChange)
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.body.addEventListener('pointermove', handleMouseMove)
+      document.body.addEventListener('focusin', handleFocusChange)
+      return () => {
+        document.body.removeEventListener('pointermove', handleMouseMove)
+        document.body.removeEventListener('focusin', handleFocusChange)
+      }
     }
   }, [])
 

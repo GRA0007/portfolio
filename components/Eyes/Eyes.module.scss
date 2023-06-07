@@ -63,6 +63,10 @@
     background: var(--surface);
     animation: blink 30s linear infinite var(--blink-delay);
     border-radius: inherit;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
   }
 
   &::after {
