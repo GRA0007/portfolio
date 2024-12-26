@@ -2,8 +2,8 @@ import { DesignWork } from '/components/DesignWork'
 import { Eyes } from '/components/Eyes'
 import { ProjectCard } from '/components/ProjectCard'
 import { Socials } from '/components/Socials'
-import { DESIGNWORK } from '/res/designwork'
 import { PROJECTS } from '/res/projects'
+import { DESIGNWORK } from '../res/design'
 import { AllProjects } from './projects'
 
 const projectCards = PROJECTS.map((project) => <ProjectCard key={project.name} {...project} />)

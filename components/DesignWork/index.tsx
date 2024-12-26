@@ -1,4 +1,4 @@
-import type { DesignWork as DesignWorkProps } from '/res/designwork'
+import type { DesignWork as DesignWorkProps } from '../../res/design'
 
 export const DesignWork = ({ name, imageURL, href }: DesignWorkProps) => {
   return (
