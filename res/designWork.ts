@@ -5,7 +5,7 @@ export interface DesignWork {
   href: string
 }
 
-export const DESIGNWORK: DesignWork[] = [
+export const DESIGN_WORK: DesignWork[] = [
   {
     name: 'Monash Society for Physics, Astro & Maths Brand Redesign',
     image: 'spam_logo.webp',

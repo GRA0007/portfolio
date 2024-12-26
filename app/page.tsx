@@ -2,8 +2,8 @@ import { DesignWork } from '/components/DesignWork'
 import { Eyes } from '/components/Eyes'
 import { ProjectCard } from '/components/ProjectCard'
 import { Socials } from '/components/Socials'
+import { DESIGN_WORK } from '/res/designWork'
 import { PROJECTS } from '/res/projects'
-import { DESIGNWORK } from '../res/design'
 import { AllProjects } from './projects'
 
 const projectCards = PROJECTS.map((project) => <ProjectCard key={project.name} {...project} />)
@@ -55,7 +55,7 @@ const Home = async () => {
 
         <section className="bg-light py-14 text-dark">
           <h1 className="mb-10 px-gutter text-4xl">Design Work</h1>
-          {DESIGNWORK.map((work) => (
+          {DESIGN_WORK.map((work) => (
             <DesignWork key={work.name} {...work} />
           ))}
         </section>
