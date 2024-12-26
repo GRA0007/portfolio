@@ -1,47 +1,119 @@
-:root {
-  --background: #14072E;
-  --surface: lavender;
+@import "tailwindcss";
 
+@theme {
+  --color-dark: #14072E;
+  --color-light: lavender;
+  --spacing-gutter: max(calc(calc(calc(100vw - 1152px) + 8rem) / 2), 4rem);
+}
+
+:root {
   font-size: min(max(2.083333vw, 16px), 24px);
-  --gutter: max(calc(calc(calc(100vw - 1152px) + 8rem) / 2), 4rem);
 
   --focus-ring: 2px solid currentColor;
 }
 @media (max-width: 768px) {
   :root {
-    --gutter: 2rem;
+    --spacing-gutter: 2rem;
   }
 }
 
-html, body {
-  margin: 0;
-  background: var(--background);
-  color: var(--surface);
+html {
+  @apply bg-dark text-light;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  @apply flex flex-col min-h-dvh;
 }
 
 a {
-  color: inherit;
-  border-radius: .2em;
-}
-a:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: .2em;
+  @apply rounded-sm underline focus-visible:[outline:var(--focus-ring)] outline-offset-4;
 }
 
-h1 {
-  font-size: 3em;
-  font-weight: 400;
-  margin-block: 1em;
+@keyframes appear {
+  from {
+    transform: scale(.5);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
-h2 {
-  font-size: 2.6em;
-  font-weight: 400;
-  margin-block: 1em;
+@keyframes blink {
+  from, .6% {
+    transform: scaleY(1);
+  }
+  .2%, .4% {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.eye {
+  --eye-size: 1em;
+  --pupil-size: 60%;
+
+  height: var(--eye-size);
+  width: var(--eye-size);
+  border-radius: 10em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: calc(var(--eye-y) - calc(var(--eye-size) / 2));
+  left: calc(var(--eye-x) - calc(var(--eye-size) / 2));
+  transition: transform .15s;
+  animation: appear .15s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    inset: 0;
+    background: var(--color-light);
+    animation: blink 30s linear infinite var(--blink-delay);
+    border-radius: inherit;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &::after {
+    content: '';
+    height: var(--pupil-size);
+    width: var(--pupil-size);
+    display: block;
+    background: var(--color-dark);
+    border-radius: inherit;
+    transform: translate(var(--pupil-x, 0), var(--pupil-y, 0));
+    transition: transform .15s;
+  }
+
+  &[data-popped=true] {
+    animation: pop .2s ease-in;
+    animation-fill-mode: forwards;
+    pointer-events: none;
+
+    &::after {
+      --pupil-size: 20%;
+      transition: height .15s ease-in, width .15s ease-in;
+    }
+  }
 }

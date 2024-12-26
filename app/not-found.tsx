@@ -1,12 +1,13 @@
-import Nav from '/components/Nav/Nav'
-import Section from '/components/Section/Section'
+import { Nav } from '/components/Nav'
 
-const NotFound = () =>
+const NotFound = () => (
   <>
     <Nav />
-    <Section style={{ flex: 1, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+    <main className="flex flex-1 items-center justify-center px-gutter text-center">
       <p>Sorry, but the page you're looking for couldn't be found.</p>
-    </Section>
+    </main>
   </>
+)
 
 export default NotFound
