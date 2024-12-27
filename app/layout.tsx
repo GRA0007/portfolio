@@ -25,6 +25,8 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 }
 
+export const revalidate = 3600 // 1 hour
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
     <body className={lexend.className}>{children}</body>
