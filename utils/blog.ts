@@ -84,7 +84,7 @@ export const fetchBlogPosts = cache(async () => {
   ).then((results) =>
     results.flatMap((res) => {
       if (res.status === 'fulfilled') return [res.value]
-      console.warn(res.reason)
+      // console.warn(res.reason)
       return []
     }),
   )

@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@portaljs/remark-wiki-link':
+    hash: psmwlfrcxicrcmzelw3cbakfve
+    path: patches/@portaljs__remark-wiki-link.patch
+
 importers:
 
   .:
@@ -16,7 +21,7 @@ importers:
         version: 1.9.4
       '@portaljs/remark-wiki-link':
         specifier: ^1.2.0
-        version: 1.2.0
+        version: 1.2.0(patch_hash=psmwlfrcxicrcmzelw3cbakfve)
       '@t3-oss/env-nextjs':
         specifier: ^0.11.1
         version: 0.11.1(typescript@5.7.2)(zod@3.24.1)
@@ -2268,7 +2273,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@15.1.2':
     optional: true
 
-  '@portaljs/remark-wiki-link@1.2.0':
+  '@portaljs/remark-wiki-link@1.2.0(patch_hash=psmwlfrcxicrcmzelw3cbakfve)':
     dependencies:
       mdast-util-to-markdown: 1.5.0
       mdast-util-wiki-link: 0.0.2

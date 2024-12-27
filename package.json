@@ -32,5 +32,10 @@
     "typescript": "5.7.2",
     "zod": "^3.24.1"
   },
-  "packageManager": "pnpm@9.15.1+sha256.9e534e70afef06374f6126b44bda5760947135ce16a30aef1010e965fb7e3e3e"
+  "packageManager": "pnpm@9.15.1+sha256.9e534e70afef06374f6126b44bda5760947135ce16a30aef1010e965fb7e3e3e",
+  "pnpm": {
+    "patchedDependencies": {
+      "@portaljs/remark-wiki-link": "patches/@portaljs__remark-wiki-link.patch"
+    }
+  }
 }
