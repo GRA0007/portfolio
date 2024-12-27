@@ -1,0 +1,36 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index 80d21bbf699310538dbb0a5c1b063b0716706fc4..53f8dab5fc21920fe90891260c672902f91573c8 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -366,11 +366,12 @@ function fromMarkdown() {
+     current.data.alias = alias;
+   }
+   function exitWikiLink(token) {
+-    var wikiLink = this.exit(token);
++    var wikiLink = top(this.stack);
+     var _wikiLink$data = wikiLink.data,
+       isEmbed = _wikiLink$data.isEmbed,
+       target = _wikiLink$data.target,
+       alias = _wikiLink$data.alias;
++    this.exit(token);
+     // eslint-disable-next-line no-useless-escape
+     var wikiLinkWithHeadingPattern = /^((?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*?)(#(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*)?$/;
+     var _target$match = target.match(wikiLinkWithHeadingPattern),
+diff --git a/dist/index.js b/dist/index.js
+index 8cee892269bb0768d9be4f3f6407a59e3b56af40..680381cfac8489242cafb577f2044507004398fb 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -357,11 +357,12 @@ function fromMarkdown() {
+     current.data.alias = alias;
+   }
+   function exitWikiLink(token) {
+-    var wikiLink = this.exit(token);
++    var wikiLink = top(this.stack);
+     var _wikiLink$data = wikiLink.data,
+       isEmbed = _wikiLink$data.isEmbed,
+       target = _wikiLink$data.target,
+       alias = _wikiLink$data.alias;
++    this.exit(token);
+     // eslint-disable-next-line no-useless-escape
+     var wikiLinkWithHeadingPattern = /^((?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*?)(#(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*)?$/;
+     var _target$match = target.match(wikiLinkWithHeadingPattern),
