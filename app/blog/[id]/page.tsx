@@ -3,9 +3,9 @@ import { Fira_Code, Lexend_Zetta } from 'next/font/google'
 import { notFound } from 'next/navigation'
 
 import Section from '/components/Section/Section'
-import { fetchPost } from '/services/blog'
 import Nav from '../../../components/Nav'
 import Socials from '../../../components/Socials'
+import { fetchPost } from '../../../utils/blog'
 
 import styles from './page.module.scss'
 

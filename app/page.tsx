@@ -1,14 +1,18 @@
+import { BlogEntry } from '/components/BlogEntry'
 import { DesignWork } from '/components/DesignWork'
 import { Eyes } from '/components/Eyes'
 import { ProjectCard } from '/components/ProjectCard'
 import { Socials } from '/components/Socials'
 import { DESIGN_WORK } from '/res/designWork'
 import { PROJECTS } from '/res/projects'
+import { fetchBlogPosts } from '/utils/blog'
 import { AllProjects } from './projects'
 
 const projectCards = PROJECTS.map((project) => <ProjectCard key={project.name} {...project} />)
 
 const Home = async () => {
+  const posts = await fetchBlogPosts()
+
   return (
     <>
       <header className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-12 py-20">
@@ -60,10 +64,14 @@ const Home = async () => {
           ))}
         </section>
 
-        <section className="bg-light px-gutter pb-14 text-dark">
-          <h1 className="mb-10 text-4xl">Blog</h1>
-          {/* {blogPosts?.posts.map((post) => <BlogEntry key={post.id} {...post} />) ?? <p>Failed to load blog posts</p>} */}
-        </section>
+        {posts.length > 0 && (
+          <section className="bg-light pb-14 text-dark">
+            <h1 className="mb-10 px-gutter text-4xl">Blog</h1>
+            {posts.map((post) => (
+              <BlogEntry key={post.slug} number={post.number} slug={post.slug} title={post.title} />
+            ))}
+          </section>
+        )}
       </main>
 
       <footer className="px-gutter py-16 text-center">
