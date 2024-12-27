@@ -1,3 +1,4 @@
+import type { Blog, WithContext } from 'schema-dts'
 import { BlogEntry } from '/components/BlogEntry'
 import { DesignWork } from '/components/DesignWork'
 import { Eyes } from '/components/Eyes'
@@ -86,6 +87,23 @@ const Home = async () => {
 
         <Socials />
       </footer>
+
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: statically defined schema
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Blog',
+            author: {
+              '@type': 'Person',
+              givenName: 'Benji',
+              familyName: 'Grant',
+              email: 'hi@bengrant.dev',
+            },
+          } satisfies WithContext<Blog>),
+        }}
+      />
     </>
   )
 }

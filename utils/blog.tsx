@@ -84,6 +84,7 @@ const parseMDX = async (filename: string, source: string, objects: string[]) => 
           </Syntax>
         )
       },
+      // TODO: Put images inside figure elements and parse captions
     },
   })
 
@@ -96,7 +97,7 @@ const parseMDX = async (filename: string, source: string, objects: string[]) => 
     published: new Date(frontmatter.published),
     lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : null,
     banner: parseBannerUrl(frontmatter.banner, objects),
-    description: '',
+    description: source.split('---\n')[2].slice(0, 300).trim(),
     content,
   }
 }
