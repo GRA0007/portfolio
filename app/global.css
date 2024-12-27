@@ -3,6 +3,7 @@
 @theme {
   --color-dark: #14072E;
   --color-light: lavender;
+  --color-accent: #8F63E7;
   --spacing-gutter: max(calc(calc(calc(100vw - 1152px) + 8rem) / 2), 4rem);
 }
 
@@ -115,5 +116,35 @@ a {
       --pupil-size: 20%;
       transition: height .15s ease-in, width .15s ease-in;
     }
+  }
+}
+
+@utility content {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  h4 {
+    @apply text-lg;
+  }
+  h1, h2, h3, h4 {
+    @apply mt-[1.25em];
+  }
+  p {
+    @apply my-5;
+  }
+  hr {
+    @apply border-t border-t-accent my-5;
+  }
+  img {
+    @apply w-full lg:w-[calc(100%_+_3rem)] lg:max-w-none lg:-mx-6;
+  }
+  iframe {
+    @apply border-0;
   }
 }

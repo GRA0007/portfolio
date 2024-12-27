@@ -34,7 +34,7 @@ const Home = async () => {
             doing very cool things.
           </p>
           <p className="my-5">I specialise in beautiful, accessible, helpful, and delightful digital experiences.</p>
-          <p>
+          <p className="mb-8">
             With over {new Date().getFullYear() - 2016} years experience working in industry, I am well versed in
             technologies such as React, Express, Next, graphic design, and{' '}
             <a
@@ -75,7 +75,7 @@ const Home = async () => {
       </main>
 
       <footer className="px-gutter py-16 text-center">
-        <p className="sm:px-24">
+        <p className="mb-8 sm:px-24">
           Want to get in touch? I have an <a href="mailto:hi@bengrant.dev">email address</a>, or you can check out my
           other code projects on{' '}
           <a href="https://github.com/GRA0007/" target="_blank">

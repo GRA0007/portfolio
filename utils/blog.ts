@@ -25,7 +25,7 @@ const wikiLinkResolver = (filename: string, objects: string[]) => {
 }
 
 const parseBannerUrl = (banner: string | undefined, objects: string[]) => {
-  if (!banner) return null
+  if (!banner) return
 
   if (banner.startsWith('[[') && banner.endsWith(']]')) {
     return wikiLinkResolver(banner.slice(2, -2), objects)
@@ -48,7 +48,7 @@ const parseMDX = async (filename: string, source: string, objects: string[]) => 
       mdxOptions: {
         remarkPlugins: [
           remarkGfm,
-          [remarkWikiLink, { wikiLinkResolver: (name: string) => wikiLinkResolver(name, objects) }],
+          [remarkWikiLink, { wikiLinkResolver: (name: string) => [wikiLinkResolver(name, objects)] }],
         ],
       },
     },
@@ -63,6 +63,7 @@ const parseMDX = async (filename: string, source: string, objects: string[]) => 
     published: new Date(frontmatter.published),
     lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : null,
     banner: parseBannerUrl(frontmatter.banner, objects),
+    description: '',
     content,
   }
 }
@@ -91,5 +92,11 @@ export const fetchBlogPosts = cache(async () => {
 
   posts.sort((a, b) => b.published.valueOf() - a.published.valueOf())
 
-  return posts.map((post, i) => ({ ...post, number: posts.length - 1 - i }))
+  return posts.map((post, i) => ({ ...post, number: (posts.length - 1 - i).toString().padStart(2, '0') }))
+})
+
+export const getPost = cache(async (slug: string) => {
+  const posts = await fetchBlogPosts()
+
+  return posts.find((post) => post.slug.toLocaleLowerCase() === slug.toLocaleLowerCase())
 })
