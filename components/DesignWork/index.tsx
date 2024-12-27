@@ -1,5 +1,6 @@
 import { useId } from 'react'
 import type { DesignWork as DesignWorkProps } from '/res/designWork'
+import { getS3Url } from '/utils/getS3Url'
 
 export const DesignWork = ({ name, image, href }: DesignWorkProps) => {
   const id = useId()
@@ -13,7 +14,7 @@ export const DesignWork = ({ name, image, href }: DesignWorkProps) => {
     >
       <article className="relative flex items-center px-gutter py-2">
         <img
-          src={`https://benji-portfolio.s3.ap-southeast-2.amazonaws.com/Portfolio/Design+Work/${image}`}
+          src={getS3Url(`Portfolio/Design+Work/${image}`)}
           alt=""
           className="-translate-x-1.5 absolute inset-0 h-full w-full bg-dark object-cover opacity-0 transition-[opacity,translate] group-hover:translate-x-0 group-hover:opacity-100"
         />
