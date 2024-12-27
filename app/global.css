@@ -5,6 +5,7 @@
   --color-light: lavender;
   --color-accent: #8F63E7;
   --spacing-gutter: max(calc(calc(calc(100vw - 1152px) + 8rem) / 2), 4rem);
+  --breakpoint-xs: 450px;
 }
 
 :root {
@@ -26,9 +27,9 @@ body {
   @apply flex flex-col min-h-dvh;
 }
 
-a {
+/* a {
   @apply rounded-sm underline focus-visible:[outline:var(--focus-ring)] outline-offset-4;
-}
+} */
 
 @keyframes appear {
   from {

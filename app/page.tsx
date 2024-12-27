@@ -2,6 +2,7 @@ import type { Blog, WithContext } from 'schema-dts'
 import { BlogEntry } from '/components/BlogEntry'
 import { DesignWork } from '/components/DesignWork'
 import { Eyes } from '/components/Eyes'
+import { FriendCard } from '/components/FriendCard'
 import { ProjectCard } from '/components/ProjectCard'
 import { Socials } from '/components/Socials'
 import { DESIGN_WORK } from '/res/designWork'
@@ -73,6 +74,18 @@ const Home = async () => {
             ))}
           </section>
         )}
+
+        <section className="bg-light px-gutter pb-14 text-dark">
+          <h1 className="mb-10 text-4xl">Friends</h1>
+          <div className="grid grid-cols-1 xs:grid-cols-2 gap-6 sm:grid-cols-3">
+            <FriendCard name="Ben Koder" url="https://benkoder.com/" />
+            <FriendCard name="Ewan Breakey" url="https://ewanb.me/" />
+            <FriendCard name="Maxwell Reid" url="https://www.maxwellreid.tech/" />
+            <FriendCard name="Linus Kay" url="https://libus.xyz/" />
+            <FriendCard name="Tom Anderson" url="https://ando.gq/" />
+            <FriendCard name="Thomas Dib" url="https://www.tdib.xyz/" />
+          </div>
+        </section>
       </main>
 
       <footer className="px-gutter py-16 text-center">
