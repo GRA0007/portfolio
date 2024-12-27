@@ -30,7 +30,7 @@ const Home = async () => {
         <section className="bg-light px-gutter py-14 text-dark" aria-label="About Me">
           <p>
             I make websites, like this one. I am currently working for several{' '}
-            <a href="https://www.linkedin.com/in/bengrant13/#experience-section" target="_blank">
+            <a href="https://www.linkedin.com/in/bengrant13/#experience-section" target="_blank" className="link">
               cool companies
             </a>{' '}
             doing very cool things.
@@ -42,6 +42,7 @@ const Home = async () => {
             <a
               href="https://benjibenji.notion.site/benjibenji/307fb7f089f44301be2d9d3d8272d2ad?v=687c3dd456c747b9adb0547aeb757079"
               target="_blank"
+              className="link"
             >
               cookies
             </a>
@@ -90,9 +91,12 @@ const Home = async () => {
 
       <footer className="px-gutter py-16 text-center">
         <p className="mb-8 sm:px-24">
-          Want to get in touch? I have an <a href="mailto:hi@bengrant.dev">email address</a>, or you can check out my
-          other code projects on{' '}
-          <a href="https://github.com/GRA0007/" target="_blank">
+          Want to get in touch? I have an{' '}
+          <a href="mailto:hi@bengrant.dev" className="link">
+            email address
+          </a>
+          , or you can check out my other code projects on{' '}
+          <a href="https://github.com/GRA0007/" target="_blank" className="link">
             Github
           </a>
           .

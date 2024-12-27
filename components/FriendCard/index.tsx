@@ -7,7 +7,11 @@ interface FriendCardProps {
 
 export const FriendCard = ({ name, url }: FriendCardProps) => {
   return (
-    <Link href={url} target="_blank" className="perspective-midrange group relative block aspect-video">
+    <Link
+      href={url}
+      target="_blank"
+      className="perspective-midrange group focus-ring relative block aspect-video rounded-sm"
+    >
       <section className="transform-3d backface-hidden flex aspect-video flex-col justify-center gap-2 rounded-2xl bg-dark px-2 text-center text-light transition-transform duration-300 group-hover:rotate-y-180">
         <h1 className="font-semibold text-lg">{name}</h1>
         <p className="text-sm">{new URL(url).host.replace('www.', '')}</p>

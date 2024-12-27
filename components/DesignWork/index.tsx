@@ -8,7 +8,7 @@ export const DesignWork = ({ name, image, href }: DesignWorkProps) => {
   return (
     <a
       href={href}
-      className="!no-underline group transition-[font-weight,color] hover:font-black hover:text-light"
+      className="group transition-[font-weight,color] hover:font-black hover:text-light"
       target="_blank"
       aria-labelledby={id}
     >

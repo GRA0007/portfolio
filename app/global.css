@@ -27,9 +27,13 @@ body {
   @apply flex flex-col min-h-dvh;
 }
 
-/* a {
-  @apply rounded-sm underline focus-visible:[outline:var(--focus-ring)] outline-offset-4;
-} */
+@utility focus-ring {
+  @apply focus-visible:[outline:var(--focus-ring)] outline-offset-4;
+}
+
+@utility link {
+  @apply rounded-sm underline focus-ring;
+}
 
 @keyframes appear {
   from {
@@ -138,6 +142,9 @@ body {
   }
   p {
     @apply my-5;
+  }
+  a {
+    @apply link;
   }
   hr {
     @apply border-t border-t-accent my-5;
