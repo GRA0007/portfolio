@@ -10,7 +10,7 @@ import { getS3Url } from '/utils/getS3Url'
 
 const s3 = new S3Client({
   region: env.NEXT_PUBLIC_AWS_REGION,
-  credentials: { accessKeyId: env.AWS_ACCESS_KEY, secretAccessKey: env.AWS_SECRET_KEY },
+  credentials: { accessKeyId: env.AWS_ACCESS_KEY_ID, secretAccessKey: env.AWS_SECRET_ACCESS_KEY },
 })
 
 /** Take a path like `Portfolio/Blog/test-one.md` and strip the path and file extension to return `test-one` */
