@@ -2,6 +2,7 @@ import type { Blog, WithContext } from 'schema-dts'
 import { BlogEntry } from '/components/BlogEntry'
 import { DesignWork } from '/components/DesignWork'
 import { Eyes } from '/components/Eyes'
+import { FriendCard } from '/components/FriendCard'
 import { ProjectCard } from '/components/ProjectCard'
 import { Socials } from '/components/Socials'
 import { DESIGN_WORK } from '/res/designWork'
@@ -29,7 +30,7 @@ const Home = async () => {
         <section className="bg-light px-gutter py-14 text-dark" aria-label="About Me">
           <p>
             I make websites, like this one. I am currently working for several{' '}
-            <a href="https://www.linkedin.com/in/bengrant13/#experience-section" target="_blank">
+            <a href="https://www.linkedin.com/in/bengrant13/#experience-section" target="_blank" className="link">
               cool companies
             </a>{' '}
             doing very cool things.
@@ -41,6 +42,7 @@ const Home = async () => {
             <a
               href="https://benjibenji.notion.site/benjibenji/307fb7f089f44301be2d9d3d8272d2ad?v=687c3dd456c747b9adb0547aeb757079"
               target="_blank"
+              className="link"
             >
               cookies
             </a>
@@ -73,13 +75,28 @@ const Home = async () => {
             ))}
           </section>
         )}
+
+        <section className="bg-light px-gutter pb-14 text-dark">
+          <h1 className="mb-10 text-4xl">Friends</h1>
+          <div className="grid grid-cols-1 xs:grid-cols-2 gap-6 sm:grid-cols-3">
+            <FriendCard name="Ben Koder" url="https://benkoder.com/" icon="koder.webp" />
+            <FriendCard name="Ewan Breakey" url="https://ewanb.me/" icon="ewan.webp" />
+            <FriendCard name="Maxwell Reid" url="https://www.maxwellreid.tech/" icon="max.webp" />
+            <FriendCard name="Linus Kay" url="https://libus.xyz/" icon="linus.webp" />
+            <FriendCard name="Tom Anderson" url="https://ando.gq/" icon="ando.webp" />
+            <FriendCard name="Thomas Dib" url="https://www.tdib.xyz/" icon="dib.webp" />
+          </div>
+        </section>
       </main>
 
       <footer className="px-gutter py-16 text-center">
         <p className="mb-8 sm:px-24">
-          Want to get in touch? I have an <a href="mailto:hi@bengrant.dev">email address</a>, or you can check out my
-          other code projects on{' '}
-          <a href="https://github.com/GRA0007/" target="_blank">
+          Want to get in touch? I have an{' '}
+          <a href="mailto:hi@bengrant.dev" className="link">
+            email address
+          </a>
+          , or you can check out my other code projects on{' '}
+          <a href="https://github.com/GRA0007/" target="_blank" className="link">
             Github
           </a>
           .

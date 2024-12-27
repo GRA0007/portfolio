@@ -8,7 +8,7 @@ export const ProjectCard = ({ name, description, image, href }: ProjectProps) =>
   return (
     <a
       href={href}
-      className="hover:-translate-y-0.5 group !no-underline transition-transform"
+      className="hover:-translate-y-0.5 group focus-ring rounded-sm transition-transform"
       aria-labelledby={`${id}-title`}
       aria-describedby={`${id}-description`}
     >

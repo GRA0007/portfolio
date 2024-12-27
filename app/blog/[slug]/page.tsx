@@ -51,12 +51,14 @@ const Post = async ({ params }: Params) => {
       {post.banner && <img className="h-60 w-full object-cover" src={post.banner} alt="" />}
 
       <main className={`${firaCode.variable} flex-1 px-gutter py-14`}>
-        <div className="mb-4 flex items-baseline gap-6">
-          <span className={`${lexendZetta.className} font-black text-7xl`}>{post.number}</span>
-          <span>{formatDate(post.published)}</span>
-        </div>
+        <hgroup>
+          <div className="mb-4 flex items-baseline gap-6">
+            <p className={`${lexendZetta.className} font-black text-7xl`}>{post.number}</p>
+            <p>{formatDate(post.published)}</p>
+          </div>
 
-        <h1 className="text-5xl">{post.title}</h1>
+          <h1 className="text-5xl">{post.title}</h1>
+        </hgroup>
 
         <article className="content mt-14 mb-8">{post.content}</article>
 

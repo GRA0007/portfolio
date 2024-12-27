@@ -42,6 +42,7 @@ export const Eyes = () => {
         document.body.removeEventListener('focusin', handleFocusChange)
       }
     }
+    // biome-ignore lint/correctness/useExhaustiveDependencies: React compiler
   }, [handleMouseMove, handleFocusChange])
 
   // Update eye pupils

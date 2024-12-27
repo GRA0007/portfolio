@@ -11,7 +11,7 @@ export const AllProjects = ({ children }: { children: React.ReactNode }) => {
     <div className="col-span-full mt-8 mb-4 text-center">
       <button
         type="button"
-        className="hover:-translate-y-0.5 cursor-pointer rounded-sm underline outline-offset-4 transition-transform focus-visible:[outline:var(--focus-ring)]"
+        className="hover:-translate-y-0.5 link cursor-pointer transition-transform"
         onClick={() => {
           setShowAll(true)
         }}
