@@ -2,6 +2,8 @@ import { ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3'
 import remarkWikiLink from '@portaljs/remark-wiki-link'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { cache } from 'react'
+import Syntax from 'react-syntax-highlighter/dist/esm/prism'
+import theme from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
 import remarkGfm from 'remark-gfm'
 import { env } from '/env'
 import { getS3Url } from '/utils/getS3Url'
@@ -50,6 +52,37 @@ const parseMDX = async (filename: string, source: string, objects: string[]) => 
           remarkGfm,
           [remarkWikiLink, { wikiLinkResolver: (name: string) => [wikiLinkResolver(name, objects)] }],
         ],
+      },
+    },
+    components: {
+      pre: (el) => {
+        if (el.children.type !== 'code') return el
+        return (
+          <Syntax
+            style={theme}
+            language={el.children.props.className?.replace('language-', '').toLocaleLowerCase()}
+            customStyle={{
+              background: 'none',
+              textShadow: 'none',
+              margin: 'initial',
+              padding: 0,
+              fontFamily: 'initial',
+              borderRadius: 0,
+            }}
+            codeTagProps={{ style: {} }}
+            showLineNumbers
+            lineNumberStyle={{
+              minWidth: `${el.children.props.children.trim().split('\n').length.toString().length}ch`,
+              position: 'sticky',
+              left: 0,
+              background: 'inherit',
+              paddingInlineStart: '1.5em',
+              boxSizing: 'content-box',
+            }}
+          >
+            {el.children.props.children.trim()}
+          </Syntax>
+        )
       },
     },
   })

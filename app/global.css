@@ -147,4 +147,11 @@ a {
   iframe {
     @apply border-0;
   }
+  code {
+    font-family: var(--code-font);
+    @apply text-sm border border-accent bg-[#18161C] px-1 rounded-sm cursor-text;
+  }
+  pre code {
+    @apply block pl-0 pr-4 py-4 overflow-x-auto;
+  }
 }
