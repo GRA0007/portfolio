@@ -79,12 +79,12 @@ const Home = async () => {
         <section className="bg-light px-gutter pb-14 text-dark">
           <h1 className="mb-10 text-4xl">Friends</h1>
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-6 sm:grid-cols-3">
-            <FriendCard name="Ben Koder" url="https://benkoder.com/" />
-            <FriendCard name="Ewan Breakey" url="https://ewanb.me/" />
-            <FriendCard name="Maxwell Reid" url="https://www.maxwellreid.tech/" />
-            <FriendCard name="Linus Kay" url="https://libus.xyz/" />
-            <FriendCard name="Tom Anderson" url="https://ando.gq/" />
-            <FriendCard name="Thomas Dib" url="https://www.tdib.xyz/" />
+            <FriendCard name="Ben Koder" url="https://benkoder.com/" icon="koder.webp" />
+            <FriendCard name="Ewan Breakey" url="https://ewanb.me/" icon="ewan.webp" />
+            <FriendCard name="Maxwell Reid" url="https://www.maxwellreid.tech/" icon="max.webp" />
+            <FriendCard name="Linus Kay" url="https://libus.xyz/" icon="linus.webp" />
+            <FriendCard name="Tom Anderson" url="https://ando.gq/" icon="ando.webp" />
+            <FriendCard name="Thomas Dib" url="https://www.tdib.xyz/" icon="dib.webp" />
           </div>
         </section>
       </main>
