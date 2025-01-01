@@ -20,7 +20,7 @@ const getPageSlug = (filename: string) => {
 }
 
 const wikiLinkResolver = (filename: string, objects: string[]) => {
-  const match = objects.find((path) => path.endsWith(filename))
+  const match = objects.find((path) => path.endsWith(filename) || path.endsWith(`${filename}.md`))
   if (!match) return '/404'
   if (match.endsWith('.md')) return `/blog/${getPageSlug(match)}`
   return getS3Url(match)
@@ -89,6 +89,8 @@ const parseMDX = async (filename: string, source: string, objects: string[]) => 
   })
 
   if (!frontmatter.title || !frontmatter.published) throw new Error('Post missing title or published date')
+  if (new Date(frontmatter.published).valueOf() > new Date().valueOf())
+    throw new Error('Publish date in the future, will be published later')
 
   return {
     slug: getPageSlug(filename),
