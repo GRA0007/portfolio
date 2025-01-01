@@ -20,7 +20,7 @@ const getPageSlug = (filename: string) => {
 }
 
 const wikiLinkResolver = (filename: string, objects: string[]) => {
-  const match = objects.find((path) => path.endsWith(filename))
+  const match = objects.find((path) => path.endsWith(filename) || path.endsWith(`${filename}.md`))
   if (!match) return '/404'
   if (match.endsWith('.md')) return `/blog/${getPageSlug(match)}`
   return getS3Url(match)
