@@ -89,6 +89,8 @@ const parseMDX = async (filename: string, source: string, objects: string[]) => 
   })
 
   if (!frontmatter.title || !frontmatter.published) throw new Error('Post missing title or published date')
+  if (new Date(frontmatter.published).valueOf() > new Date().valueOf())
+    throw new Error('Publish date in the future, will be published later')
 
   return {
     slug: getPageSlug(filename),
