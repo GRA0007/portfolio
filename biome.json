@@ -6,11 +6,9 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignore": [".next", "*.css"]
+    "includes": ["**", "!!**/.next", "!**/*.css"]
   },
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -24,8 +22,7 @@
         "useNodejsImportProtocol": "off"
       },
       "a11y": {
-        "noSvgWithoutTitle": "off",
-        "noBlankTarget": "off"
+        "noSvgWithoutTitle": "off"
       },
       "nursery": {
         "useSortedClasses": {
@@ -33,6 +30,12 @@
           "fix": "safe",
           "options": {}
         }
+      },
+      "security": {
+        "noBlankTarget": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
       }
     }
   },

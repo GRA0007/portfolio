@@ -6,7 +6,7 @@ export const AllProjects = ({ children }: { children: React.ReactNode }) => {
   const [showAll, setShowAll] = useState(false)
 
   return showAll ? (
-    <>{children}</>
+    children
   ) : (
     <div className="col-span-full mt-8 mb-4 text-center">
       <button

@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-
 import { generatePoints } from './generatePoints'
 
 export const Eyes = () => {
@@ -66,6 +65,7 @@ export const Eyes = () => {
     <div className="absolute inset-0" ref={containerRef}>
       {points.map((c, i) => (
         // biome-ignore lint/a11y/useKeyWithClickEvents: These goofy eyes don't need to be clickable via keyboard
+        // biome-ignore lint/a11y/noStaticElementInteractions: ^
         <div
           // biome-ignore lint/suspicious/noArrayIndexKey: List never changes order
           key={i}
