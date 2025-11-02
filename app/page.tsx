@@ -81,7 +81,7 @@ const Home = async () => {
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-6 sm:grid-cols-3">
             <FriendCard name="Ben Koder" url="https://benkoder.com/" icon="koder.webp" />
             <FriendCard name="Ewan Breakey" url="https://ewanb.me/" icon="ewan.webp" />
-            <FriendCard name="Maxwell Reid" url="https://www.maxwellreid.tech/" icon="max.webp" />
+            <FriendCard name="Maxwell Reid" url="https://www.maxreid.dev/" icon="max.webp" />
             <FriendCard name="Linus Kay" url="https://libus.xyz/" icon="linus.webp" />
             <FriendCard name="Tom Anderson" url="https://ando.gq/" icon="ando.webp" />
             <FriendCard name="Thomas Dib" url="https://www.tdib.xyz/" icon="dib.webp" />
