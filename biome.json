@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!!**/.next", "!**/*.css"]
+    "includes": ["**", "!!**/.next", "!**/*.css", "!next-env.d.ts"]
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
