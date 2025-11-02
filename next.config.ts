@@ -5,9 +5,7 @@ import '/env'
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  experimental: {
-    reactCompiler: true,
-  },
+  reactCompiler: true,
 }
 
 export default nextConfig

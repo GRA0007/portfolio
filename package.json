@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
@@ -20,7 +20,7 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "babel-plugin-react-compiler": "19.0.0-beta-b2e8e9c-20241220",
+    "babel-plugin-react-compiler": "1.0.0",
     "next": "16.0.1",
     "next-mdx-remote": "^5.0.0",
     "poisson-disk-sampling": "2.3.1",

@@ -30,7 +30,7 @@ export const DesignWork = ({ name, image, href }: DesignWorkProps) => {
           xmlns="http://www.w3.org/2000/svg"
           width="56"
           height="56"
-          className="relative z-10 h-14 w-14 stroke-4 transition-[stroke-width] group-hover:stroke-7"
+          className="relative z-10 size-14 stroke-4 transition-[stroke-width] group-hover:stroke-7"
         >
           <path d="M42.5 17.7083L67.2917 42.4999L42.5 67.2916M17.7083 42.4999H67.2917H17.7083Z" stroke="currentColor" />
         </svg>
