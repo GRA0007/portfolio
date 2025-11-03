@@ -1,29 +1,22 @@
 import { SearchIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-export const SearchField = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
-  const [internalValue, setInternalValue] = useState(value)
+export const SearchField = ({
+  value,
+  onChange,
+  autoFocus,
+}: {
+  value?: string
+  onChange: (value: string) => void
+  autoFocus?: boolean
+}) => {
+  const [internalValue, setInternalValue] = useState(value ?? '')
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null)
 
   // Keep internal value in sync with value
   useEffect(() => {
-    setInternalValue((i) => (i !== value ? value : i))
+    if (value !== undefined) setInternalValue((i) => (i !== value ? value : i))
   }, [value])
-
-  // Debounce input field
-  useEffect(() => {
-    // Reset immediately if cleared
-    if (internalValue === '') {
-      onChange('')
-      return
-    }
-
-    const updateValue = setTimeout(() => {
-      onChange(internalValue)
-    }, 300)
-    return () => {
-      clearTimeout(updateValue)
-    }
-  }, [internalValue, onChange])
 
   return (
     <div className="relative">
@@ -34,10 +27,21 @@ export const SearchField = ({ value, onChange }: { value: string; onChange: (val
         placeholder="search"
         value={internalValue}
         onChange={(e) => {
-          setInternalValue(e.currentTarget.value)
+          if (timeoutRef.current) clearTimeout(timeoutRef.current)
+
+          const currentValue = e.currentTarget.value
+          setInternalValue(currentValue)
+
+          // Reset immediately if cleared
+          if (currentValue === '') onChange('')
+
+          // Debounce change event
+          timeoutRef.current = setTimeout(() => onChange(currentValue), 300)
         }}
         minLength={2}
         maxLength={50}
+        // biome-ignore lint/a11y/noAutofocus: Autofocus if filled
+        autoFocus={autoFocus}
       />
       <SearchIcon className="pointer-events-none absolute top-2 left-2 size-6 stroke-[1.5px]" />
     </div>

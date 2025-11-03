@@ -6,7 +6,7 @@ export const RecipeCard = () => {
   const id = useId()
 
   return (
-    <Link href="#" className="hover:-translate-y-1 group transition-transform">
+    <Link href="/the-classic-chocolate-chip-cookies" className="hover:-translate-y-1 group transition-transform">
       <article aria-labelledby={id}>
         <img src="#" alt="" className="aspect-video h-auto w-full rounded-lg bg-current/10 object-cover" />
         <h2 id={id} className="my-3 font-semibold text-2xl group-hover:underline">

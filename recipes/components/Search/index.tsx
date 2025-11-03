@@ -2,17 +2,19 @@
 
 import { cn } from 'common/src/cn'
 import { ArrowUpIcon } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import { SearchField } from './field'
 import { SORTS, useSearchFields } from './useSearchFields'
 
 const DB_TAGS = ['breakfast', 'lunch', 'dinner', 'sweets', 'cookies', 'icing', 'vegan', 'gluten-free']
 
 export const Search = () => {
+  const searchParams = useSearchParams()
   const { query, tags, sort, sortDir, rawSortDir, setQuery, setTags, setSort, setSortDir } = useSearchFields()
 
   return (
     <search className="py-6 [grid-area:search] sm:py-8 md:py-11">
-      <SearchField value={query} onChange={setQuery} />
+      <SearchField value={query} onChange={setQuery} autoFocus={Boolean(query || searchParams.has('q'))} />
 
       <fieldset className="mt-12">
         <legend className="mb-4 font-semibold text-xl">filter by tag</legend>
