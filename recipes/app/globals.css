@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --font-*: initial;
+  --font-body: var(--font-body);
+  --font-meta: var(--font-meta);
+
+  --color-cream: #ECE9E2;
+  --color-charcoal: #1F1C17;
+  --breakpoint-xs: 375px;
+}
+
+html {
+  @apply bg-cream text-charcoal font-body;
+}
+
+body {
+  @apply flex flex-col min-h-dvh;
+}

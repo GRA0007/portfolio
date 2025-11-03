@@ -1,5 +1,6 @@
 packages:
   - portfolio
+  - recipes
 onlyBuiltDependencies:
   - sharp
 patchedDependencies:

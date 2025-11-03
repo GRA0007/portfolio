@@ -83,6 +83,60 @@ importers:
         specifier: ^4.1.12
         version: 4.1.12
 
+  recipes:
+    dependencies:
+      '@aws-sdk/client-s3':
+        specifier: ^3.922.0
+        version: 3.922.0
+      '@portaljs/remark-wiki-link':
+        specifier: ^1.2.0
+        version: 1.2.0(patch_hash=5c0fa551d42acca47ede383fe4779d99b725924b2145f1f1bace4a4df55130cb)
+      '@t3-oss/env-nextjs':
+        specifier: ^0.13.8
+        version: 0.13.8(typescript@5.9.3)(zod@4.1.12)
+      '@tailwindcss/postcss':
+        specifier: 4.1.16
+        version: 4.1.16
+      '@types/node':
+        specifier: 24.9.2
+        version: 24.9.2
+      '@types/react':
+        specifier: 19.2.2
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: 19.2.2
+        version: 19.2.2(@types/react@19.2.2)
+      babel-plugin-react-compiler:
+        specifier: 1.0.0
+        version: 1.0.0
+      next:
+        specifier: 16.0.1
+        version: 16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      next-mdx-remote:
+        specifier: ^5.0.0
+        version: 5.0.0(@types/react@19.2.2)(acorn@8.14.0)(react@19.2.0)
+      react:
+        specifier: 19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: 19.2.0
+        version: 19.2.0(react@19.2.0)
+      remark-gfm:
+        specifier: ^4.0.1
+        version: 4.0.1
+      schema-dts:
+        specifier: ^1.1.5
+        version: 1.1.5
+      tailwindcss:
+        specifier: 4.1.16
+        version: 4.1.16
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
+
 packages:
 
   '@alloc/quick-lru@5.2.0':
