@@ -15,7 +15,7 @@ const Home = () => {
       </Suspense>
 
       <div className="[grid-area:results]">
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-x-6 gap-y-12">
           <RecipeCard />
           <RecipeCard />
           <RecipeCard />
