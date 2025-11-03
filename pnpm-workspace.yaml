@@ -1,7 +1,9 @@
 packages:
   - portfolio
   - recipes
+  - common
 onlyBuiltDependencies:
   - sharp
 patchedDependencies:
   '@portaljs/remark-wiki-link': 'patches/@portaljs__remark-wiki-link.patch'
+linkWorkspacePackages: true

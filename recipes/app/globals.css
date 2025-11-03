@@ -11,9 +11,9 @@
 }
 
 html {
-  @apply bg-cream text-charcoal font-body;
+  @apply bg-cream text-charcoal;
 }
 
 body {
-  @apply flex flex-col min-h-dvh;
+  @apply font-body;
 }
