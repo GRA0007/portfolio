@@ -2,25 +2,19 @@
 
 import { cn } from 'common/src/cn'
 import { ArrowUpIcon } from 'lucide-react'
-import { parseAsArrayOf, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs'
 import { SearchField } from './field'
+import { SORTS, useSearchFields } from './useSearchFields'
 
 const DB_TAGS = ['breakfast', 'lunch', 'dinner', 'sweets', 'cookies', 'icing', 'vegan', 'gluten-free']
-const SORTS = ['last-updated', 'difficulty', 'time', 'alphabetical'] as const
 
 export const Search = () => {
-  const [query, setQuery] = useQueryState('q', parseAsString.withDefault(''))
-  const [tags, setTags] = useQueryState('tags', parseAsArrayOf(parseAsString).withDefault([]))
-  const [sort, setSort] = useQueryState('sort', parseAsStringLiteral(SORTS).withDefault('last-updated'))
-  const [_sortDir, setSortDir] = useQueryState('dir', parseAsStringLiteral(['asc', 'desc']))
-
-  const sortDir = _sortDir ?? (sort === 'last-updated' ? 'desc' : 'asc')
+  const { query, tags, sort, sortDir, rawSortDir, setQuery, setTags, setSort, setSortDir } = useSearchFields()
 
   return (
     <search className="py-6 [grid-area:search] sm:py-8 md:py-11">
       <SearchField value={query} onChange={setQuery} />
 
-      <fieldset className="mt-10">
+      <fieldset className="mt-12">
         <legend className="mb-4 font-semibold text-xl">filter by tag</legend>
 
         <div className="flex flex-col items-start gap-1">
@@ -67,7 +61,7 @@ export const Search = () => {
                   setSortDir('asc')
                 }}
                 onClick={() => {
-                  if (sort === 'last-updated' && s === 'last-updated' && _sortDir === 'asc') return setSortDir(null)
+                  if (sort === 'last-updated' && s === 'last-updated' && rawSortDir === 'asc') return setSortDir(null)
 
                   if (sort === s) setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
                 }}
@@ -86,7 +80,7 @@ export const Search = () => {
         </div>
       </fieldset>
 
-      {(query !== '' || tags.length > 0 || sort !== 'last-updated' || _sortDir) && (
+      {(query !== '' || tags.length > 0 || sort !== 'last-updated' || rawSortDir) && (
         <button
           type="button"
           onClick={() => {

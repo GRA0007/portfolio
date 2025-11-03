@@ -11,6 +11,12 @@ export const SearchField = ({ value, onChange }: { value: string; onChange: (val
 
   // Debounce input field
   useEffect(() => {
+    // Reset immediately if cleared
+    if (internalValue === '') {
+      onChange('')
+      return
+    }
+
     const updateValue = setTimeout(() => {
       onChange(internalValue)
     }, 300)
