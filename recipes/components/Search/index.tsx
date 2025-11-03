@@ -25,7 +25,10 @@ export const Search = () => {
 
         <div className="flex flex-col items-start gap-1">
           {DB_TAGS.map((tag) => (
-            <label key={tag} className="cursor-pointer font-meta has-checked:font-semibold has-checked:underline">
+            <label
+              key={tag}
+              className="cursor-pointer font-meta transition-transform hover:translate-x-1 has-checked:font-semibold has-checked:underline"
+            >
               <input
                 type="checkbox"
                 name="tags"
@@ -52,7 +55,7 @@ export const Search = () => {
           {SORTS.map((s) => (
             <label
               key={s}
-              className="flex cursor-pointer items-center font-meta has-checked:font-semibold has-checked:underline"
+              className="flex cursor-pointer items-center font-meta transition-transform hover:translate-x-1 has-checked:font-semibold has-checked:underline"
             >
               <input
                 type="radio"
@@ -82,6 +85,21 @@ export const Search = () => {
           ))}
         </div>
       </fieldset>
+
+      {(query !== '' || tags.length > 0 || sort !== 'last-updated' || _sortDir) && (
+        <button
+          type="button"
+          onClick={() => {
+            setQuery('')
+            setTags([])
+            setSort('last-updated')
+            setSortDir(null)
+          }}
+          className="hover:-translate-y-[3px] hover:active:-translate-y-px mt-8 cursor-pointer rounded-lg border-[1.5px] px-4 py-1 shadow-[0_0] transition-[box-shadow,translate] hover:shadow-[0_3px] hover:active:shadow-[0_1px]"
+        >
+          reset
+        </button>
+      )}
     </search>
   )
 }
