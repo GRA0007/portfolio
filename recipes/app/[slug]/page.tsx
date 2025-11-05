@@ -1,19 +1,42 @@
 import { CheckIcon } from 'lucide-react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import type { Blog, Recipe, WithContext } from 'schema-dts'
 import { Difficulty } from '/components/Difficulty'
 import { Logo } from '/components/Logo'
 import { StaticSearch } from '/components/Search/static'
 
 const dbDescription = `<p>This is my classic easy cookie recipe that I make usually around once a month and it always seems to be a hit.</p><p>I usually make this recipe with double the amount of ingredients, and use 1 block of dark chocolate and 1 block of white chocolate, but if you’re making it with the quantities described below, you can either just choose one type of chocolate (I’ve listed 40% dark chocolate below which balances well with the sweetness of these cookies), or use half a block of both dark and white to get some variation.</p><p>You can also go with 70% dark chocolate if you really like dark chocolate, however my personal preference is 40-45%. I encourage you to experiment!</p><p>I recommend using kitchen scales to measure your ingredients, but I’ve included cup measurements if you need them. Please make sure you also read the notes below, especially if you are new to browning butter.</p>`
 
-const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
+type Props = { params: Promise<{ slug: string }> }
+
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { slug } = await params
+
+  return {
+    title: 'The Classic Chocolate Chip Cookies',
+    description: dbDescription.slice(0, 150),
+    keywords: ['benji', 'recipe', 'collection'],
+    alternates: {
+      canonical: '/the-classic-chocolate-chip-cookies',
+    },
+    openGraph: {
+      images: {
+        url: '#',
+        width: 0,
+        height: 0,
+      },
+    },
+  }
+}
+
+const RecipePage = async ({ params }: Props) => {
   const { slug } = await params
 
   return (
     <div className="mx-auto w-full max-w-7xl px-6 md:px-16">
       <nav className="flex justify-between py-4.5 sm:py-7 md:py-11">
         <Logo />
-
         <StaticSearch />
       </nav>
 
@@ -192,8 +215,42 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
           </ul>
         </section>
       </main>
+
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: statically defined schema
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Recipe',
+            author: {
+              '@id': 'https://bengrant.dev#author',
+              '@type': 'Person',
+              givenName: 'Benji',
+              familyName: 'Grant',
+              email: 'hi@bengrant.dev',
+              url: 'https://bengrant.dev',
+            },
+            name: 'The Classic Chocolate Chip Cookies',
+            prepTime: 'PT2H10M',
+            cookTime: 'PT12M',
+            totalTime: 'PT2H22M',
+            recipeYield: '25 cookies',
+            recipeCategory: 'cookies',
+            recipeIngredient: ['2 1/4 cups (280g) plain flour'],
+            recipeInstructions: ['instruction 1'],
+            datePublished: '',
+            dateModified: '',
+            description: dbDescription,
+            image: '#',
+            isAccessibleForFree: true,
+            keywords: '',
+            url: '',
+          } satisfies WithContext<Recipe>),
+        }}
+      />
     </div>
   )
 }
 
-export default Recipe
+export default RecipePage

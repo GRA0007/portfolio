@@ -113,10 +113,12 @@ const Home = async () => {
             '@context': 'https://schema.org',
             '@type': 'Blog',
             author: {
+              '@id': 'https://bengrant.dev#author',
               '@type': 'Person',
               givenName: 'Benji',
               familyName: 'Grant',
               email: 'hi@bengrant.dev',
+              url: 'https://bengrant.dev',
             },
           } satisfies WithContext<Blog>),
         }}

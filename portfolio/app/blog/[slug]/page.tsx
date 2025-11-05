@@ -77,10 +77,12 @@ const Post = async ({ params }: Params) => {
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
             author: {
+              '@id': 'https://bengrant.dev#author',
               '@type': 'Person',
               givenName: 'Benji',
               familyName: 'Grant',
               email: 'hi@bengrant.dev',
+              url: 'https://bengrant.dev',
             },
             copyrightHolder: 'Benji Grant',
             copyrightYear: post.published.getFullYear(),
