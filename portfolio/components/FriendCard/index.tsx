@@ -1,5 +1,6 @@
+import { getS3Url } from 'common/src/getS3Url'
 import Link from 'next/link'
-import { getS3Url } from '/utils/getS3Url'
+import { env } from '/env'
 
 interface FriendCardProps {
   name: string
@@ -16,7 +17,7 @@ export const FriendCard = ({ name, url, icon }: FriendCardProps) => {
       className="perspective-midrange group focus-ring relative block aspect-video rounded-sm"
     >
       <section className="transform-3d backface-hidden flex aspect-video flex-col items-center justify-center rounded-2xl border-2 border-dark px-2 text-center transition-transform duration-300 group-hover:rotate-y-180">
-        <img src={getS3Url(`Portfolio/Friends/${icon}`)} alt="" className="mb-2 size-6 rounded-sm" />
+        <img src={getS3Url(`Portfolio/Friends/${icon}`, env)} alt="" className="mb-2 size-6 rounded-sm" />
         <h1 className="font-semibold text-lg">{name}</h1>
         <p className="text-sm">{new URL(url).host.replace('www.', '')}</p>
       </section>

@@ -1,12 +1,12 @@
 import { ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3'
 import remarkWikiLink from '@portaljs/remark-wiki-link'
+import { getS3Url } from 'common/src/getS3Url'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { cache } from 'react'
 import Syntax from 'react-syntax-highlighter/dist/esm/prism'
 import theme from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
 import remarkGfm from 'remark-gfm'
 import { env } from '/env'
-import { getS3Url } from '/utils/getS3Url'
 
 const s3 = new S3Client({
   region: env.NEXT_PUBLIC_AWS_REGION,
@@ -23,7 +23,7 @@ const wikiLinkResolver = (filename: string, objects: string[]) => {
   const match = objects.find((path) => path.endsWith(filename) || path.endsWith(`${filename}.md`))
   if (!match) return '/404'
   if (match.endsWith('.md')) return `/blog/${getPageSlug(match)}`
-  return getS3Url(match)
+  return getS3Url(match, env)
 }
 
 const parseBannerUrl = (banner: string | undefined, objects: string[]) => {
@@ -114,7 +114,7 @@ export const fetchBlogPosts = cache(async () => {
 
   const posts = await Promise.allSettled(
     markdownFiles.map(async (filename) =>
-      fetch(getS3Url(filename))
+      fetch(getS3Url(filename, env))
         .then((res) => res.text())
         .then((source) => parseMDX(filename, source, objects)),
     ),

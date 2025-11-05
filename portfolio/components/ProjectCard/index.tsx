@@ -1,6 +1,7 @@
+import { getS3Url } from 'common/src/getS3Url'
 import { useId } from 'react'
+import { env } from '/env'
 import type { Project as ProjectProps } from '/res/projects'
-import { getS3Url } from '/utils/getS3Url'
 
 export const ProjectCard = ({ name, description, image, href }: ProjectProps) => {
   const id = useId()
@@ -14,7 +15,7 @@ export const ProjectCard = ({ name, description, image, href }: ProjectProps) =>
     >
       <article>
         <img
-          src={getS3Url(`Portfolio/Projects/${image.src}`)}
+          src={getS3Url(`Portfolio/Projects/${image.src}`, env)}
           alt={image.alt}
           className="aspect-video w-full rounded-2xl bg-current object-cover"
         />
