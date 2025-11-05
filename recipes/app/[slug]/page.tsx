@@ -17,14 +17,16 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
         <StaticSearch />
       </nav>
 
-      <header className="grid grid-cols-[auto_1fr] gap-10 [grid-template-areas:'title_title'_'meta_image']">
+      <header className="grid grid-cols-1 gap-6 xs:gap-10 [grid-template-areas:'image'_'title'_'meta'] md:grid-cols-[auto_1fr] md:[grid-template-areas:'title_title'_'meta_image']">
         <img src="#" alt="" className="aspect-video rounded-lg bg-current/10 [grid-area:image]" />
 
-        <h1 className="font-semibold text-4xl [grid-area:title]">The Classic Chocolate Chip Cookies</h1>
+        <h1 className="font-semibold text-2xl xs:text-3xl [grid-area:title] sm:text-4xl">
+          The Classic Chocolate Chip Cookies
+        </h1>
 
-        <div className="max-w-xs [grid-area:meta]">
+        <div className="text-sm xs:text-base [grid-area:meta] md:max-w-xs">
           <div className="sticky top-6 flex flex-col gap-5 font-meta">
-            <div className="flex items-baseline justify-between gap-12">
+            <div className="flex items-baseline justify-between gap-4 xs:gap-12">
               <span className="font-semibold">tags</span>
               <span className="text-right">
                 <Link href="/?tags=cookies" className="hover:underline">
@@ -36,27 +38,27 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
                 </Link>
               </span>
             </div>
-            <div className="flex items-center justify-between gap-12">
+            <div className="flex items-center justify-between gap-4 xs:gap-12">
               <span className="font-semibold">difficulty</span>
               <Difficulty stars={3} />
             </div>
-            <div className="flex items-baseline justify-between gap-12">
+            <div className="flex items-baseline justify-between gap-4 xs:gap-12">
               <span className="font-semibold">quantity</span>
               <span className="text-right">25 cookies</span>
             </div>
             <div className="flex flex-col gap-0.5">
-              <div className="flex justify-between gap-12">
+              <div className="flex justify-between gap-4 xs:gap-12">
                 <span className="font-semibold">duration</span>
                 <time dateTime="PT2H22M" className="text-right">
                   2h 22m
                 </time>
               </div>
               <hr className="my-1 border-current/70 border-t-[1.5px]" />
-              <div className="flex justify-between gap-12 text-current/70">
+              <div className="flex justify-between gap-4 xs:gap-12 text-current/70">
                 <span>prep time</span>
                 <span className="text-right">2h 10m</span>
               </div>
-              <div className="flex justify-between gap-12 text-current/70">
+              <div className="flex justify-between gap-4 xs:gap-12 text-current/70">
                 <span>cook time</span>
                 <span className="text-right">12m</span>
               </div>
@@ -69,12 +71,12 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
         <div
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Santitized from markdown
           dangerouslySetInnerHTML={{ __html: dbDescription }}
-          className="my-12 text-lg [&_p:not(:last-child)]:mb-5"
+          className="xs:my-12 mt-6 mb-8 xs:text-lg [&_p:not(:last-child)]:mb-5"
         />
 
-        <div className="flex gap-10">
+        <div className="flex flex-col gap-10 md:flex-row">
           <div className="flex-2">
-            <section className="sticky top-6 text-lg">
+            <section className="sticky top-6 xs:text-lg">
               <h2 className="mb-4 font-semibold text-xl">ingredients</h2>
 
               <ul className="space-y-1.5">
@@ -102,10 +104,10 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
           <div className="flex-3">
             <div className="sticky top-6">
-              <section className="text-lg">
+              <section className="xs:text-lg">
                 <h2 className="mb-4 font-semibold text-xl">method</h2>
 
-                <ol>
+                <ol className="list-decimal space-y-1.5 pl-8">
                   <li>
                     Mix together the flour, baking soda, cornflour, and salt together in a small bowl, and set aside.
                   </li>
@@ -124,10 +126,10 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
                   </li>
                 </ol>
               </section>
-              <section className="mt-12 text-lg">
+              <section className="mt-12 xs:text-lg">
                 <h2 className="mb-4 font-semibold text-xl">notes</h2>
 
-                <ul>
+                <ul className="list-disc space-y-1.5 pl-8">
                   <li>
                     When browning the butter, you’ll want to keep going until the butter turns a deep dark brown colour,
                     like a dark beer, which should take between 10-15 minutes. It may take a while but I’d recommend not
@@ -150,7 +152,7 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
         <section className="mt-12">
           <h2 className="mb-4 font-semibold text-xl">images</h2>
 
-          <div className="grid grid-cols-2 gap-x-10 gap-y-6">
+          <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base">
             <div>
               <img src="#" alt="" className="aspect-video rounded-lg bg-current/10" />
               <p className="mt-1">The mixture can be quite runny</p>
@@ -177,8 +179,16 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
         <section className="mt-12">
           <h2 className="mb-4 font-semibold text-xl">sources</h2>
 
-          <ul className="font-meta">
-            <li>https://sallysbakingaddiction.com/chewy-chocolate-chip-cookies/</li>
+          <ul className="list-disc space-y-1.5 pl-8 font-meta text-sm xs:text-base">
+            <li>
+              <Link
+                href="https://sallysbakingaddiction.com/chewy-chocolate-chip-cookies/"
+                target="_blank"
+                className="break-all underline"
+              >
+                https://sallysbakingaddiction.com/chewy-chocolate-chip-cookies/
+              </Link>
+            </li>
           </ul>
         </section>
       </main>
