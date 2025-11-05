@@ -1,3 +1,4 @@
+import { CheckIcon } from 'lucide-react'
 import Link from 'next/link'
 import { Difficulty } from '/components/Difficulty'
 import { Logo } from '/components/Logo'
@@ -37,7 +38,7 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
             </div>
             <div className="flex items-center justify-between gap-12">
               <span className="font-semibold">difficulty</span>
-              <Difficulty stars={3} className="size-5" />
+              <Difficulty stars={3} />
             </div>
             <div className="flex items-baseline justify-between gap-12">
               <span className="font-semibold">quantity</span>
@@ -76,8 +77,16 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
             <section className="sticky top-6 text-lg">
               <h2 className="mb-4 font-semibold text-xl">ingredients</h2>
 
-              <ul>
-                <li>2 1/4 cups (280g) plain flour</li>
+              <ul className="space-y-1.5">
+                <li>
+                  <label className="flex items-start">
+                    <input type="checkbox" className="peer size-0 appearance-none opacity-0" />
+                    <div className="group mt-[.4em] mr-3 flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-sm border-[1.5px] peer-checked:bg-current">
+                      <CheckIcon className="size-3 stroke-3 text-cream opacity-0 group-[:where(.peer):checked_~_*]:opacity-100" />
+                    </div>
+                    2 1/4 cups (280g) plain flour
+                  </label>
+                </li>
                 <li>1/2 tsp baking soda</li>
                 <li>1 1/2 tsp cornflour</li>
                 <li>1/2 tsp salt</li>
@@ -92,47 +101,49 @@ const Recipe = async ({ params }: { params: Promise<{ slug: string }> }) => {
           </div>
 
           <div className="flex-3">
-            <section className="text-lg">
-              <h2 className="mb-4 font-semibold text-xl">method</h2>
+            <div className="sticky top-6">
+              <section className="text-lg">
+                <h2 className="mb-4 font-semibold text-xl">method</h2>
 
-              <ol>
-                <li>
-                  Mix together the flour, baking soda, cornflour, and salt together in a small bowl, and set aside.
-                </li>
-                <li>
-                  In a large bowl, mix together the melted butter and sugars until no lumps remain. Whisk in the egg,
-                  and then the egg yolk, and then the vanilla extract.
-                </li>
-                <li>
-                  Mix the dry ingredients into the wet ingredients until combined, then fold in the chocolate. Cover the
-                  bowl with plastic wrap and refrigerate for at least 2 hours, up to 3 days.
-                </li>
-                <li>Preheat the oven to 160 C (140 C fan-forced), and line a tray with baking paper.</li>
-                <li>
-                  Roll mixture into balls, about 3 tbsp each, and place apart on the tray. Bake for 12-14 minutes, then
-                  cool for 10 minutes before transferring to a wire rack.
-                </li>
-              </ol>
-            </section>
-            <section className="mt-12 text-lg">
-              <h2 className="mb-4 font-semibold text-xl">notes</h2>
+                <ol>
+                  <li>
+                    Mix together the flour, baking soda, cornflour, and salt together in a small bowl, and set aside.
+                  </li>
+                  <li>
+                    In a large bowl, mix together the melted butter and sugars until no lumps remain. Whisk in the egg,
+                    and then the egg yolk, and then the vanilla extract.
+                  </li>
+                  <li>
+                    Mix the dry ingredients into the wet ingredients until combined, then fold in the chocolate. Cover
+                    the bowl with plastic wrap and refrigerate for at least 2 hours, up to 3 days.
+                  </li>
+                  <li>Preheat the oven to 160 C (140 C fan-forced), and line a tray with baking paper.</li>
+                  <li>
+                    Roll mixture into balls, about 3 tbsp each, and place apart on the tray. Bake for 12-14 minutes,
+                    then cool for 10 minutes before transferring to a wire rack.
+                  </li>
+                </ol>
+              </section>
+              <section className="mt-12 text-lg">
+                <h2 className="mb-4 font-semibold text-xl">notes</h2>
 
-              <ul>
-                <li>
-                  When browning the butter, you’ll want to keep going until the butter turns a deep dark brown colour,
-                  like a dark beer, which should take between 10-15 minutes. It may take a while but I’d recommend not
-                  turning the heat up too high as once it starts to brown it will happen very quickly.
-                </li>
-                <li>
-                  If you do put the dough in the fridge overnight before baking (recommended), take it out an hour or so
-                  before you bake it the next day so it’s not too difficult to scoop.
-                </li>
-                <li>
-                  I also like to sprinkle some flakey salt on top of the cookies before baking; I recommend Maldon
-                  diamond crystal salt, but any flakey salt will do.
-                </li>
-              </ul>
-            </section>
+                <ul>
+                  <li>
+                    When browning the butter, you’ll want to keep going until the butter turns a deep dark brown colour,
+                    like a dark beer, which should take between 10-15 minutes. It may take a while but I’d recommend not
+                    turning the heat up too high as once it starts to brown it will happen very quickly.
+                  </li>
+                  <li>
+                    If you do put the dough in the fridge overnight before baking (recommended), take it out an hour or
+                    so before you bake it the next day so it’s not too difficult to scoop.
+                  </li>
+                  <li>
+                    I also like to sprinkle some flakey salt on top of the cookies before baking; I recommend Maldon
+                    diamond crystal salt, but any flakey salt will do.
+                  </li>
+                </ul>
+              </section>
+            </div>
           </div>
         </div>
 

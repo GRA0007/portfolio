@@ -1,13 +1,16 @@
 import { cn } from 'common/src/cn'
 
-export const Difficulty = ({ stars, className }: { stars: number; className?: string }) => {
+export const Difficulty = ({ stars, onCard }: { stars: number; onCard?: boolean }) => {
   return (
-    <div className="flex items-center gap-1.5" title={`difficulty of ${stars} star${stars === 1 ? '' : 's'}`}>
-      <Star className={cn(className, stars < 1 && 'opacity-50')} aria-hidden="true" />
-      <Star className={cn(className, stars < 2 && 'opacity-50')} aria-hidden="true" />
-      <Star className={cn(className, stars < 3 && 'opacity-50')} aria-hidden="true" />
-      <Star className={cn(className, stars < 4 && 'opacity-50')} aria-hidden="true" />
-      <Star className={cn(className, stars < 5 && 'opacity-50')} aria-hidden="true" />
+    <div
+      className="flex items-center gap-1.5"
+      title={`${onCard ? 'difficulty of ' : ''}${stars} star${stars === 1 ? '' : 's'}`}
+    >
+      <Star className={cn(onCard ? 'size-4' : 'size-5', stars < 1 && 'opacity-50')} aria-hidden="true" />
+      <Star className={cn(onCard ? 'size-4' : 'size-5', stars < 2 && 'opacity-50')} aria-hidden="true" />
+      <Star className={cn(onCard ? 'size-4' : 'size-5', stars < 3 && 'opacity-50')} aria-hidden="true" />
+      <Star className={cn(onCard ? 'size-4' : 'size-5', stars < 4 && 'opacity-50')} aria-hidden="true" />
+      <Star className={cn(onCard ? 'size-4' : 'size-5', stars < 5 && 'opacity-50')} aria-hidden="true" />
     </div>
   )
 }

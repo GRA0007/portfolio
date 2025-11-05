@@ -13,7 +13,7 @@ export const RecipeCard = () => {
           The Classic Chocolate Chip Cookies
         </h2>
         <div className="flex items-center gap-4">
-          <Difficulty stars={3} />
+          <Difficulty stars={3} onCard />
           <time dateTime="PT2H22M" title="time" className="whitespace-nowrap font-meta text-sm">
             2h 22m
           </time>
