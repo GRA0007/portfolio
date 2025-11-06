@@ -36,9 +36,12 @@ body {
   ol {
     @apply list-decimal pl-8;
   }
+  li:has(input[type="checkbox"]) label {
+    @apply transition-transform hover:translate-x-1;
+  }
 
   blockquote {
-    @apply ml-8;
+    @apply pl-8 border-l-[1.5px];
   }
 
   :is(p, ul, ol, blockquote):not(:last-child) {

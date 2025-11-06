@@ -25,13 +25,15 @@ export const parseMd = async (markdown: string, objects: string[]) => {
         li: ({ children, className }) => (
           <li>
             {className === 'task-list-item' ? (
-              <label className="flex items-start">
-                <input type="checkbox" className="peer size-0 appearance-none opacity-0" />
-                <div className="group mt-[.4em] mr-3 flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-sm border-[1.5px] peer-checked:bg-current">
-                  <CheckIcon className="size-3 stroke-3 text-cream opacity-0 group-[:where(.peer):checked_~_*]:opacity-100" />
-                </div>
-                {children}
-              </label>
+              <div className="flex items-start">
+                <label className="flex items-start">
+                  <input type="checkbox" className="peer size-0 appearance-none opacity-0" />
+                  <div className="group mt-[.4em] mr-3 flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-sm border-[1.5px] peer-checked:bg-current">
+                    <CheckIcon className="size-3 stroke-3 text-cream opacity-0 group-[:where(.peer):checked_~_*]:opacity-100" />
+                  </div>
+                  {children}
+                </label>
+              </div>
             ) : (
               children
             )}
