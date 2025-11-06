@@ -6,9 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { SearchField } from './field'
 import { SORTS, useSearchFields } from './useSearchFields'
 
-const DB_TAGS = ['breakfast', 'lunch', 'dinner', 'sweets', 'cookies', 'icing', 'vegan', 'gluten-free']
-
-export const Search = () => {
+export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
   const searchParams = useSearchParams()
   const { query, tags, sort, sortDir, rawSortDir, setQuery, setTags, setSort, setSortDir } = useSearchFields()
 
@@ -21,7 +19,7 @@ export const Search = () => {
           <legend className="mb-4 font-semibold text-xl">filter by tag</legend>
 
           <div className="flex flex-col items-start gap-1">
-            {DB_TAGS.map((tag) => (
+            {supportedTags.map((tag) => (
               <label
                 key={tag}
                 className="cursor-pointer font-meta transition-transform hover:translate-x-1 has-checked:font-semibold has-checked:underline"

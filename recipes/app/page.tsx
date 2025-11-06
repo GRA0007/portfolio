@@ -4,6 +4,12 @@ import { Search } from '/components/Search'
 import { fetchRecipes } from '/utils/recipe'
 import { Recipes } from './recipes'
 
+const getSupportedTags = (recipes: Awaited<ReturnType<typeof fetchRecipes>>) => {
+  const tags = []
+  for (const recipe of recipes) tags.push(...recipe.tags)
+  return [...new Set(tags)].sort((a, b) => a.localeCompare(b))
+}
+
 const Home = async () => {
   const recipes = await fetchRecipes()
 
@@ -14,7 +20,7 @@ const Home = async () => {
       </nav>
 
       <Suspense>
-        <Search />
+        <Search supportedTags={getSupportedTags(recipes)} />
       </Suspense>
 
       <main className="@container [grid-area:results]">
