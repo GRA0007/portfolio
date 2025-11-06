@@ -109,3 +109,10 @@ export const getRecipe = cache(async (slug: string) => {
 
   return recipes.find((recipe) => recipe.slug.toLocaleLowerCase() === slug.toLocaleLowerCase())
 })
+
+export const getAllTags = cache(async () => {
+  const recipes = await fetchRecipes()
+  const tags = []
+  for (const recipe of recipes) tags.push(...recipe.tags)
+  return [...new Set(tags)].sort((a, b) => a.localeCompare(b))
+})

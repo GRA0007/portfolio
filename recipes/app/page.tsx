@@ -1,14 +1,8 @@
 import { Suspense } from 'react'
 import { Logo } from '/components/Logo'
 import { Search } from '/components/Search'
-import { fetchRecipes } from '/utils/recipe'
+import { fetchRecipes, getAllTags } from '/utils/recipe'
 import { Recipes } from './recipes'
-
-const getSupportedTags = (recipes: Awaited<ReturnType<typeof fetchRecipes>>) => {
-  const tags = []
-  for (const recipe of recipes) tags.push(...recipe.tags)
-  return [...new Set(tags)].sort((a, b) => a.localeCompare(b))
-}
 
 const Home = async () => {
   const recipes = await fetchRecipes()
@@ -20,7 +14,7 @@ const Home = async () => {
       </nav>
 
       <Suspense>
-        <Search supportedTags={getSupportedTags(recipes)} />
+        <Search supportedTags={await getAllTags()} />
       </Suspense>
 
       <main className="@container [grid-area:results]">

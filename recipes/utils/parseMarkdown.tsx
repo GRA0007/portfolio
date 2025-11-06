@@ -42,6 +42,9 @@ export const parseMd = async (markdown: string, objects: string[]): Promise<Reac
         input: () => null,
         link: (props) => <Link {...props} />,
         h2: (props) => <h3 {...props} />,
+        h3: (props) => <h4 {...props} />,
+        h4: (props) => <h5 {...props} />,
+        h5: (props) => <h6 {...props} />,
       } satisfies Components,
     })
     .process(markdown)

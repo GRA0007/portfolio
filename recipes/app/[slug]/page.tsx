@@ -26,7 +26,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       canonical: `/${recipe.slug}`,
     },
     openGraph: {
-      images: recipe.image ?? undefined,
+      images: recipe.image,
     },
   }
 }
@@ -110,7 +110,9 @@ const RecipePage = async ({ params }: Props) => {
         <div className="flex flex-col gap-10 md:flex-row">
           <div className="flex-2">
             <section className="sticky top-6 xs:text-lg">
-              <h2 className="mb-4 font-semibold text-xl">Ingredients</h2>
+              <h2 className="mb-4 font-semibold text-xl" id="ingredients">
+                Ingredients
+              </h2>
 
               {recipe.content.ingredients}
             </section>
@@ -119,14 +121,18 @@ const RecipePage = async ({ params }: Props) => {
           <div className="flex-3">
             <div className="sticky top-6">
               <section className="xs:text-lg">
-                <h2 className="mb-4 font-semibold text-xl">Method</h2>
+                <h2 className="mb-4 font-semibold text-xl" id="method">
+                  Method
+                </h2>
 
                 {recipe.content.method}
               </section>
 
               {recipe.content.notes && (
                 <section className="mt-12 xs:text-lg">
-                  <h2 className="mb-4 font-semibold text-xl">Notes</h2>
+                  <h2 className="mb-4 font-semibold text-xl" id="notes">
+                    Notes
+                  </h2>
 
                   {recipe.content.notes}
                 </section>
@@ -137,7 +143,9 @@ const RecipePage = async ({ params }: Props) => {
 
         {recipe.content.images && (
           <section className="mt-12">
-            <h2 className="mb-4 font-semibold text-xl">images</h2>
+            <h2 className="mb-4 font-semibold text-xl" id="images">
+              images
+            </h2>
 
             <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base">
               {recipe.content.images}
@@ -155,7 +163,9 @@ const RecipePage = async ({ params }: Props) => {
 
         {recipe.content.sources && (
           <section className="mt-12">
-            <h2 className="mb-4 font-semibold text-xl">Sources</h2>
+            <h2 className="mb-4 font-semibold text-xl" id="sources">
+              Sources
+            </h2>
 
             <div className="break-all font-meta text-sm xs:text-base">{recipe.content.sources}</div>
           </section>
