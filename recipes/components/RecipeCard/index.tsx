@@ -2,24 +2,40 @@ import Link from 'next/link'
 import { useId } from 'react'
 import { Difficulty } from '/components/Difficulty'
 
-export const RecipeCard = () => {
+export const RecipeCard = ({
+  slug,
+  image,
+  title,
+  difficulty,
+  time,
+  tags,
+}: {
+  slug: string
+  image: string | null
+  title: string
+  difficulty: number
+  time: { total: number } | null
+  tags: string[]
+}) => {
   const id = useId()
 
   return (
-    <Link href="/the-classic-chocolate-chip-cookies" className="hover:-translate-y-1 group transition-transform">
+    <Link href={`/${slug}`} className="hover:-translate-y-1 group transition-transform">
       <article aria-labelledby={id}>
-        <img src="#" alt="" className="aspect-video h-auto w-full rounded-lg bg-current/10 object-cover" />
+        <img src={image ?? '#'} alt="" className="aspect-video h-auto w-full rounded-lg bg-current/10 object-cover" />
         <h2 id={id} className="my-3 font-semibold text-2xl group-hover:underline">
-          The Classic Chocolate Chip Cookies
+          {title}
         </h2>
         <div className="flex items-center gap-4">
-          <Difficulty stars={3} onCard />
-          <time dateTime="PT2H22M" title="time" className="whitespace-nowrap font-meta text-sm">
-            2h 22m
-          </time>
+          <Difficulty stars={difficulty} onCard />
+          {time && (
+            <time dateTime="PT2H22M" title="time" className="whitespace-nowrap font-meta text-sm">
+              {time?.total}
+            </time>
+          )}
         </div>
         <p className="mt-2 font-meta text-sm" title="tags">
-          cookies, sweets
+          {tags.join(', ')}
         </p>
       </article>
     </Link>
