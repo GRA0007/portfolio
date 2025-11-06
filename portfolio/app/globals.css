@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #14072e;
+  --color-light: lavender;
+  --color-accent: #8f63e7;
+  --spacing-gutter: max(calc(calc(calc(100vw - 1152px) + 8rem) / 2), 4rem);
+  --breakpoint-xs: 450px;
+}
+
+:root {
+  font-size: min(max(2.083333vw, 16px), 24px);
+
+  --focus-ring: 2px solid currentColor;
+}
+@media (max-width: 768px) {
+  :root {
+    --spacing-gutter: 2rem;
+  }
+}
+
+html {
+  @apply bg-dark text-light;
+}
+
+body {
+  @apply flex flex-col min-h-dvh;
+}
+
+@utility focus-ring {
+  @apply focus-visible:[outline:var(--focus-ring)] outline-offset-4;
+}
+
+@utility link {
+  @apply rounded-sm underline focus-ring;
+}
+
+@keyframes appear {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes blink {
+  from,
+  .6% {
+    transform: scaleY(1);
+  }
+  .2%,
+  .4% {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.eye {
+  --eye-size: 1em;
+  --pupil-size: 60%;
+
+  height: var(--eye-size);
+  width: var(--eye-size);
+  border-radius: 10em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: calc(var(--eye-y) - calc(var(--eye-size) / 2));
+  left: calc(var(--eye-x) - calc(var(--eye-size) / 2));
+  transition: transform 0.15s;
+  animation: appear 0.15s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    inset: 0;
+    background: var(--color-light);
+    animation: blink 30s linear infinite var(--blink-delay);
+    border-radius: inherit;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &::after {
+    content: "";
+    height: var(--pupil-size);
+    width: var(--pupil-size);
+    display: block;
+    background: var(--color-dark);
+    border-radius: inherit;
+    transform: translate(var(--pupil-x, 0), var(--pupil-y, 0));
+    transition: transform 0.15s;
+  }
+
+  &[data-popped="true"] {
+    animation: pop 0.2s ease-in;
+    animation-fill-mode: forwards;
+    pointer-events: none;
+
+    &::after {
+      --pupil-size: 20%;
+      transition:
+        height 0.15s ease-in,
+        width 0.15s ease-in;
+    }
+  }
+}
+
+@utility content {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  h4 {
+    @apply text-lg;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply mt-[1.25em];
+  }
+  p {
+    @apply my-5;
+  }
+  a {
+    @apply link;
+  }
+  hr {
+    @apply border-t border-t-accent my-5;
+  }
+  img {
+    @apply w-full lg:w-[calc(100%+3rem)] lg:max-w-none lg:-mx-6;
+  }
+  iframe {
+    @apply border-0;
+  }
+  code {
+    font-family: var(--code-font);
+    @apply text-sm border border-accent bg-[#18161C] px-1 rounded-sm cursor-text;
+  }
+  pre code {
+    @apply block pl-0 pr-4 py-4 overflow-x-auto;
+  }
+}

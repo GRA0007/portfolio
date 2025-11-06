@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!!**/.next", "!**/*.css", "!next-env.d.ts"]
+    "includes": ["**", "!!**/.next", "!**/next-env.d.ts"]
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
@@ -47,6 +47,11 @@
     "formatter": {
       "quoteStyle": "single",
       "semicolons": "asNeeded"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }

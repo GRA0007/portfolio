@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-*: initial;
+  --font-body: var(--font-body);
+  --font-meta: var(--font-meta);
+
+  --color-cream: #ece9e2;
+  --color-charcoal: #1f1c17;
+  --breakpoint-xs: 425px;
+}
+
+html {
+  @apply bg-cream text-charcoal;
+}
+
+body {
+  @apply font-body;
+}
+
+@utility recipe-content {
+  a {
+    @apply underline;
+  }
+  strong {
+    @apply font-medium;
+  }
+
+  ul,
+  ol {
+    @apply space-y-1.5;
+  }
+  ul:not(.contains-task-list) {
+    @apply list-disc pl-8;
+  }
+  ol {
+    @apply list-decimal pl-8;
+  }
+  li:has(input[type="checkbox"]) label {
+    @apply transition-transform hover:translate-x-1;
+  }
+
+  blockquote {
+    @apply pl-8 border-l-[1.5px];
+  }
+
+  :is(p, ul, ol, blockquote):not(:last-child) {
+    @apply mb-5;
+  }
+
+  h3 {
+    @apply font-semibold text-lg mb-3;
+  }
+}

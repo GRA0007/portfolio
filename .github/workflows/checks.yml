@@ -10,12 +10,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
         with:
-          run_install: false
-      - uses: actions/setup-node@v4
-        with:
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install
       - run: pnpm biome ci --reporter=github --error-on-warnings
@@ -23,13 +22,11 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
         with:
-          run_install: false
-      - uses: actions/setup-node@v4
-        with:
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install
-      - run: pnpm tsc
-
+      - run: pnpm -r --workspace-concurrency=Infinity --no-bail exec tsc
