@@ -17,8 +17,8 @@ const Home = async () => {
         <Search />
       </Suspense>
 
-      <main className="[grid-area:results]">
-        <div className="grid grid-cols-3 gap-x-6 gap-y-12">
+      <main className="@container [grid-area:results]">
+        <div className="grid @3xl:grid-cols-3 @lg:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12">
           {recipes.map((recipe) => (
             <RecipeCard key={recipe.slug} {...recipe} />
           ))}
