@@ -1,84 +1,19 @@
 import { ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3'
-import remarkWikiLink from '@portaljs/remark-wiki-link'
 import { getS3Url } from 'common/src/getS3Url'
-import { CheckIcon } from 'lucide-react'
 import { fromMarkdown } from 'mdast-util-from-markdown'
-import Link from 'next/link'
 import { cache } from 'react'
-import react from 'react/jsx-runtime'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeReact, { type Components } from 'rehype-react'
-import remarkGfm from 'remark-gfm'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import remarkSmartypants from 'remark-smartypants'
-import { unified } from 'unified'
 import { VFile } from 'vfile'
 import { matter } from 'vfile-matter'
 import { env } from '/env'
+import { getPageName } from '/utils/getPageName'
+import { parseMd } from '/utils/parseMarkdown'
+import { slugify } from '/utils/slugify'
+import { wikiLinkResolver } from '/utils/wikiLinkResolver'
 
 const s3 = new S3Client({
   region: env.NEXT_PUBLIC_AWS_REGION,
   credentials: { accessKeyId: env.AWS_ACCESS_KEY_ID, secretAccessKey: env.AWS_SECRET_ACCESS_KEY },
 })
-
-/** Take a path like `Recipes/My Cool Recipe.md` and strip the path and file extension to return `My Cool Recipe` */
-const getPageName = (filename: string) => {
-  const nameParts = filename.split('/')
-  return nameParts[nameParts.length - 1].slice(0, -3).trim()
-}
-
-/** Turns a page name into a slug like `my-cool-recipe` */
-const slugify = (name: string) => {
-  return name.replace(/\s+/g, '-').toLocaleLowerCase()
-}
-
-const wikiLinkResolver = (filename: string, objects: string[]) => {
-  const match = objects.find(
-    (path) =>
-      path.toLocaleLowerCase().endsWith(filename.toLocaleLowerCase()) ||
-      path.toLocaleLowerCase().endsWith(`${filename.toLocaleLowerCase()}.md`),
-  )
-  if (!match) return '/404'
-  if (match.endsWith('.md')) return `/${slugify(getPageName(match))}`
-  return getS3Url(match, env)
-}
-
-const parseMd = async (markdown: string, objects: string[]) => {
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkSmartypants)
-    .use(remarkWikiLink, { wikiLinkResolver: (name: string) => [wikiLinkResolver(name, objects)] })
-    .use(remarkRehype)
-    .use(rehypeExternalLinks)
-    .use(rehypeReact, {
-      ...react,
-      components: {
-        li: ({ children, className }) => (
-          <li>
-            {className === 'task-list-item' ? (
-              <label className="flex items-start">
-                <input type="checkbox" className="peer size-0 appearance-none opacity-0" />
-                <div className="group mt-[.4em] mr-3 flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-sm border-[1.5px] peer-checked:bg-current">
-                  <CheckIcon className="size-3 stroke-3 text-cream opacity-0 group-[:where(.peer):checked_~_*]:opacity-100" />
-                </div>
-                {children}
-              </label>
-            ) : (
-              children
-            )}
-          </li>
-        ),
-        input: () => null,
-        link: (props) => <Link {...props} />,
-        h2: (props) => <h3 {...props} />,
-      } satisfies Components,
-    })
-    .process(markdown)
-
-  return file.result
-}
 
 type Sections = 'description' | 'ingredients' | 'method' | 'notes' | 'images' | 'sources'
 
@@ -187,64 +122,6 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
     content,
   }
 }
-
-// const parseMDX = async (filename: string, source: string, objects: string[]) => {
-//   const { content, frontmatter } = await compileMDX<
-//     {
-//       difficulty?: string
-//       makes?: string
-//       tags?: string[]
-//       published?: string
-//       lastEdited?: string
-//     } & { [key: `${string} time`]: number }
-//   >({
-//     source,
-//     options: {
-//       parseFrontmatter: true,
-//       mdxOptions: {
-//         remarkPlugins: [
-//           remarkGfm,
-//           [remarkWikiLink, { wikiLinkResolver: (name: string) => [wikiLinkResolver(name, objects)] }],
-//         ],
-//       },
-//     },
-//     components: {
-//       // TODO: Put images inside figure elements and parse captions
-//     },
-//   })
-
-//   if (!frontmatter.published) throw new Error('Recipe unpublished')
-//   if (new Date(frontmatter.published).valueOf() > Date.now())
-//     throw new Error('Publish date in the future, will be published later')
-
-//   const timeParts = Object.keys(frontmatter).flatMap((key) => {
-//     if (!key.endsWith(' time')) return []
-//     const value = frontmatter[key as keyof typeof frontmatter]
-//     if (!value) return []
-//     return [{ name: key.slice(0, -5), value: Number(value) }]
-//   })
-
-//   return {
-//     slug: slugify(getPageName(filename)),
-//     title: getPageName(filename),
-//     difficulty: frontmatter.difficulty?.length ?? 0,
-//     makes: frontmatter.makes || null,
-//     tags: frontmatter.tags ?? [],
-//     time:
-//       timeParts.length > 0
-//         ? {
-//             total: timeParts.reduce((total, part) => total + part.value, 0),
-//             parts: timeParts,
-//           }
-//         : null,
-//     published: new Date(frontmatter.published),
-//     lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : null,
-//     image: getMainImageLink(source),
-//     description: source.split('---\n')[2].slice(0, 300).trim(),
-//     content,
-//     tree: await parseMD(filename, source, objects),
-//   }
-// }
 
 export const fetchRecipes = cache(async () => {
   // Fetch list of recipes from S3

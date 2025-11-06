@@ -1,4 +1,3 @@
-import { CheckIcon } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -9,26 +8,22 @@ import { Logo } from '/components/Logo'
 import { StaticSearch } from '/components/Search/static'
 import { getRecipe } from '/utils/recipe'
 
-const dbDescription = `<p>This is my classic easy cookie recipe that I make usually around once a month and it always seems to be a hit.</p><p>I usually make this recipe with double the amount of ingredients, and use 1 block of dark chocolate and 1 block of white chocolate, but if you’re making it with the quantities described below, you can either just choose one type of chocolate (I’ve listed 40% dark chocolate below which balances well with the sweetness of these cookies), or use half a block of both dark and white to get some variation.</p><p>You can also go with 70% dark chocolate if you really like dark chocolate, however my personal preference is 40-45%. I encourage you to experiment!</p><p>I recommend using kitchen scales to measure your ingredients, but I’ve included cup measurements if you need them. Please make sure you also read the notes below, especially if you are new to browning butter.</p>`
-
 type Props = { params: Promise<{ slug: string }> }
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { slug } = await params
+  const recipe = await getRecipe(slug)
+  if (!recipe) notFound()
 
   return {
-    title: 'The Classic Chocolate Chip Cookies',
-    description: dbDescription.slice(0, 150),
-    keywords: ['benji', 'recipe', 'collection'],
+    title: recipe.title,
+    description: recipe.description,
+    keywords: ['benji', 'recipe', 'collection', ...recipe.tags],
     alternates: {
-      canonical: '/the-classic-chocolate-chip-cookies',
+      canonical: `/${recipe.slug}`,
     },
     openGraph: {
-      images: {
-        url: '#',
-        width: 0,
-        height: 0,
-      },
+      images: recipe.image ?? undefined,
     },
   }
 }
@@ -168,21 +163,19 @@ const RecipePage = async ({ params }: Props) => {
               email: 'hi@bengrant.dev',
               url: 'https://bengrant.dev',
             },
-            name: 'The Classic Chocolate Chip Cookies',
-            prepTime: 'PT2H10M',
+            name: recipe.title,
+            prepTime: 'PT2H10M', // TODO:
             cookTime: 'PT12M',
             totalTime: 'PT2H22M',
-            recipeYield: '25 cookies',
-            recipeCategory: 'cookies',
-            recipeIngredient: ['2 1/4 cups (280g) plain flour'],
-            recipeInstructions: ['instruction 1'],
-            datePublished: '',
-            dateModified: '',
-            description: dbDescription,
-            image: '#',
+            recipeYield: recipe.makes || undefined,
+            recipeCategory: recipe.tags.length > 0 ? recipe.tags[0] : undefined,
+            datePublished: recipe.published.toISOString(),
+            dateModified: recipe.lastEdited ? recipe.lastEdited.toISOString() : undefined,
+            description: recipe.description,
+            image: recipe.image ?? undefined,
             isAccessibleForFree: true,
-            keywords: '',
-            url: '',
+            keywords: recipe.tags,
+            url: `https://recipes.bengrant.dev/${recipe.slug}`,
           } satisfies WithContext<Recipe>),
         }}
       />

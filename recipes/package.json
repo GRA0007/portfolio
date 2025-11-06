@@ -20,8 +20,6 @@
     "lucide-react": "^0.552.0",
     "mdast": "^3.0.0",
     "mdast-util-from-markdown": "^2.0.2",
-    "mdast-util-wiki-link": "^0.1.2",
-    "micromark-extension-wiki-link": "^0.0.4",
     "next": "16.0.1",
     "nuqs": "^2.7.2",
     "react": "19.2.0",
