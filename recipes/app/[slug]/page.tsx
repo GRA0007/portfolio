@@ -166,9 +166,9 @@ const RecipePage = async ({ params }: Props) => {
               url: 'https://bengrant.dev',
             },
             name: recipe.title,
-            prepTime: 'PT2H10M', // TODO:
-            cookTime: 'PT12M',
-            totalTime: 'PT2H22M',
+            prepTime: getTimePartISO('prep', recipe.time?.parts),
+            cookTime: getTimePartISO('cook', recipe.time?.parts),
+            totalTime: recipe.time ? formatDuration(recipe.time.total, 'ISO') : undefined,
             recipeYield: recipe.makes || undefined,
             recipeCategory: recipe.tags.length > 0 ? recipe.tags[0] : undefined,
             datePublished: recipe.published.toISOString(),
@@ -183,6 +183,12 @@ const RecipePage = async ({ params }: Props) => {
       />
     </div>
   )
+}
+
+const getTimePartISO = (name: string, parts: { name: string; value: number }[] | undefined) => {
+  const part = parts?.find((part) => part.name === name)
+  if (!part) return
+  return formatDuration(part.value, 'ISO')
 }
 
 export default RecipePage
