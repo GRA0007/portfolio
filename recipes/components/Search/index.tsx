@@ -22,7 +22,7 @@ export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
             {supportedTags.map((tag) => (
               <label
                 key={tag}
-                className="cursor-pointer font-meta transition-transform hover:translate-x-1 has-checked:font-semibold has-checked:underline"
+                className="cursor-pointer font-meta transition-transform hover:translate-x-1 has-checked:font-semibold has-checked:underline has-focus-visible:ring-2"
               >
                 <input
                   type="checkbox"
@@ -50,7 +50,7 @@ export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
             {SORTS.map((s) => (
               <label
                 key={s}
-                className="flex cursor-pointer items-center font-meta transition-transform hover:translate-x-1 has-checked:font-semibold has-checked:underline"
+                className="flex cursor-pointer items-center font-meta transition-transform hover:translate-x-1 has-checked:font-semibold has-checked:underline has-focus-visible:ring-2"
               >
                 <input
                   type="radio"
@@ -66,6 +66,7 @@ export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
 
                     if (sort === s) setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
                   }}
+                  // TODO: Bind onclick to keyboard
                 />
                 {s.replaceAll('-', ' ')}
                 {sort === s && (
