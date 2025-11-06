@@ -9,6 +9,8 @@ import { StaticSearch } from '/components/Search/static'
 import { formatDuration } from '/utils/formatDuration'
 import { getRecipe } from '/utils/recipe'
 
+export const generateStaticParams = () => []
+
 type Props = { params: Promise<{ slug: string }> }
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
