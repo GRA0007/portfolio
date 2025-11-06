@@ -17,3 +17,26 @@ html {
 body {
   @apply font-body;
 }
+
+@utility recipe-content {
+  a {
+    @apply underline;
+  }
+  ul, ol {
+    @apply space-y-1.5;
+  }
+  ul:not(.contains-task-list) {
+    @apply list-disc pl-8;
+  }
+  ol {
+    @apply list-decimal pl-8;
+  }
+
+  :is(p, ul, ol, blockquote):not(:last-child) {
+    @apply mb-5;
+  }
+
+  h3 {
+    @apply font-semibold text-lg mb-3;
+  }
+}
