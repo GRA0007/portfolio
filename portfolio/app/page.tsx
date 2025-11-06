@@ -39,11 +39,7 @@ const Home = async () => {
           <p className="mb-8">
             With over {new Date().getFullYear() - 2016} years experience working in industry, I am well versed in
             technologies such as React, Express, Next, graphic design, and{' '}
-            <a
-              href="https://benjibenji.notion.site/benjibenji/307fb7f089f44301be2d9d3d8272d2ad?v=687c3dd456c747b9adb0547aeb757079"
-              target="_blank"
-              className="link"
-            >
+            <a href="https://recipes.bengrant.dev" target="_blank" className="link">
               cookies
             </a>
             .
