@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
 import { Logo } from '/components/Logo'
-import { RecipeCard } from '/components/RecipeCard'
 import { Search } from '/components/Search'
 import { fetchRecipes } from '/utils/recipe'
+import { Recipes } from './recipes'
 
 const Home = async () => {
   const recipes = await fetchRecipes()
@@ -18,11 +18,9 @@ const Home = async () => {
       </Suspense>
 
       <main className="@container [grid-area:results]">
-        <div className="grid @3xl:grid-cols-3 @lg:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12">
-          {recipes.map((recipe) => (
-            <RecipeCard key={recipe.slug} {...recipe} />
-          ))}
-        </div>
+        <Suspense>
+          <Recipes recipes={recipes} />
+        </Suspense>
       </main>
     </div>
   )
