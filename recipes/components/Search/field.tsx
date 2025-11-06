@@ -24,7 +24,7 @@ export const SearchField = ({
         type="search"
         className="h-10 rounded-lg border-[1.5px] pr-2 pl-10 leading-0 sm:text-lg"
         name="q"
-        placeholder="search"
+        placeholder="Search"
         value={internalValue}
         onChange={(e) => {
           if (timeoutRef.current) clearTimeout(timeoutRef.current)

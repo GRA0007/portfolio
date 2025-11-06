@@ -71,6 +71,7 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
       if (!sectionRanges[currentSection]) {
         sectionRanges[currentSection] = { start: child.position.start.offset, end: child.position.end.offset }
       } else {
+        // biome-ignore lint/style/noNonNullAssertion: Type inference incorrect here
         sectionRanges[currentSection]!.end = child.position.end.offset
       }
     }

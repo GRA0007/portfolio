@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dark: #14072E;
+  --color-dark: #14072e;
   --color-light: lavender;
-  --color-accent: #8F63E7;
+  --color-accent: #8f63e7;
   --spacing-gutter: max(calc(calc(calc(100vw - 1152px) + 8rem) / 2), 4rem);
   --breakpoint-xs: 450px;
 }
@@ -37,7 +37,7 @@ body {
 
 @keyframes appear {
   from {
-    transform: scale(.5);
+    transform: scale(0.5);
   }
   to {
     transform: scale(1);
@@ -45,10 +45,12 @@ body {
 }
 
 @keyframes blink {
-  from, .6% {
+  from,
+  .6% {
     transform: scaleY(1);
   }
-  .2%, .4% {
+  .2%,
+  .4% {
     transform: scaleY(0);
   }
 }
@@ -80,15 +82,15 @@ body {
   justify-content: center;
   top: calc(var(--eye-y) - calc(var(--eye-size) / 2));
   left: calc(var(--eye-x) - calc(var(--eye-size) / 2));
-  transition: transform .15s;
-  animation: appear .15s ease-out;
+  transition: transform 0.15s;
+  animation: appear 0.15s ease-out;
 
   &:hover {
     transform: scale(1.05);
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     display: block;
     inset: 0;
@@ -102,24 +104,26 @@ body {
   }
 
   &::after {
-    content: '';
+    content: "";
     height: var(--pupil-size);
     width: var(--pupil-size);
     display: block;
     background: var(--color-dark);
     border-radius: inherit;
     transform: translate(var(--pupil-x, 0), var(--pupil-y, 0));
-    transition: transform .15s;
+    transition: transform 0.15s;
   }
 
-  &[data-popped=true] {
-    animation: pop .2s ease-in;
+  &[data-popped="true"] {
+    animation: pop 0.2s ease-in;
     animation-fill-mode: forwards;
     pointer-events: none;
 
     &::after {
       --pupil-size: 20%;
-      transition: height .15s ease-in, width .15s ease-in;
+      transition:
+        height 0.15s ease-in,
+        width 0.15s ease-in;
     }
   }
 }
@@ -137,7 +141,10 @@ body {
   h4 {
     @apply text-lg;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply mt-[1.25em];
   }
   p {
@@ -150,7 +157,7 @@ body {
     @apply border-t border-t-accent my-5;
   }
   img {
-    @apply w-full lg:w-[calc(100%_+_3rem)] lg:max-w-none lg:-mx-6;
+    @apply w-full lg:w-[calc(100%+3rem)] lg:max-w-none lg:-mx-6;
   }
   iframe {
     @apply border-0;

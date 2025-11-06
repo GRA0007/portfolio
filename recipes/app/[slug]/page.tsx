@@ -100,7 +100,7 @@ const RecipePage = async ({ params }: Props) => {
         <div className="flex flex-col gap-10 md:flex-row">
           <div className="flex-2">
             <section className="sticky top-6 xs:text-lg">
-              <h2 className="mb-4 font-semibold text-xl">ingredients</h2>
+              <h2 className="mb-4 font-semibold text-xl">Ingredients</h2>
 
               {recipe.content.ingredients}
             </section>
@@ -109,14 +109,14 @@ const RecipePage = async ({ params }: Props) => {
           <div className="flex-3">
             <div className="sticky top-6">
               <section className="xs:text-lg">
-                <h2 className="mb-4 font-semibold text-xl">method</h2>
+                <h2 className="mb-4 font-semibold text-xl">Method</h2>
 
                 {recipe.content.method}
               </section>
 
               {recipe.content.notes && (
                 <section className="mt-12 xs:text-lg">
-                  <h2 className="mb-4 font-semibold text-xl">notes</h2>
+                  <h2 className="mb-4 font-semibold text-xl">Notes</h2>
 
                   {recipe.content.notes}
                 </section>
@@ -143,7 +143,7 @@ const RecipePage = async ({ params }: Props) => {
 
         {recipe.content.sources && (
           <section className="mt-12">
-            <h2 className="mb-4 font-semibold text-xl">sources</h2>
+            <h2 className="mb-4 font-semibold text-xl">Sources</h2>
 
             <div className="break-all font-meta text-sm xs:text-base">{recipe.content.sources}</div>
           </section>

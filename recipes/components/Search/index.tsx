@@ -16,7 +16,7 @@ export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
 
       <div className="mt-12 flex xs:flex-row flex-col gap-x-24 gap-y-8 md:flex-col">
         <fieldset>
-          <legend className="mb-4 font-semibold text-xl">filter by tag</legend>
+          <legend className="mb-4 font-semibold text-xl">Filter by tag</legend>
 
           <div className="flex flex-col items-start gap-1">
             {supportedTags.map((tag) => (
@@ -44,7 +44,7 @@ export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
         </fieldset>
 
         <fieldset>
-          <legend className="mb-4 font-semibold text-xl">sort</legend>
+          <legend className="mb-4 font-semibold text-xl">Sort</legend>
 
           <div className="flex flex-col items-start gap-1">
             {SORTS.map((s) => (
@@ -93,7 +93,7 @@ export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
           }}
           className="hover:-translate-y-[3px] hover:active:-translate-y-px mt-8 cursor-pointer rounded-lg border-[1.5px] px-4 py-1 shadow-[0_0] transition-[box-shadow,translate] hover:shadow-[0_3px] hover:active:shadow-[0_1px]"
         >
-          reset
+          Reset
         </button>
       )}
     </search>

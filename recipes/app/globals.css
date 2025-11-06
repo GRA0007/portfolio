@@ -5,8 +5,8 @@
   --font-body: var(--font-body);
   --font-meta: var(--font-meta);
 
-  --color-cream: #ECE9E2;
-  --color-charcoal: #1F1C17;
+  --color-cream: #ece9e2;
+  --color-charcoal: #1f1c17;
   --breakpoint-xs: 425px;
 }
 
@@ -22,7 +22,12 @@ body {
   a {
     @apply underline;
   }
-  ul, ol {
+  strong {
+    @apply font-medium;
+  }
+
+  ul,
+  ol {
     @apply space-y-1.5;
   }
   ul:not(.contains-task-list) {
@@ -30,6 +35,10 @@ body {
   }
   ol {
     @apply list-decimal pl-8;
+  }
+
+  blockquote {
+    @apply ml-8;
   }
 
   :is(p, ul, ol, blockquote):not(:last-child) {

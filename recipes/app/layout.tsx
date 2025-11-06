@@ -9,8 +9,8 @@ const firaCode = Fira_Code({ subsets: ['latin'], variable: '--font-meta' })
 export const metadata: Metadata = {
   metadataBase: new URL('https://bengrant.dev'),
   title: {
-    absolute: "benji's recipes",
-    template: "%s - benji's recipes",
+    absolute: "Benji's Recipes",
+    template: "%s - Benji's Recipes",
   },
   description: 'A collection of recipes from Benji',
   keywords: ['benji', 'recipe', 'collection'], // TODO: include tags

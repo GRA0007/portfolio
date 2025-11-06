@@ -4,7 +4,7 @@ export const Difficulty = ({ stars, onCard }: { stars: number; onCard?: boolean 
   return (
     <div
       className="flex items-center gap-1.5"
-      title={`${onCard ? 'difficulty of ' : ''}${stars} star${stars === 1 ? '' : 's'}`}
+      title={`${onCard ? 'Difficulty of ' : ''}${stars} star${stars === 1 ? '' : 's'}`}
     >
       <Star className={cn(onCard ? 'size-4' : 'size-5', stars < 1 && 'opacity-50')} aria-hidden="true" />
       <Star className={cn(onCard ? 'size-4' : 'size-5', stars < 2 && 'opacity-50')} aria-hidden="true" />
