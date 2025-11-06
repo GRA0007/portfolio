@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useId } from 'react'
 import { Difficulty } from '/components/Difficulty'
+import { formatDuration } from '/utils/formatDuration'
 
 export const RecipeCard = ({
   slug,
@@ -29,8 +30,12 @@ export const RecipeCard = ({
         <div className="flex items-center gap-4">
           <Difficulty stars={difficulty} onCard />
           {time && (
-            <time dateTime="PT2H22M" title="time" className="whitespace-nowrap font-meta text-sm">
-              {time?.total}
+            <time
+              dateTime={formatDuration(time.total, 'ISO')}
+              title="time"
+              className="whitespace-nowrap font-meta text-sm"
+            >
+              {formatDuration(time.total)}
             </time>
           )}
         </div>

@@ -6,6 +6,7 @@ import type { Recipe, WithContext } from 'schema-dts'
 import { Difficulty } from '/components/Difficulty'
 import { Logo } from '/components/Logo'
 import { StaticSearch } from '/components/Search/static'
+import { formatDuration } from '/utils/formatDuration'
 import { getRecipe } from '/utils/recipe'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -76,15 +77,15 @@ const RecipePage = async ({ params }: Props) => {
               <div className="flex flex-col gap-0.5">
                 <div className="flex justify-between gap-4 xs:gap-12">
                   <span className="font-semibold">duration</span>
-                  <time dateTime="PT2H22M" className="text-right">
-                    {recipe.time.total}
+                  <time dateTime={formatDuration(recipe.time.total, 'ISO')} className="text-right">
+                    {formatDuration(recipe.time.total)}
                   </time>
                 </div>
                 <hr className="my-1 border-current/70 border-t-[1.5px]" />
                 {recipe.time.parts.map((part) => (
                   <div key={part.name} className="flex justify-between gap-4 xs:gap-12 text-current/70">
                     <span>{part.name} time</span>
-                    <span className="text-right">{part.value}</span>
+                    <span className="text-right">{formatDuration(part.value)}</span>
                   </div>
                 ))}
               </div>
@@ -124,7 +125,8 @@ const RecipePage = async ({ params }: Props) => {
           </div>
         </div>
 
-        <section className="mt-12">
+        {/* TODO: */}
+        {/* <section className="mt-12">
           <h2 className="mb-4 font-semibold text-xl">images</h2>
 
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base">
@@ -137,7 +139,7 @@ const RecipePage = async ({ params }: Props) => {
               <p className="mt-1">Another cool photo of this cool cool recipe</p>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {recipe.content.sources && (
           <section className="mt-12">
