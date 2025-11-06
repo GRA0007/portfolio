@@ -44,7 +44,7 @@ const RecipePage = async ({ params }: Props) => {
       </nav>
 
       <header className="grid grid-cols-1 gap-6 xs:gap-10 [grid-template-areas:'image'_'title'_'meta'] md:grid-cols-[auto_1fr] md:[grid-template-areas:'title_title'_'meta_image']">
-        <img src={recipe.image ?? '#'} alt="" className="rounded-lg bg-current/10 [grid-area:image]" />
+        <img src={recipe.image} alt="" className="rounded-lg bg-current/10 [grid-area:image]" />
 
         <h1 className="font-semibold text-2xl xs:text-3xl [grid-area:title] sm:text-4xl">{recipe.title}</h1>
 
@@ -65,10 +65,12 @@ const RecipePage = async ({ params }: Props) => {
                 </span>
               </div>
             )}
-            <div className="flex items-center justify-between gap-4 xs:gap-12">
-              <span className="font-semibold">difficulty</span>
-              <Difficulty stars={recipe.difficulty} />
-            </div>
+            {recipe.difficulty && (
+              <div className="flex items-center justify-between gap-4 xs:gap-12">
+                <span className="font-semibold">difficulty</span>
+                <Difficulty stars={recipe.difficulty} />
+              </div>
+            )}
             {recipe.makes && (
               <div className="flex items-baseline justify-between gap-4 xs:gap-12">
                 <span className="font-semibold">quantity</span>
@@ -79,7 +81,11 @@ const RecipePage = async ({ params }: Props) => {
               <div className="flex flex-col gap-0.5">
                 <div className="flex justify-between gap-4 xs:gap-12">
                   <span className="font-semibold">duration</span>
-                  <time dateTime={formatDuration(recipe.time.total, 'ISO')} className="text-right">
+                  <time
+                    dateTime={formatDuration(recipe.time.total, 'ISO')}
+                    title={formatDuration(recipe.time.total, 'long')}
+                    className="text-right"
+                  >
                     {formatDuration(recipe.time.total)}
                   </time>
                 </div>
@@ -87,7 +93,9 @@ const RecipePage = async ({ params }: Props) => {
                 {recipe.time.parts.map((part) => (
                   <div key={part.name} className="flex justify-between gap-4 xs:gap-12 text-current/70">
                     <span>{part.name} time</span>
-                    <span className="text-right">{formatDuration(part.value)}</span>
+                    <span className="text-right" title={formatDuration(part.value, 'long')}>
+                      {formatDuration(part.value)}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -127,21 +135,23 @@ const RecipePage = async ({ params }: Props) => {
           </div>
         </div>
 
-        {/* TODO: */}
-        {/* <section className="mt-12">
-          <h2 className="mb-4 font-semibold text-xl">images</h2>
+        {recipe.content.images && (
+          <section className="mt-12">
+            <h2 className="mb-4 font-semibold text-xl">images</h2>
 
-          <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base">
-            <div>
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base">
+              {recipe.content.images}
+              {/* <div>
               <img src="#" alt="" className="aspect-video rounded-lg bg-current/10" />
               <p className="mt-1">The mixture can be quite runny</p>
             </div>
             <div>
               <img src="#" alt="" className="aspect-video rounded-lg bg-current/10" />
               <p className="mt-1">Another cool photo of this cool cool recipe</p>
+            </div> */}
             </div>
-          </div>
-        </section> */}
+          </section>
+        )}
 
         {recipe.content.sources && (
           <section className="mt-12">
@@ -171,14 +181,14 @@ const RecipePage = async ({ params }: Props) => {
             prepTime: getTimePartISO('prep', recipe.time?.parts),
             cookTime: getTimePartISO('cook', recipe.time?.parts),
             totalTime: recipe.time ? formatDuration(recipe.time.total, 'ISO') : undefined,
-            recipeYield: recipe.makes || undefined,
+            recipeYield: recipe.makes,
             recipeCategory: recipe.tags.length > 0 ? recipe.tags[0] : undefined,
             datePublished: recipe.published.toISOString(),
-            dateModified: recipe.lastEdited ? recipe.lastEdited.toISOString() : undefined,
+            dateModified: recipe.lastEdited?.toISOString(),
             description: recipe.description,
-            image: recipe.image ?? undefined,
+            image: recipe.image,
             isAccessibleForFree: true,
-            keywords: recipe.tags,
+            keywords: recipe.tags.join(', '),
             url: `https://recipes.bengrant.dev/${recipe.slug}`,
           } satisfies WithContext<Recipe>),
         }}

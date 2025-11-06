@@ -1,100 +1,56 @@
 import { ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3'
 import { getS3Url } from 'common/src/getS3Url'
-import { fromMarkdown } from 'mdast-util-from-markdown'
 import { cache } from 'react'
-import { VFile } from 'vfile'
-import { matter } from 'vfile-matter'
 import { env } from '/env'
-import { getPageName } from '/utils/getPageName'
-import { parseMd } from '/utils/parseMarkdown'
-import { slugify } from '/utils/slugify'
-import { wikiLinkResolver } from '/utils/wikiLinkResolver'
+import { getFileTitle } from './getFileTitle'
+import { getFrontmatter } from './getFrontmatter'
+import { getRecipeSections, type Section } from './getRecipeSections'
+import { parseMd } from './parseMarkdown'
+import { slugify } from './slugify'
+import { wikiLinkResolver } from './wikiLinkResolver'
 
 const s3 = new S3Client({
   region: env.NEXT_PUBLIC_AWS_REGION,
   credentials: { accessKeyId: env.AWS_ACCESS_KEY_ID, secretAccessKey: env.AWS_SECRET_ACCESS_KEY },
 })
 
-type Sections = 'description' | 'ingredients' | 'method' | 'notes' | 'images' | 'sources'
+type RecipeFrontmatter = {
+  difficulty?: string
+  makes?: string
+  tags?: string[]
+  published?: string
+  lastEdited?: string
+} & { [key: `${string} time`]: number }
 
 const parseRecipe = async (filename: string, source: string, objects: string[]) => {
-  const vfile = new VFile(source)
+  const { frontmatter, markdown } = getFrontmatter<RecipeFrontmatter>(source)
 
-  // Extract frontmatter
-  matter(vfile, { strip: true })
-  const frontmatter = (vfile.data.matter ?? {}) as {
-    difficulty?: string
-    makes?: string
-    tags?: string[]
-    published?: string
-    lastEdited?: string
-  } & { [key: `${string} time`]: number }
-
+  // Only allow published recipes
   if (!frontmatter.published) throw new Error('Recipe unpublished')
   if (new Date(frontmatter.published).valueOf() > Date.now())
     throw new Error('Publish date in the future, will be published later')
 
-  const markdown = String(vfile)
+  const { image: imagePath, ...sections } = getRecipeSections(markdown)
+  if (!imagePath || !sections.ingredients || !sections.method)
+    throw new Error('Recipe is missing an image, ingredients or method')
 
-  const tree = fromMarkdown(markdown)
+  const image = wikiLinkResolver(imagePath, objects)
+  if (!image) throw new Error('Recipe image path cannot be resolved')
 
-  // TODO: Support all image link formats
-  const image =
-    tree.children[0].type === 'paragraph' &&
-    tree.children[0].children[0].type === 'text' &&
-    tree.children[0].children[0].value.startsWith('![')
-      ? tree.children[0].children[0].value.trim().slice(3, -2)
-      : null
-
-  const sectionRanges: Record<Sections, { start: number; end: number } | null> = {
-    description: null,
-    ingredients: null,
-    method: null,
-    notes: null,
-    images: null,
-    sources: null,
-  }
-
-  let currentSection: keyof typeof sectionRanges = 'description'
-  for (const child of tree.children) {
-    // Skip image
-    if (image && child.position?.start.offset === 0) continue
-
-    if (child.type === 'heading' && child.depth === 1) {
-      if (child.children[0].type !== 'text') continue
-
-      const headerValue = child.children[0].value.toLocaleLowerCase()
-      if (Object.keys(sectionRanges).includes(headerValue)) currentSection = headerValue as keyof typeof sectionRanges
-    } else {
-      if (child.position?.start.offset === undefined || child.position.end.offset === undefined) continue
-
-      if (!sectionRanges[currentSection]) {
-        sectionRanges[currentSection] = { start: child.position.start.offset, end: child.position.end.offset }
-      } else {
-        // biome-ignore lint/style/noNonNullAssertion: Type inference incorrect here
-        sectionRanges[currentSection]!.end = child.position.end.offset
-      }
-    }
-  }
-
-  const content: Record<Sections, React.ReactNode> = {
-    description: sectionRanges.description
-      ? await parseMd(markdown.slice(sectionRanges.description.start, sectionRanges.description.end), objects)
-      : null,
-    ingredients: sectionRanges.ingredients
-      ? await parseMd(markdown.slice(sectionRanges.ingredients.start, sectionRanges.ingredients.end), objects)
-      : null,
-    method: sectionRanges.method
-      ? await parseMd(markdown.slice(sectionRanges.method.start, sectionRanges.method.end), objects)
-      : null,
-    notes: sectionRanges.notes
-      ? await parseMd(markdown.slice(sectionRanges.notes.start, sectionRanges.notes.end), objects)
-      : null,
-    images: null, // TODO:
-    sources: sectionRanges.sources
-      ? await parseMd(markdown.slice(sectionRanges.sources.start, sectionRanges.sources.end), objects)
-      : null,
-  }
+  // Parse markdown for each section
+  const content: Record<Section, Awaited<ReturnType<typeof parseMd>>> = await Promise.all(
+    Object.entries(sections).map(
+      async ([section, md]) =>
+        [
+          section,
+          md
+            ? await parseMd(md, objects).catch((err) => {
+                if (process.env.NODE_ENV === 'development') console.warn(err)
+              })
+            : undefined,
+        ] as const,
+    ),
+  ).then(Object.fromEntries)
 
   const timeParts = Object.keys(frontmatter).flatMap((key) => {
     if (!key.endsWith(' time')) return []
@@ -104,10 +60,10 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
   })
 
   return {
-    slug: slugify(getPageName(filename)),
-    title: getPageName(filename),
+    slug: slugify(getFileTitle(filename)),
+    title: getFileTitle(filename),
     difficulty: frontmatter.difficulty?.length ?? 0,
-    makes: frontmatter.makes || null,
+    makes: frontmatter.makes,
     tags: frontmatter.tags ?? [],
     time:
       timeParts.length > 0
@@ -115,11 +71,11 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
             total: timeParts.reduce((total, part) => total + part.value, 0),
             parts: timeParts,
           }
-        : null,
+        : undefined,
     published: new Date(frontmatter.published),
-    lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : null,
-    image: image ? wikiLinkResolver(image, objects) : null,
-    description: source.split('---\n')[2].slice(0, 300).trim(),
+    lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : undefined,
+    image,
+    description: sections.description?.slice(),
     content,
   }
 }
@@ -141,7 +97,8 @@ export const fetchRecipes = cache(async () => {
   ).then((results) =>
     results.flatMap((res) => {
       if (res.status === 'fulfilled') return [res.value]
-      // console.warn(res.reason)
+      if (process.env.NODE_ENV === 'development' && res.reason?.message !== 'Recipe unpublished')
+        console.warn(res.reason)
       return []
     }),
   )

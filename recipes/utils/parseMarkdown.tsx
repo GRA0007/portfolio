@@ -9,9 +9,9 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import remarkSmartypants from 'remark-smartypants'
 import { unified } from 'unified'
-import { wikiLinkResolver } from '/utils/wikiLinkResolver'
+import { wikiLinkResolver } from './wikiLinkResolver'
 
-export const parseMd = async (markdown: string, objects: string[]) => {
+export const parseMd = async (markdown: string, objects: string[]): Promise<React.ReactNode> => {
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
