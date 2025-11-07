@@ -56,4 +56,8 @@ body {
   h6 {
     @apply font-semibold;
   }
+
+  .fraction {
+    @apply diagonal-fractions;
+  }
 }
