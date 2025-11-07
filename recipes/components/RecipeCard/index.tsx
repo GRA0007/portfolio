@@ -12,10 +12,13 @@ export const RecipeCard = ({
   tags,
 }: {
   slug: string
-  image: string | null
   title: string
+  image: {
+    src: string
+    alt: string | undefined
+  }
   difficulty: number
-  time: { total: number } | null
+  time: { total: number } | undefined
   tags: string[]
 }) => {
   const id = useId()
@@ -23,23 +26,29 @@ export const RecipeCard = ({
   return (
     <Link href={`/${slug}`} className="hover:-translate-y-1 group transition-transform">
       <article aria-labelledby={id}>
-        <img src={image ?? '#'} alt="" className="aspect-video h-auto w-full rounded-lg bg-current/10 object-cover" />
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="aspect-video h-auto w-full rounded-lg bg-current/10 object-cover"
+        />
         <h2 id={id} className="my-3 font-semibold text-2xl group-hover:underline">
           {title}
         </h2>
-        <div className="flex items-center gap-4">
-          <Difficulty stars={difficulty} onCard />
-          {time && (
-            <time
-              dateTime={formatDuration(time.total, 'ISO')}
-              title="time"
-              className="whitespace-nowrap font-meta text-sm"
-            >
-              {formatDuration(time.total)}
-            </time>
-          )}
-        </div>
-        <p className="mt-2 font-meta text-sm" title="tags">
+        {(difficulty || time) && (
+          <div className="flex items-center gap-4">
+            {difficulty && <Difficulty stars={difficulty} onCard />}
+            {time && (
+              <time
+                dateTime={formatDuration(time.total, 'ISO')}
+                title={`Duration of ${formatDuration(time.total, 'long')}`}
+                className="whitespace-nowrap font-meta text-sm"
+              >
+                {formatDuration(time.total)}
+              </time>
+            )}
+          </div>
+        )}
+        <p className="mt-2 font-meta text-sm" title="Tags">
           {tags.join(', ')}
         </p>
       </article>

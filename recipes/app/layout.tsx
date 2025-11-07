@@ -2,18 +2,19 @@ import type { Metadata, Viewport } from 'next'
 import { Fira_Code, Literata } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import './globals.css'
+import { getAllTags } from '/utils/recipe'
 
 const literata = Literata({ subsets: ['latin'], variable: '--font-body' })
 const firaCode = Fira_Code({ subsets: ['latin'], variable: '--font-meta' })
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://bengrant.dev'),
+export const generateMetadata = async (): Promise<Metadata> => ({
+  metadataBase: new URL('https://recipes.bengrant.dev'),
   title: {
     absolute: "Benji's Recipes",
     template: "%s - Benji's Recipes",
   },
   description: 'A collection of recipes from Benji',
-  keywords: ['benji', 'recipe', 'collection'], // TODO: include tags
+  keywords: ['benji', 'recipe', 'collection', ...(await getAllTags())],
   openGraph: {
     type: 'website',
   },
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   robots: 'index, follow',
-}
+})
 
 export const viewport: Viewport = {
   themeColor: '#ECE9E2',

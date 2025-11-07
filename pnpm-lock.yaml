@@ -97,15 +97,15 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.922.0
         version: 3.922.0
-      '@portaljs/remark-wiki-link':
-        specifier: ^1.2.0
-        version: 1.2.0(patch_hash=5c0fa551d42acca47ede383fe4779d99b725924b2145f1f1bace4a4df55130cb)
       '@t3-oss/env-nextjs':
         specifier: ^0.13.8
         version: 0.13.8(typescript@5.9.3)(zod@4.1.12)
       '@tailwindcss/postcss':
         specifier: 4.1.16
         version: 4.1.16
+      '@types/mdast':
+        specifier: ^4.0.4
+        version: 4.0.4
       '@types/node':
         specifier: 24.9.2
         version: 24.9.2
@@ -128,6 +128,12 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       mdast-util-from-markdown:
+        specifier: ^2.0.2
+        version: 2.0.2
+      mdast-util-to-string:
+        specifier: ^4.0.0
+        version: 4.0.0
+      micromark-util-types:
         specifier: ^2.0.2
         version: 2.0.2
       next:
