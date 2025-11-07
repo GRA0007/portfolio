@@ -20,6 +20,7 @@
     "lucide-react": "^0.552.0",
     "mdast": "^3.0.0",
     "mdast-util-from-markdown": "^2.0.2",
+    "mdast-util-to-string": "^4.0.0",
     "micromark-util-types": "^2.0.2",
     "next": "16.0.1",
     "nuqs": "^2.7.2",

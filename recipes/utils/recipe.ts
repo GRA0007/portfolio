@@ -8,11 +8,17 @@ import { getFrontmatter } from './getFrontmatter'
 import { getRecipeSections, type Section } from './getRecipeSections'
 import { parseMd } from './parseMarkdown'
 import { slugify } from './slugify'
+import { stripMarkdown } from './stripMarkdown'
 
 const s3 = new S3Client({
   region: env.NEXT_PUBLIC_AWS_REGION,
   credentials: { accessKeyId: env.AWS_ACCESS_KEY_ID, secretAccessKey: env.AWS_SECRET_ACCESS_KEY },
 })
+
+const truncateDescription = (description: string): string => {
+  if (description.length <= 300) return description
+  return `${description.slice(0, 300).trim()}...`
+}
 
 type RecipeFrontmatter = {
   difficulty?: string
@@ -81,7 +87,7 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
     published: new Date(frontmatter.published),
     lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : undefined,
     image,
-    description: sections.description?.slice(),
+    description: sections.description && truncateDescription(stripMarkdown(sections.description)),
     content,
   }
 }
