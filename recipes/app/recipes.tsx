@@ -13,7 +13,7 @@ export const Recipes = ({ recipes }: { recipes: Awaited<ReturnType<typeof fetchR
         .filter((recipe) => {
           let include = true
           if (query.length > 1) {
-            include = recipe.title.includes(query) || recipe.description.includes(query)
+            include = Boolean(recipe.title.includes(query) || recipe.description?.includes(query))
           }
           if (tags.length > 0 && include) {
             include = tags.every((tag) => recipe.tags.includes(tag))

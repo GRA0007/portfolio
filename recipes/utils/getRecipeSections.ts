@@ -1,17 +1,25 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
+import * as wikiLink from '/utils/wikiLink'
 
+type Image = { src: string; alt: string | undefined; caption: string | undefined }
 export type Section = 'description' | 'ingredients' | 'method' | 'notes' | 'images' | 'sources'
 
-export const getRecipeSections = (markdown: string): Record<Section | 'image', string | undefined> => {
-  const tree = fromMarkdown(markdown)
+export const getRecipeSections = (
+  markdown: string,
+): Record<Section, string | undefined> & { image: Image | undefined } => {
+  const tree = fromMarkdown(markdown, {
+    extensions: [wikiLink.syntax()],
+    mdastExtensions: [wikiLink.fromMarkdown()],
+  })
 
-  // TODO: Support all image link formats
-  const image =
-    tree.children[0].type === 'paragraph' &&
-    tree.children[0].children[0].type === 'text' &&
-    tree.children[0].children[0].value.startsWith('![')
-      ? tree.children[0].children[0].value.trim().slice(3, -2)
-      : undefined
+  let image: Image | undefined
+  if (tree.children[0].type === 'paragraph' && tree.children[0].children[0]?.type === 'image') {
+    image = {
+      src: tree.children[0].children[0].url,
+      alt: tree.children[0].children[0].alt || undefined,
+      caption: tree.children[0].children[0].title || undefined,
+    }
+  }
 
   const ranges: Record<Section, { start: number; end: number } | undefined> = {
     description: undefined,
@@ -46,11 +54,13 @@ export const getRecipeSections = (markdown: string): Record<Section | 'image', s
 
   return {
     image,
-    description: ranges.description && markdown.slice(ranges.description.start, ranges.description.end),
-    ingredients: ranges.ingredients && markdown.slice(ranges.ingredients.start, ranges.ingredients.end),
-    method: ranges.method && markdown.slice(ranges.method.start, ranges.method.end),
-    notes: ranges.notes && markdown.slice(ranges.notes.start, ranges.notes.end),
-    images: ranges.images && markdown.slice(ranges.images.start, ranges.images.end),
-    sources: ranges.sources && markdown.slice(ranges.sources.start, ranges.sources.end),
+    description:
+      ranges.description && (markdown.slice(ranges.description.start, ranges.description.end).trim() || undefined),
+    ingredients:
+      ranges.ingredients && (markdown.slice(ranges.ingredients.start, ranges.ingredients.end).trim() || undefined),
+    method: ranges.method && (markdown.slice(ranges.method.start, ranges.method.end).trim() || undefined),
+    notes: ranges.notes && (markdown.slice(ranges.notes.start, ranges.notes.end).trim() || undefined),
+    images: ranges.images && (markdown.slice(ranges.images.start, ranges.images.end).trim() || undefined),
+    sources: ranges.sources && (markdown.slice(ranges.sources.start, ranges.sources.end).trim() || undefined),
   }
 }

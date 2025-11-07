@@ -2,12 +2,12 @@ import { ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3'
 import { getS3Url } from 'common/src/getS3Url'
 import { cache } from 'react'
 import { env } from '/env'
+import { wikiLinkResolver } from '/utils/wikiLinkResolver'
 import { getFileTitle } from './getFileTitle'
 import { getFrontmatter } from './getFrontmatter'
 import { getRecipeSections, type Section } from './getRecipeSections'
 import { parseMd } from './parseMarkdown'
 import { slugify } from './slugify'
-import { wikiLinkResolver } from './wikiLinkResolver'
 
 const s3 = new S3Client({
   region: env.NEXT_PUBLIC_AWS_REGION,
@@ -30,12 +30,18 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
   if (new Date(frontmatter.published).valueOf() > Date.now())
     throw new Error('Publish date in the future, will be published later')
 
-  const { image: imagePath, ...sections } = getRecipeSections(markdown)
-  if (!imagePath || !sections.ingredients || !sections.method)
+  const { image, ...sections } = getRecipeSections(markdown)
+  if (!image || !sections.ingredients || !sections.method)
     throw new Error('Recipe is missing an image, ingredients or method')
 
-  const image = wikiLinkResolver(imagePath, objects)
-  if (!image) throw new Error('Recipe image path cannot be resolved')
+  const imageSrc = wikiLinkResolver(image.src, objects)
+  if (!imageSrc) throw new Error('Recipe image path cannot be resolved')
+  image.src = imageSrc
+
+  // Check if there are images
+  if (sections.images?.toLocaleLowerCase().includes('no images')) {
+    sections.images = undefined
+  }
 
   // Parse markdown for each section
   const content: Record<Section, Awaited<ReturnType<typeof parseMd>>> = await Promise.all(

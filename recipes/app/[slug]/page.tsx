@@ -26,7 +26,10 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       canonical: `/${recipe.slug}`,
     },
     openGraph: {
-      images: recipe.image,
+      images: {
+        url: recipe.image.src,
+        alt: recipe.image.alt,
+      },
     },
   }
 }
@@ -44,7 +47,7 @@ const RecipePage = async ({ params }: Props) => {
       </nav>
 
       <header className="grid grid-cols-1 gap-6 xs:gap-10 [grid-template-areas:'image'_'title'_'meta'] md:grid-cols-[auto_1fr] md:[grid-template-areas:'title_title'_'meta_image']">
-        <img src={recipe.image} alt="" className="rounded-lg bg-current/10 [grid-area:image]" />
+        <img src={recipe.image.src} alt={recipe.image.alt} className="rounded-lg bg-current/10 [grid-area:image]" />
 
         <h1 className="font-semibold text-2xl xs:text-3xl [grid-area:title] sm:text-4xl">{recipe.title}</h1>
 
@@ -144,19 +147,11 @@ const RecipePage = async ({ params }: Props) => {
         {recipe.content.images && (
           <section className="mt-12">
             <h2 className="mb-4 font-semibold text-xl" id="images">
-              images
+              Images
             </h2>
 
             <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base">
               {recipe.content.images}
-              {/* <div>
-              <img src="#" alt="" className="aspect-video rounded-lg bg-current/10" />
-              <p className="mt-1">The mixture can be quite runny</p>
-            </div>
-            <div>
-              <img src="#" alt="" className="aspect-video rounded-lg bg-current/10" />
-              <p className="mt-1">Another cool photo of this cool cool recipe</p>
-            </div> */}
             </div>
           </section>
         )}
@@ -196,7 +191,7 @@ const RecipePage = async ({ params }: Props) => {
             datePublished: recipe.published.toISOString(),
             dateModified: recipe.lastEdited?.toISOString(),
             description: recipe.description,
-            image: recipe.image,
+            image: recipe.image.src,
             isAccessibleForFree: true,
             keywords: recipe.tags.join(', '),
             url: `https://recipes.bengrant.dev/${recipe.slug}`,

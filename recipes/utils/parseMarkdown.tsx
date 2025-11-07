@@ -1,4 +1,3 @@
-import remarkWikiLink from '@portaljs/remark-wiki-link'
 import { CheckIcon } from 'lucide-react'
 import Link from 'next/link'
 import react from 'react/jsx-runtime'
@@ -9,6 +8,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import remarkSmartypants from 'remark-smartypants'
 import { unified } from 'unified'
+import remarkWikiLink from '/utils/wikiLink'
 import { wikiLinkResolver } from './wikiLinkResolver'
 
 export const parseMd = async (markdown: string, objects: string[]): Promise<React.ReactNode> => {
@@ -16,11 +16,12 @@ export const parseMd = async (markdown: string, objects: string[]): Promise<Reac
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkSmartypants)
-    .use(remarkWikiLink, { wikiLinkResolver: (name: string) => [wikiLinkResolver(name, objects)] })
+    .use(remarkWikiLink)
     .use(remarkRehype)
     .use(rehypeExternalLinks)
     .use(rehypeReact, {
       ...react,
+      passNode: true,
       components: {
         li: ({ children, className }) => (
           <li>
@@ -40,11 +41,26 @@ export const parseMd = async (markdown: string, objects: string[]): Promise<Reac
           </li>
         ),
         input: () => null,
-        link: (props) => <Link {...props} />,
-        h2: (props) => <h3 {...props} />,
-        h3: (props) => <h4 {...props} />,
-        h4: (props) => <h5 {...props} />,
-        h5: (props) => <h6 {...props} />,
+        a: ({ node, href, ...props }) => (
+          <Link href={href.startsWith('http') ? href : wikiLinkResolver(href, objects)} {...props} />
+        ),
+        h2: ({ node, ...props }) => <h3 {...props} />,
+        h3: ({ node, ...props }) => <h4 {...props} />,
+        h4: ({ node, ...props }) => <h5 {...props} />,
+        h5: ({ node, ...props }) => <h6 {...props} />,
+        img: ({ src, alt, title }) => (
+          <figure>
+            <img src={wikiLinkResolver(src, objects)} alt={alt} className="rounded-lg bg-current/10" />
+            {title && <figcaption className="mt-1">{title}</figcaption>}
+          </figure>
+        ),
+        p: ({ node, children, ...props }) =>
+          // Don't surround images in paragraphs
+          node.children.some((child: { tagName: string }) => child.tagName === 'img') ? (
+            children
+          ) : (
+            <p {...props}>{children}</p>
+          ),
       } satisfies Components,
     })
     .process(markdown)
