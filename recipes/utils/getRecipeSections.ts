@@ -1,18 +1,18 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import * as wikiLink from '/utils/wikiLink'
 
-type Image = { src: string; alt: string | undefined; caption: string | undefined }
+type RecipeImage = { src: string; alt: string | undefined; caption: string | undefined }
 export type Section = 'description' | 'ingredients' | 'method' | 'notes' | 'images' | 'sources'
 
 export const getRecipeSections = (
   markdown: string,
-): Record<Section, string | undefined> & { image: Image | undefined } => {
+): Record<Section, string | undefined> & { image: RecipeImage | undefined } => {
   const tree = fromMarkdown(markdown, {
     extensions: [wikiLink.syntax()],
     mdastExtensions: [wikiLink.fromMarkdown()],
   })
 
-  let image: Image | undefined
+  let image: RecipeImage | undefined
   if (tree.children[0].type === 'paragraph' && tree.children[0].children[0]?.type === 'image') {
     image = {
       src: tree.children[0].children[0].url,

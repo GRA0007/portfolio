@@ -28,7 +28,7 @@ type RecipeFrontmatter = {
   lastEdited?: string
 } & { [key: `${string} time`]: number }
 
-const parseRecipe = async (filename: string, source: string, objects: string[]) => {
+const parseRecipeMeta = ({ filename, source, objects }: { filename: string; source: string; objects: string[] }) => {
   const { frontmatter, markdown } = getFrontmatter<RecipeFrontmatter>(source)
 
   // Only allow published recipes
@@ -49,6 +49,69 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
     sections.images = undefined
   }
 
+  const timeParts = Object.keys(frontmatter).flatMap((key) => {
+    if (!key.endsWith(' time')) return []
+    const value = frontmatter[key as keyof typeof frontmatter]
+    if (!value) return []
+    return [{ name: key.slice(0, -5), value: Number(value) }]
+  })
+
+  return {
+    slug: slugify(getFileTitle(filename)),
+    title: getFileTitle(filename),
+    meta: {
+      description: sections.description && truncateDescription(stripMarkdown(sections.description)),
+      difficulty: frontmatter.difficulty?.length ?? 0,
+      makes: frontmatter.makes,
+      tags: frontmatter.tags ?? [],
+      published: new Date(frontmatter.published),
+      lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : undefined,
+      time:
+        timeParts.length > 0
+          ? {
+              total: timeParts.reduce((total, part) => total + part.value, 0),
+              parts: timeParts,
+            }
+          : undefined,
+    },
+    image,
+    sections,
+  }
+}
+
+const getObjects = cache(async () => {
+  const res = await s3.send(new ListObjectsV2Command({ Bucket: env.NEXT_PUBLIC_AWS_BUCKET, Prefix: 'Recipes' }))
+  return res.Contents?.flatMap((item) => (item.Key ? [item.Key] : [])) ?? []
+})
+
+export const fetchRecipes = cache(async () => {
+  const objects = await getObjects()
+  const markdownFiles = objects.filter((filename) => filename.endsWith('.md'))
+
+  return Promise.allSettled(
+    markdownFiles.map(async (filename) =>
+      fetch(getS3Url(filename, env))
+        .then((res) => res.text())
+        .then((source) => parseRecipeMeta({ filename, source, objects })),
+    ),
+  ).then((results) =>
+    results.flatMap((res) => {
+      if (res.status === 'fulfilled') return [res.value]
+      if (process.env.NODE_ENV === 'development' && res.reason?.message !== 'Recipe unpublished')
+        console.warn(res.reason)
+      return []
+    }),
+  )
+})
+
+export const getRecipe = cache(async (slug: string) => {
+  const recipes = await fetchRecipes()
+  const recipe = recipes.find((recipe) => recipe.slug.toLocaleLowerCase() === slug.toLocaleLowerCase())
+  if (!recipe) return
+  const { slug: canonicalSlug, title, meta, sections, image } = recipe
+
+  const objects = await getObjects()
+
   // Parse markdown for each section
   const content: Record<Section, Awaited<ReturnType<typeof parseMd>>> = await Promise.all(
     Object.entries(sections).map(
@@ -64,67 +127,18 @@ const parseRecipe = async (filename: string, source: string, objects: string[]) 
     ),
   ).then(Object.fromEntries)
 
-  const timeParts = Object.keys(frontmatter).flatMap((key) => {
-    if (!key.endsWith(' time')) return []
-    const value = frontmatter[key as keyof typeof frontmatter]
-    if (!value) return []
-    return [{ name: key.slice(0, -5), value: Number(value) }]
-  })
-
   return {
-    slug: slugify(getFileTitle(filename)),
-    title: getFileTitle(filename),
-    difficulty: frontmatter.difficulty?.length ?? 0,
-    makes: frontmatter.makes,
-    tags: frontmatter.tags ?? [],
-    time:
-      timeParts.length > 0
-        ? {
-            total: timeParts.reduce((total, part) => total + part.value, 0),
-            parts: timeParts,
-          }
-        : undefined,
-    published: new Date(frontmatter.published),
-    lastEdited: frontmatter.lastEdited ? new Date(frontmatter.lastEdited) : undefined,
+    slug: canonicalSlug,
+    title,
+    meta,
     image,
-    description: sections.description && truncateDescription(stripMarkdown(sections.description)),
     content,
   }
-}
-
-export const fetchRecipes = cache(async () => {
-  // Fetch list of recipes from S3
-  const res = await s3.send(new ListObjectsV2Command({ Bucket: env.NEXT_PUBLIC_AWS_BUCKET, Prefix: 'Recipes' }))
-  const objects = res.Contents?.flatMap((item) => (item.Key ? [item.Key] : []))
-  if (!objects) return []
-
-  const markdownFiles = objects.filter((filename) => filename.endsWith('.md'))
-
-  return Promise.allSettled(
-    markdownFiles.map(async (filename) =>
-      fetch(getS3Url(filename, env))
-        .then((res) => res.text())
-        .then((source) => parseRecipe(filename, source, objects)),
-    ),
-  ).then((results) =>
-    results.flatMap((res) => {
-      if (res.status === 'fulfilled') return [res.value]
-      if (process.env.NODE_ENV === 'development' && res.reason?.message !== 'Recipe unpublished')
-        console.warn(res.reason)
-      return []
-    }),
-  )
-})
-
-export const getRecipe = cache(async (slug: string) => {
-  const recipes = await fetchRecipes()
-
-  return recipes.find((recipe) => recipe.slug.toLocaleLowerCase() === slug.toLocaleLowerCase())
 })
 
 export const getAllTags = cache(async () => {
   const recipes = await fetchRecipes()
   const tags = []
-  for (const recipe of recipes) tags.push(...recipe.tags)
+  for (const recipe of recipes) tags.push(...recipe.meta.tags)
   return [...new Set(tags)].sort((a, b) => a.localeCompare(b))
 })

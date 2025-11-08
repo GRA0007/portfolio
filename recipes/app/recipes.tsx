@@ -15,27 +15,31 @@ export const Recipes = ({ recipes }: { recipes: Awaited<ReturnType<typeof fetchR
           if (query.length > 1) {
             include = Boolean(
               recipe.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
-                recipe.description?.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+                recipe.meta.description?.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
             )
           }
           if (tags.length > 0 && include) {
-            include = tags.every((tag) => recipe.tags.includes(tag))
+            include = tags.every((tag) => recipe.meta.tags.includes(tag))
           }
           return include
         })
         .toSorted((a, b) => {
           if (sortDir === 'asc') {
             if (sort === 'last-updated')
-              return (a.lastEdited || a.published).valueOf() - (b.lastEdited || b.published).valueOf()
-            if (sort === 'difficulty') return a.difficulty - b.difficulty
-            if (sort === 'time') return (a.time?.total ?? 0) - (b.time?.total ?? 0)
+              return (
+                (a.meta.lastEdited || a.meta.published).valueOf() - (b.meta.lastEdited || b.meta.published).valueOf()
+              )
+            if (sort === 'difficulty') return a.meta.difficulty - b.meta.difficulty
+            if (sort === 'time') return (a.meta.time?.total ?? 0) - (b.meta.time?.total ?? 0)
             if (sort === 'alphabetical') return b.title.localeCompare(a.title)
           }
           if (sortDir === 'desc') {
             if (sort === 'last-updated')
-              return (b.lastEdited || b.published).valueOf() - (a.lastEdited || a.published).valueOf()
-            if (sort === 'difficulty') return b.difficulty - a.difficulty
-            if (sort === 'time') return (b.time?.total ?? 0) - (a.time?.total ?? 0)
+              return (
+                (b.meta.lastEdited || b.meta.published).valueOf() - (a.meta.lastEdited || a.meta.published).valueOf()
+              )
+            if (sort === 'difficulty') return b.meta.difficulty - a.meta.difficulty
+            if (sort === 'time') return (b.meta.time?.total ?? 0) - (a.meta.time?.total ?? 0)
             if (sort === 'alphabetical') return a.title.localeCompare(b.title)
           }
           return 0

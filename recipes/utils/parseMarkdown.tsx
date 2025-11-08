@@ -52,7 +52,11 @@ export const parseMd = async (markdown: string, objects: string[]): Promise<Reac
         h5: ({ node, ...props }) => <h6 {...props} />,
         img: ({ src, alt, title }) => (
           <figure>
-            <img src={wikiLinkResolver(src, objects)} alt={alt} className="rounded-lg bg-current/10" />
+            <img
+              src={src.startsWith('http') ? src : wikiLinkResolver(src, objects)}
+              alt={alt}
+              className="rounded-lg bg-current/10"
+            />
             {title && <figcaption className="mt-1">{title}</figcaption>}
           </figure>
         ),

@@ -2,25 +2,9 @@ import Link from 'next/link'
 import { useId } from 'react'
 import { Difficulty } from '/components/Difficulty'
 import { formatDuration } from '/utils/formatDuration'
+import type { fetchRecipes } from '/utils/recipe'
 
-export const RecipeCard = ({
-  slug,
-  image,
-  title,
-  difficulty,
-  time,
-  tags,
-}: {
-  slug: string
-  title: string
-  image: {
-    src: string
-    alt: string | undefined
-  }
-  difficulty: number
-  time: { total: number } | undefined
-  tags: string[]
-}) => {
+export const RecipeCard = ({ slug, image, title, meta }: Awaited<ReturnType<typeof fetchRecipes>>[number]) => {
   const id = useId()
 
   return (
@@ -34,22 +18,22 @@ export const RecipeCard = ({
         <h2 id={id} className="my-3 font-semibold text-2xl group-hover:underline">
           {title}
         </h2>
-        {(difficulty || time) && (
+        {(meta.difficulty || meta.time) && (
           <div className="flex items-center gap-4">
-            {difficulty && <Difficulty stars={difficulty} onCard />}
-            {time && (
+            {meta.difficulty && <Difficulty stars={meta.difficulty} onCard />}
+            {meta.time && (
               <time
-                dateTime={formatDuration(time.total, 'ISO')}
-                title={`Duration of ${formatDuration(time.total, 'long')}`}
+                dateTime={formatDuration(meta.time.total, 'ISO')}
+                title={`Duration of ${formatDuration(meta.time.total, 'long')}`}
                 className="whitespace-nowrap font-meta text-sm"
               >
-                {formatDuration(time.total)}
+                {formatDuration(meta.time.total)}
               </time>
             )}
           </div>
         )}
         <p className="mt-2 font-meta text-sm" title="Tags">
-          {tags.join(', ')}
+          {meta.tags.join(', ')}
         </p>
       </article>
     </Link>

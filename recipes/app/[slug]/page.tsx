@@ -20,8 +20,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 
   return {
     title: recipe.title,
-    description: recipe.description,
-    keywords: ['benji', 'recipe', 'collection', ...recipe.tags],
+    description: recipe.meta.description,
+    keywords: ['benji', 'recipe', 'collection', ...recipe.meta.tags],
     alternates: {
       canonical: `/${recipe.slug}`,
     },
@@ -57,47 +57,47 @@ const RecipePage = async ({ params }: Props) => {
 
         <div className="text-sm xs:text-base [grid-area:meta] md:max-w-xs">
           <div className="sticky top-6 flex flex-col gap-5 font-meta">
-            {recipe.tags.length > 0 && (
+            {recipe.meta.tags.length > 0 && (
               <div className="flex items-baseline justify-between gap-4 xs:gap-12">
                 <span className="font-semibold">tags</span>
                 <span className="text-right">
-                  {recipe.tags.map((tag, i) => (
+                  {recipe.meta.tags.map((tag, i) => (
                     <Fragment key={tag}>
                       <Link href={`/?tags=${tag}`} className="hover:underline">
                         {tag}
                       </Link>
-                      {i !== recipe.tags.length - 1 && ', '}
+                      {i !== recipe.meta.tags.length - 1 && ', '}
                     </Fragment>
                   ))}
                 </span>
               </div>
             )}
-            {recipe.difficulty && (
+            {recipe.meta.difficulty && (
               <div className="flex items-center justify-between gap-4 xs:gap-12">
                 <span className="font-semibold">difficulty</span>
-                <Difficulty stars={recipe.difficulty} />
+                <Difficulty stars={recipe.meta.difficulty} />
               </div>
             )}
-            {recipe.makes && (
+            {recipe.meta.makes && (
               <div className="flex items-baseline justify-between gap-4 xs:gap-12">
                 <span className="font-semibold">quantity</span>
-                <span className="text-right">{recipe.makes}</span>
+                <span className="text-right">{recipe.meta.makes}</span>
               </div>
             )}
-            {recipe.time && (
+            {recipe.meta.time && (
               <div className="flex flex-col gap-0.5">
                 <div className="flex justify-between gap-4 xs:gap-12">
                   <span className="font-semibold">duration</span>
                   <time
-                    dateTime={formatDuration(recipe.time.total, 'ISO')}
-                    title={formatDuration(recipe.time.total, 'long')}
+                    dateTime={formatDuration(recipe.meta.time.total, 'ISO')}
+                    title={formatDuration(recipe.meta.time.total, 'long')}
                     className="text-right"
                   >
-                    {formatDuration(recipe.time.total)}
+                    {formatDuration(recipe.meta.time.total)}
                   </time>
                 </div>
                 <hr className="my-1 border-current/70 border-t-[1.5px]" />
-                {recipe.time.parts.map((part) => (
+                {recipe.meta.time.parts.map((part) => (
                   <div key={part.name} className="flex justify-between gap-4 xs:gap-12 text-current/70">
                     <span>{part.name} time</span>
                     <span className="text-right" title={formatDuration(part.value, 'long')}>
@@ -187,17 +187,17 @@ const RecipePage = async ({ params }: Props) => {
               url: 'https://bengrant.dev',
             },
             name: recipe.title,
-            prepTime: getTimePartISO('prep', recipe.time?.parts),
-            cookTime: getTimePartISO('cook', recipe.time?.parts),
-            totalTime: recipe.time ? formatDuration(recipe.time.total, 'ISO') : undefined,
-            recipeYield: recipe.makes,
-            recipeCategory: recipe.tags.length > 0 ? recipe.tags[0] : undefined,
-            datePublished: recipe.published.toISOString(),
-            dateModified: recipe.lastEdited?.toISOString(),
-            description: recipe.description,
+            prepTime: getTimePartISO('prep', recipe.meta.time?.parts),
+            cookTime: getTimePartISO('cook', recipe.meta.time?.parts),
+            totalTime: recipe.meta.time ? formatDuration(recipe.meta.time.total, 'ISO') : undefined,
+            recipeYield: recipe.meta.makes,
+            recipeCategory: recipe.meta.tags.length > 0 ? recipe.meta.tags[0] : undefined,
+            datePublished: recipe.meta.published.toISOString(),
+            dateModified: recipe.meta.lastEdited?.toISOString(),
+            description: recipe.meta.description,
             image: recipe.image.src,
             isAccessibleForFree: true,
-            keywords: recipe.tags.join(', '),
+            keywords: recipe.meta.tags.join(', '),
             url: `https://recipes.bengrant.dev/${recipe.slug}`,
           } satisfies WithContext<Recipe>),
         }}
