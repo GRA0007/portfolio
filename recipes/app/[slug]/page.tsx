@@ -113,7 +113,7 @@ const RecipePage = async ({ params }: Props) => {
         <div className="flex flex-col gap-10 md:flex-row">
           <div className="flex-2">
             <section className="sticky top-6 xs:text-lg">
-              <h2 className="mb-4 font-semibold text-xl" id="ingredients">
+              <h2 className="mb-4 font-semibold text-xl xs:text-2xl" id="ingredients">
                 Ingredients
               </h2>
 
@@ -124,7 +124,7 @@ const RecipePage = async ({ params }: Props) => {
           <div className="flex-3">
             <div className="sticky top-6">
               <section className="xs:text-lg">
-                <h2 className="mb-4 font-semibold text-xl" id="method">
+                <h2 className="mb-4 font-semibold text-xl xs:text-2xl" id="method">
                   Method
                 </h2>
 
@@ -133,7 +133,7 @@ const RecipePage = async ({ params }: Props) => {
 
               {recipe.content.notes && (
                 <section className="mt-12 xs:text-lg">
-                  <h2 className="mb-4 font-semibold text-xl" id="notes">
+                  <h2 className="mb-4 font-semibold text-xl xs:text-2xl" id="notes">
                     Notes
                   </h2>
 
@@ -146,7 +146,7 @@ const RecipePage = async ({ params }: Props) => {
 
         {recipe.content.images && (
           <section className="mt-12">
-            <h2 className="mb-4 font-semibold text-xl" id="images">
+            <h2 className="mb-4 font-semibold text-xl xs:text-2xl" id="images">
               Images
             </h2>
 
@@ -158,7 +158,7 @@ const RecipePage = async ({ params }: Props) => {
 
         {recipe.content.sources && (
           <section className="mt-12">
-            <h2 className="mb-4 font-semibold text-xl" id="sources">
+            <h2 className="mb-4 font-semibold text-xl xs:text-2xl" id="sources">
               Sources
             </h2>
 

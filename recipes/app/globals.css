@@ -23,7 +23,7 @@ body {
     @apply underline;
   }
   strong {
-    @apply font-medium;
+    @apply font-semibold;
   }
 
   ul,
@@ -49,7 +49,7 @@ body {
   }
 
   h3 {
-    @apply font-semibold text-lg mb-3;
+    @apply font-semibold text-lg xs:text-xl mb-3;
   }
   h4,
   h5,
