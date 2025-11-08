@@ -47,7 +47,11 @@ const RecipePage = async ({ params }: Props) => {
       </nav>
 
       <header className="grid grid-cols-1 gap-6 xs:gap-10 [grid-template-areas:'image'_'title'_'meta'] md:grid-cols-[auto_1fr] md:[grid-template-areas:'title_title'_'meta_image']">
-        <img src={recipe.image.src} alt={recipe.image.alt} className="rounded-lg bg-current/10 [grid-area:image]" />
+        <img
+          src={recipe.image.src}
+          alt={recipe.image.alt}
+          className="w-full rounded-lg bg-current/10 [grid-area:image]"
+        />
 
         <h1 className="font-semibold text-2xl xs:text-3xl [grid-area:title] sm:text-4xl">{recipe.title}</h1>
 
@@ -150,7 +154,7 @@ const RecipePage = async ({ params }: Props) => {
               Images
             </h2>
 
-            <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-6 text-sm sm:gap-x-10 sm:text-base has-[figure:not(:first-child:nth-last-child(1))]:sm:grid-cols-2 lg:grid-cols-2">
               {recipe.content.images}
             </div>
           </section>
