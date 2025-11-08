@@ -7,9 +7,12 @@ import { Difficulty } from '/components/Difficulty'
 import { Logo } from '/components/Logo'
 import { StaticSearch } from '/components/Search/static'
 import { formatDuration } from '/utils/formatDuration'
-import { getRecipe } from '/utils/recipe'
+import { fetchRecipes, getRecipe } from '/utils/recipe'
 
-export const generateStaticParams = () => []
+export const generateStaticParams = async () => {
+  const recipes = await fetchRecipes()
+  return recipes.map(({ slug }) => ({ slug }))
+}
 
 type Props = { params: Promise<{ slug: string }> }
 
