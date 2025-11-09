@@ -53,6 +53,8 @@ const RecipePage = async ({ params }: Props) => {
         <img
           src={recipe.image.src}
           alt={recipe.image.alt}
+          width={recipe.image.width}
+          height={recipe.image.height}
           className="w-full rounded-lg bg-current/10 [grid-area:image]"
         />
 

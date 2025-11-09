@@ -13,7 +13,9 @@ export const RecipeCard = ({ slug, image, title, meta }: Awaited<ReturnType<type
         <img
           src={image.src}
           alt={image.alt}
-          className="aspect-video h-auto w-full rounded-lg bg-current/10 object-cover"
+          width={image.width}
+          height={image.height}
+          className="aspect-85/64 h-auto w-full rounded-lg bg-current/10 object-cover"
         />
         <h2 id={id} className="my-3 font-semibold text-2xl group-hover:underline">
           {title}

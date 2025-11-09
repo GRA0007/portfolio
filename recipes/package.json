@@ -17,6 +17,7 @@
     "@types/react-dom": "19.2.2",
     "babel-plugin-react-compiler": "1.0.0",
     "common": "workspace:*",
+    "image-size": "^2.0.2",
     "lucide-react": "^0.552.0",
     "mdast": "^3.0.0",
     "mdast-util-from-markdown": "^2.0.2",

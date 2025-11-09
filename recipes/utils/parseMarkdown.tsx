@@ -9,8 +9,8 @@ import remarkRehype from 'remark-rehype'
 import remarkSmartypants from 'remark-smartypants'
 import { unified } from 'unified'
 import remarkFraction from './fraction'
+import { linkResolver } from './linkResolver'
 import remarkWikiLink from './wikiLink'
-import { wikiLinkResolver } from './wikiLinkResolver'
 
 export const parseMd = async (markdown: string, objects: string[]): Promise<React.ReactNode> => {
   const file = await unified()
@@ -44,7 +44,7 @@ export const parseMd = async (markdown: string, objects: string[]): Promise<Reac
         ),
         input: () => null,
         a: ({ node, href, ...props }) => (
-          <Link href={href.startsWith('http') ? href : wikiLinkResolver(href, objects)} {...props} />
+          <Link href={href.startsWith('http') ? href : linkResolver(href, objects)} {...props} />
         ),
         h2: ({ node, ...props }) => <h3 {...props} />,
         h3: ({ node, ...props }) => <h4 {...props} />,
@@ -53,7 +53,7 @@ export const parseMd = async (markdown: string, objects: string[]): Promise<Reac
         img: ({ src, alt, title }) => (
           <figure>
             <img
-              src={src.startsWith('http') ? src : wikiLinkResolver(src, objects)}
+              src={src.startsWith('http') ? src : linkResolver(src, objects)}
               alt={alt}
               className="rounded-lg bg-current/10"
             />

@@ -1,19 +1,15 @@
-import { ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3'
 import { getS3Url } from 'common/src/getS3Url'
 import { cache } from 'react'
 import { env } from '/env'
-import { wikiLinkResolver } from '/utils/wikiLinkResolver'
+import { fetchImageDimensions } from './fetchImageDimensions'
 import { getFileTitle } from './getFileTitle'
 import { getFrontmatter } from './getFrontmatter'
+import { getObjects } from './getObjects'
 import { getRecipeSections, type Section } from './getRecipeSections'
+import { linkResolver } from './linkResolver'
 import { parseMd } from './parseMarkdown'
 import { slugify } from './slugify'
 import { stripMarkdown } from './stripMarkdown'
-
-const s3 = new S3Client({
-  region: env.NEXT_PUBLIC_AWS_REGION,
-  credentials: { accessKeyId: env.AWS_ACCESS_KEY_ID, secretAccessKey: env.AWS_SECRET_ACCESS_KEY },
-})
 
 const truncateDescription = (description: string): string => {
   if (description.length <= 300) return description
@@ -28,7 +24,15 @@ type RecipeFrontmatter = {
   lastEdited?: string
 } & { [key: `${string} time`]: number }
 
-const parseRecipeMeta = ({ filename, source, objects }: { filename: string; source: string; objects: string[] }) => {
+const parseRecipeMeta = async ({
+  filename,
+  source,
+  objects,
+}: {
+  filename: string
+  source: string
+  objects: string[]
+}) => {
   const { frontmatter, markdown } = getFrontmatter<RecipeFrontmatter>(source)
 
   // Only allow published recipes
@@ -40,9 +44,10 @@ const parseRecipeMeta = ({ filename, source, objects }: { filename: string; sour
   if (!image || !sections.ingredients || !sections.method)
     throw new Error('Recipe is missing an image, ingredients or method')
 
-  const imageSrc = wikiLinkResolver(image.src, objects)
+  const imageSrc = linkResolver(image.src, objects)
   if (!imageSrc) throw new Error('Recipe image path cannot be resolved')
-  image.src = imageSrc
+
+  const imageSize = await fetchImageDimensions(imageSrc)
 
   // Check if there are images
   if (sections.images?.toLocaleLowerCase().includes('no images')) {
@@ -74,15 +79,16 @@ const parseRecipeMeta = ({ filename, source, objects }: { filename: string; sour
             }
           : undefined,
     },
-    image,
+    image: {
+      src: imageSrc,
+      alt: image.alt,
+      caption: image.caption,
+      width: imageSize?.width,
+      height: imageSize?.height,
+    },
     sections,
   }
 }
-
-const getObjects = cache(async () => {
-  const res = await s3.send(new ListObjectsV2Command({ Bucket: env.NEXT_PUBLIC_AWS_BUCKET, Prefix: 'Recipes' }))
-  return res.Contents?.flatMap((item) => (item.Key ? [item.Key] : [])) ?? []
-})
 
 export const fetchRecipes = cache(async () => {
   const objects = await getObjects()

@@ -3,14 +3,14 @@ import { env } from '/env'
 import { getFileTitle } from './getFileTitle'
 import { slugify } from './slugify'
 
-/** Resolve wiki links to relative page URLs, or S3 file URLs */
-export const wikiLinkResolver = (fileName: string, objects: string[]) => {
+/** Resolve links to relative page URLs, or S3 file URLs */
+export const linkResolver = (fileName: string, objects: string[]) => {
   const normalizedName = decodeURIComponent(fileName).toLocaleLowerCase()
 
-  const match = objects.find(
-    (path) =>
-      path.toLocaleLowerCase().endsWith(normalizedName) || path.toLocaleLowerCase().endsWith(`${normalizedName}.md`),
-  )
+  const match = objects.find((path) => {
+    const normalizedPath = path.toLocaleLowerCase()
+    return normalizedPath.endsWith(normalizedName) || normalizedPath.endsWith(`${normalizedName}.md`)
+  })
 
   if (!match) return
   if (match.endsWith('.md')) return `/${slugify(getFileTitle(match))}`
