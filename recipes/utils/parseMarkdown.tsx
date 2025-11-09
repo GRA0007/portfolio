@@ -8,6 +8,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import remarkSmartypants from 'remark-smartypants'
 import { unified } from 'unified'
+import { fetchImageDimensions } from '/utils/fetchImageDimensions'
 import remarkFraction from './fraction'
 import { linkResolver } from './linkResolver'
 import remarkWikiLink from './wikiLink'
@@ -50,16 +51,23 @@ export const parseMd = async (markdown: string, objects: string[]): Promise<Reac
         h3: ({ node, ...props }) => <h4 {...props} />,
         h4: ({ node, ...props }) => <h5 {...props} />,
         h5: ({ node, ...props }) => <h6 {...props} />,
-        img: ({ src, alt, title }) => (
-          <figure>
-            <img
-              src={src.startsWith('http') ? src : linkResolver(src, objects)}
-              alt={alt}
-              className="rounded-lg bg-current/10"
-            />
-            {title && <figcaption className="mt-1">{title}</figcaption>}
-          </figure>
-        ),
+        img: async ({ src, alt, title }) => {
+          const resolvedSrc = src.startsWith('http') ? src : linkResolver(src, objects)
+          const imageSize = await fetchImageDimensions(resolvedSrc)
+
+          return (
+            <figure>
+              <img
+                src={resolvedSrc}
+                alt={alt}
+                width={imageSize?.width}
+                height={imageSize?.height}
+                className="rounded-lg bg-current/10"
+              />
+              {title && <figcaption className="mt-1">{title}</figcaption>}
+            </figure>
+          )
+        },
         p: ({ node, children, ...props }) =>
           // Don't surround images in paragraphs
           node.children.some((child: { tagName: string }) => child.tagName === 'img') ? (
