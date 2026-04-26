@@ -18,4 +18,4 @@ function remarkFraction(this: Processor) {
 }
 
 export default remarkFraction
-export { syntax, fromMarkdown }
+export { fromMarkdown, syntax }

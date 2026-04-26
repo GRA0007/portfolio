@@ -17,7 +17,7 @@ export const DesignWork = ({ name, image, href }: DesignWorkProps) => {
         <img
           src={getS3Url(`Portfolio/Design+Work/${image}`, env)}
           alt=""
-          className="-translate-x-1.5 absolute inset-0 h-full w-full bg-dark object-cover opacity-0 transition-[opacity,translate] group-hover:translate-x-0 group-hover:opacity-100"
+          className="absolute inset-0 h-full w-full -translate-x-1.5 bg-dark object-cover opacity-0 transition-[opacity,translate] group-hover:translate-x-0 group-hover:opacity-100"
         />
         <div className="absolute inset-0 bg-dark/60 opacity-0 transition-opacity group-hover:opacity-100" />
 
