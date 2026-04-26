@@ -18,4 +18,4 @@ function remarkWikiLink(this: Processor) {
 }
 
 export default remarkWikiLink
-export { syntax, fromMarkdown }
+export { fromMarkdown, syntax }

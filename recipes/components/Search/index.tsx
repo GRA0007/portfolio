@@ -92,7 +92,7 @@ export const Search = ({ supportedTags }: { supportedTags: string[] }) => {
             setSort('last-updated')
             setSortDir(null)
           }}
-          className="hover:-translate-y-[3px] hover:active:-translate-y-px mt-8 cursor-pointer rounded-lg border-[1.5px] px-4 py-1 shadow-[0_0] transition-[box-shadow,translate] hover:shadow-[0_3px] hover:active:shadow-[0_1px]"
+          className="mt-8 cursor-pointer rounded-lg border-[1.5px] px-4 py-1 shadow-[0_0] transition-[box-shadow,translate] hover:-translate-y-[3px] hover:shadow-[0_3px] hover:active:-translate-y-px hover:active:shadow-[0_1px]"
         >
           Reset
         </button>

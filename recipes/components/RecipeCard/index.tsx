@@ -8,7 +8,7 @@ export const RecipeCard = ({ slug, image, title, meta }: Awaited<ReturnType<type
   const id = useId()
 
   return (
-    <Link href={`/${slug}`} className="hover:-translate-y-1 group transition-transform">
+    <Link href={`/${slug}`} className="group transition-transform hover:-translate-y-1">
       <article aria-labelledby={id}>
         <img
           src={image.src}

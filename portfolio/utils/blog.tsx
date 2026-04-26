@@ -3,7 +3,9 @@ import remarkWikiLink from '@portaljs/remark-wiki-link'
 import { getS3Url } from 'common/src/getS3Url'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { cache } from 'react'
+// @ts-expect-error
 import Syntax from 'react-syntax-highlighter/dist/esm/prism'
+// @ts-expect-error
 import theme from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
 import remarkGfm from 'remark-gfm'
 import { env } from '/env'
