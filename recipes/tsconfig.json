@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "target": "es2025",
+    "module": "esnext",
+    "strict": true,
     "lib": ["dom", "esnext"],
     "types": ["node"],
     "allowJs": true,
