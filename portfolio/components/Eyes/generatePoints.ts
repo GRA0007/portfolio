@@ -1,6 +1,6 @@
 import PoissonDiskSampling from 'poisson-disk-sampling'
 
-export const generatePoints = (height: number, width: number, size: number) => {
+export const generatePoints = (width: number, height: number, size: number) => {
   const sample = new PoissonDiskSampling({
     shape: [Math.min(height, 2000), Math.min(width, 2000)],
     minDistance: size,
@@ -10,8 +10,8 @@ export const generatePoints = (height: number, width: number, size: number) => {
 
   // Area to avoid in the centre
   const avoid = {
-    y: sample.shape[0] / 2,
     x: sample.shape[1] / 2,
+    y: sample.shape[0] / 2,
     r: size * 1.5, // radius
   }
 
@@ -22,6 +22,6 @@ export const generatePoints = (height: number, width: number, size: number) => {
       // Remove points from the avoidance area
       .filter(([y, x]) => (avoid.y - y) ** 2 + (avoid.x - x) ** 2 > avoid.r ** 2)
       // Convert to percentages
-      .map(([y, x]) => [(y / sample.shape[0]) * 100, (x / sample.shape[1]) * 100] as [number, number])
+      .map(([y, x]) => [(x / sample.shape[1]) * 100, (y / sample.shape[0]) * 100] as [number, number])
   )
 }

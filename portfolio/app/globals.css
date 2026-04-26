@@ -111,7 +111,7 @@ body {
     background: var(--color-dark);
     border-radius: inherit;
     transform: translate(var(--pupil-x, 0), var(--pupil-y, 0));
-    transition: transform 0.15s;
+    transition: transform 0.06s;
   }
 
   &[data-popped="true"] {
