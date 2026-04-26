@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "types": [
-      "node"
-    ],
+    "lib": ["dom", "esnext"],
+    "types": ["node"],
     "allowJs": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
@@ -24,22 +19,9 @@
       }
     ],
     "paths": {
-      "/*": [
-        "./*"
-      ]
-    },
-    "target": "ES2017",
-    "strict": false,
-    "module": "esnext"
+      "/*": ["./*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

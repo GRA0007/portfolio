@@ -79,7 +79,7 @@ const Home = async () => {
             <FriendCard name="Ewan Breakey" url="https://ewanb.me/" icon="ewan.webp" />
             <FriendCard name="Maxwell Reid" url="https://www.maxreid.dev/" icon="max.webp" />
             <FriendCard name="Linus Kay" url="https://libus.xyz/" icon="linus.webp" />
-            <FriendCard name="Tom Anderson" url="https://ando.gq/" icon="ando.webp" />
+            <FriendCard name="Tom Anderson" url="https://ando.sh/" icon="ando.webp" />
             <FriendCard name="Thomas Dib" url="https://www.tdib.xyz/" icon="dib.webp" />
           </div>
         </section>

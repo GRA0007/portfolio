@@ -47,13 +47,13 @@ export const Eyes = () => {
       eye.style.setProperty('--blink-delay', `${Math.random() * 30}s`)
       eye.style.fontSize = `${Math.random() * 3 + 2}em`
       eye.onclick = onPop
-      containerRef.current.append(eye)
+      containerRef.current?.append(eye)
       return eye
     })
 
     // Clean up
     return () => {
-      containerRef.current.innerHTML = ''
+      if (containerRef.current) containerRef.current.innerHTML = ''
     }
     // biome-ignore lint/correctness/useExhaustiveDependencies: React compiler
   }, [onPop])

@@ -14,4 +14,5 @@ export const env = createEnv({
     NEXT_PUBLIC_AWS_REGION: process.env.NEXT_PUBLIC_AWS_REGION,
     NEXT_PUBLIC_AWS_BUCKET: process.env.NEXT_PUBLIC_AWS_BUCKET,
   },
+  emptyStringAsUndefined: true,
 })
