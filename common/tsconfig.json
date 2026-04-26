@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "lib": ["dom", "esnext"],
-    "types": ["node"],
     "allowJs": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
